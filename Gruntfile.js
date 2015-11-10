@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
                     './bower_components/datatables/media/js/dataTables.bootstrap.js',
-                    './bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js',
+                    
                     './config/TrendyBootstrapTheme/assets/js/start.js',
                     './config/dev-js/dev.js'
                 ],

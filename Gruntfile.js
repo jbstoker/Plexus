@@ -23,7 +23,13 @@ module.exports = function(grunt) {
             js_frontend: {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
-                    './bower_components/bootstrap/dist/js/bootstrap.js'
+                    './bower_components/bootstrap/dist/js/bootstrap.js',
+                    './bower_components/summernote/dist/summernote.js',
+                    './bower_components/datatables/media/js/jquery.dataTables.js',
+                    './bower_components/datatables/media/js/dataTables.bootstrap.js',
+                    './bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js',
+                    './config/TrendyBootstrapTheme/assets/js/start.js',
+                    './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'
             },
@@ -50,15 +56,26 @@ module.exports = function(grunt) {
                     './public/javascript/backend.js': './public/javascript/backend.js',
                 }
             },
-        }
+        },
+        copy: {
+                  main: {
+                    files: [
+                            {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/img/*'], dest: './public/images/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/img/comments/*'], dest: './public/images/comments/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            ],
+                        },
+                },
     });
 
     // Plugin loading
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Task definition
-    grunt.registerTask('default', ['concat','less','uglify']);
+    grunt.registerTask('default', ['concat','less','uglify','copy']);
 
 };

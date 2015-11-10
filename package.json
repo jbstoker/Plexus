@@ -1,11 +1,16 @@
 {
-  "name": "plexus",
+  "name": "Plexus",
   "version": "1.0.0",
+  "private": false,
   "description": "boilerplate for websites with express for applications with express",
   "main": "app.js",
   "readme": "README.md",
   "scripts": {
-    "start": "node ./bin/www"
+    "prestart": "npm run build && npm run rejoice",
+    "build": "grunt",
+    "rejoice": "echo Grunt less, concat and uglify finished. App is starting...!",
+    "start": "node ./bin/www",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -19,8 +24,10 @@
   "devDependencies": {
     "bower": "^1.6.5",
     "chai": "^3.4.1",
+    "file-system": "^2.2.1",
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-less": "^1.0.1",
     "grunt-contrib-uglify": "^0.10.0",
     "grunt-jscover": "0.0.1",
@@ -30,10 +37,16 @@
     "grunt-mocha-browser": "0.0.5",
     "jscover": "^0.2.4",
     "mocha": "^2.3.3",
+    "mongodb": "^2.0.48",
+    "redis": "^2.3.0",
     "rewire": "^2.4.0"
   },
   "homepage": "https://github.com/jbstoker/Plexus#readme",
-  "author": "JB Stoker",
+  "author": {
+    "name": "JB Stoker",
+    "email": "jelmer@probomail.nl",
+    "url": "http://stokstylez.nl/"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",

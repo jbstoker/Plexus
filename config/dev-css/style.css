@@ -21,6 +21,13 @@ a {
   border-radius: 2px;
 }
 
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    cursor: default;
+    color: #666 !important;
+    border: 0px solid transparent;
+    background: transparent;
+    box-shadow: none;
+}
 
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   color: white !important;
@@ -30,4 +37,29 @@ a {
 .dataTables_wrapper .dataTables_paginate .paginate_button:active {
   outline: none;
   background-color: transparent;
+}
+
+
+/* Summernote  */
+.note-toolbar{
+  text-align:center;
+}
+.note-editor .btn-default {
+  color: #ffffff;
+  background-color: #ea4a7b;
+  border: 1px solid #ff99b8;
+}
+.note-editor .btn-default:hover,
+.note-editor .btn-default:focus,
+.note-editor .btn-default:active,
+.note-editor .btn-default.active,
+.open .dropdown-toggle.note-editor .btn-default {
+  color: #ffffff;
+  background-color: #ea4a7b;
+  border:1px solid #ff99b8;
+}
+
+.note-editor .open>.dropdown-menu {
+    display: block;
+    background-color:#ff99b8;
 }

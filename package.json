@@ -37,7 +37,9 @@
     "grunt-mocha-browser": "0.0.5",
     "jscover": "^0.2.4",
     "mocha": "^2.3.3",
+    "moment": "^2.10.6",
     "mongodb": "^2.0.48",
+    "passport": "^0.3.2",
     "redis": "^2.3.0",
     "rewire": "^2.4.0"
   },

@@ -64,6 +64,8 @@ module.exports = function(grunt) {
                             {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/img/comments/*'], dest: './public/images/comments/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./bower_components/datatables/media/images/*'], dest: './public/images/', filter: 'isFile'},
                             ],
                         },
                 },

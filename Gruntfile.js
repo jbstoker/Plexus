@@ -27,8 +27,6 @@ module.exports = function(grunt) {
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
                     './bower_components/datatables/media/js/dataTables.bootstrap.js',
-                    
-                    './config/TrendyBootstrapTheme/assets/js/start.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'
@@ -60,11 +58,9 @@ module.exports = function(grunt) {
         copy: {
                   main: {
                     files: [
-                            {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/img/*'], dest: './public/images/', filter: 'isFile'},
-                            {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/img/comments/*'], dest: './public/images/comments/', filter: 'isFile'},
-                            {expand: true,flatten: true, src: ['./config/bootstrap-theme/TrendyBootstrapTheme/assets/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/datatables/media/images/*'], dest: './public/images/', filter: 'isFile'},
                             ],
                         },

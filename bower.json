@@ -1,0 +1,24 @@
+{
+  "name": "Plexus",
+  "version": "1.0.0",
+  "homepage": "https://github.com/jbstoker/Plexus",
+  "description": "Boilerplate with express",
+  "main": "app.js",
+  "authors": [
+    "JB Stoker"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "datatables": "~1.10.10",
+    "summernote": "~0.6.16",
+    "bootstrap-toggle": "~2.2.1"
+  }
+}

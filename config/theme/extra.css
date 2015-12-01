@@ -1,0 +1,107 @@
+/*################ Theme Content Section Style Start Here ############################*/
+#hoeapp-wrapper[hoe-device-type="phone"] #styleSelector {
+    top: 6px;
+}
+#main-content {
+    margin-left: 230px;
+	position:relative;
+}
+
+.content-title {
+    border-bottom: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
+    padding: 10px 20px;
+}
+.content-title .main-title {
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+}
+.inner-content {
+    padding: 5px 20px 20px 20px;
+}
+.theme-panel .panel-heading {
+    border-bottom: 1px solid #e3e3e3;
+    text-align: center;
+}
+.theme-panel .panel-heading .panel-title {
+    font-size: 18px;
+}
+.hoe-minimized-lpanel #main-content {
+    margin-left: 50px;
+}
+#hoeapp-container[hoe-lpanel-effect="shrink"] #main-content{
+	margin-left: 230px;
+}
+#hoeapp-container[hoe-lpanel-effect="shrink"].hoe-minimized-lpanel #main-content{
+	margin-left: 50px;
+}
+/*################ Theme Content Section Style Close Here ############################*/
+/*Header Background Color start*/
+#theme-color a[hoe-color-type="header-bg8"] {
+    background: #384b5f;
+}
+/*Header Background Color Close*/
+
+/*Logo Background Color Start*/
+#theme-color a[hoe-color-type="logo-bg8"] {
+    background: #2c3e50;
+}
+/*Logo Background Color Close*/
+/*Left Panel Background Color start*/
+#theme-color a[hoe-color-type="lpanel-bg8"] {
+    background: #384b5f;
+}
+/*Left Panel Background Color Close*/
+
+/*Logo Background Color with bg8 start*/
+
+#hoe-header[hoe-color-type="logo-bg8"] .hoe-left-header {
+    background: #2c3e50;
+}
+#hoe-header[hoe-color-type="logo-bg8"] .hoe-left-header a {
+    color: #FFF;
+}
+#hoe-header[hoe-color-type="logo-bg8"] .hoe-left-header a:hover,
+#hoe-header[hoe-color-type="logo-bg8"] .hoe-left-header a:focus {
+    color: #FFF;
+}
+#hoe-header[hoe-color-type="logo-bg8"] .hoe-left-header a i {
+    color: #fff;
+}
+#hoeapp-wrapper[hoe-device-type="phone"] #hoe-header[hoe-color-type="logo-bg8"] .hoe-left-header .hoe-sidebar-toggle a:after {
+    color: #fff;
+    border: 0px solid #fff;
+}
+/*Logo Background Color with bg8 Close*/
+
+/*Header color with theme color bg8  Start*/
+
+.hoe-right-header[hoe-color-type="header-bg8"] {
+    background: #384b5f;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] a i {
+    color: #cecece;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] a:hover i {
+    color: #FFF;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] .hoe-sidebar-toggle a:after {
+    background: transparent;
+    border: 0px solid #455769;
+    color: #cecece;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] .hoe-sidebar-toggle a:hover:after {
+    color: #FFF;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] li a {
+    color: #FFF;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] li a:hover,
+.hoe-right-header[hoe-color-type="header-bg8"] li a:focus {
+    background: #2c3e50;
+}
+.hoe-right-header[hoe-color-type="header-bg8"] .theme-config a {
+    border-left: 1px solid #455769;
+}
+/*Header color with theme color bg8  Close*/

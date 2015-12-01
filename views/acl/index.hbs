@@ -1,0 +1,156 @@
+<!-- Centered tabs -->
+<ul class="nav nav-tabs nav-justified">
+   <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+   <li role="presentation" class=""><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li>
+</ul>
+  <!-- Tab panels -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="users">
+    <div class="center col-md-12 horizontaltab-form">
+        <form class="form-inline">
+          <div class="col-md-3">
+            <label class="sr-only" for="user-name">Name</label>
+                <input type="text" class="form-control input-sm" id="user-name" placeholder="Jane Doe">
+          </div>
+          <div class="col-md-3">
+            <label class="sr-only" for="user-email">Email</label>
+                <input type="email" class="form-control input-sm" id="user-email" placeholder="jane.doe@example.com">
+         </div>
+         <div class="col-md-1">
+            <label class="sr-only" for="user-role">Role</label>
+                <select class="form-control input-sm" id="user-role">
+                    <option>Role 1</option>
+                    <option>Role 2</option>
+                </select>
+        </div>
+         <div class="col-md-2">
+                <input type="checkbox" checked class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle" data-on="Accepted" data-off="Blocked" data-offstyle="danger" data-onstyle="success" id="role-read"/>   
+         </div>
+          <div class="col-md-3">
+                <button type="submit" class="btn-sm col-md-12 btn btn-primary">Save User & Send invitation</button>
+            </div> 
+        </form>  
+    </div>
+        <div class="table-responsive col-md-12 table-hover table-striped">    
+            <table width="100%" class="display table" id="example" class="" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Avatar</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Resend Email</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Avatar</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Resend Email</th>
+                        <th>Modify</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><img alt="Demo Avatar" src="http://lorempixel.com/75/75/" class="img-thumbnail" /></td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Role</td>
+                        <td>Accepted</td>
+                        <td><button class="btn btn-sm btn-primary">Send Email</button></td>
+                        <td>Edit/Delete</td>
+                    </tr>
+                    <tr>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><img alt="Demo Avatar" src="http://lorempixel.com/75/75/" class="img-thumbnail" /></td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>Role</td>
+                        <td>Accepted</td>
+                        <td><button class="btn btn-sm btn-primary">Send Email</button></td>
+                        <td>Edit/Delete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+    </div>
+    <div role="tabpanel" class="tab-pane" id="roles">
+        <div class="center col-md-12 horizontaltab-form">
+        <form class="form-inline">
+          <div class="col-md-2">
+            <label class="sr-only" for="role-name">Rolename</label>
+                <input type="text" class="form-control input-sm" id="role-name" placeholder="Rolename">
+          </div>
+          <div class="col-md-2">
+                <input type="checkbox" checked class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle" data-on="Can Read" data-off="No Reading" data-offstyle="danger" data-onstyle="success" id="role-read"/>   
+         </div>
+         <div class="col-md-2">
+                <input type="checkbox" class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle"  data-on="Can Write" data-off="No Writing" data-offstyle="danger" data-onstyle="success" id="role-write"/>   
+         </div>
+         <div class="col-md-2">
+                <input type="checkbox" class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle"  data-on="Can Edit" data-off="No Editing" data-offstyle="danger" data-onstyle="success" id="role-edit"/>
+         </div>
+         <div class="col-md-2">
+                <input type="checkbox" class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle"  data-on="Can Delete" data-off="No Deleting" data-offstyle="danger" data-onstyle="success" id="role-delete"/>   
+         </div>
+          <div class="col-md-2">
+                <button type="submit" class="btn-sm col-md-12 btn btn-primary">Save Role</button>
+            </div> 
+        </form> 
+    </div>
+        <div class="table-responsive col-md-12 table-hover table-striped">    
+            <table width="100%" class="display table" id="example" class="" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Read</th>
+                        <th>Write</th>
+                        <th>Edit</th>
+                        <th>Accept</th>
+                        <th>Modify</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Read</th>
+                        <th>Write</th>
+                        <th>Edit</th>
+                        <th>Accept</th>
+                        <th>Modify</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td class="center"><input type="checkbox"></td>
+                        <td>Name</td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td>edit/delete</td>
+                    </tr>
+                    <tr>
+                        <td class="center"><input type="checkbox"></td>
+                        <td>Name</td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td class="center"><input type="checkbox"></td>
+                        <td>edit/delete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>  
+    </div>
+  </div>

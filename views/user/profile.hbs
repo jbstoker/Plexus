@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12 center">
+                    <img alt="Avatar Demo" src="http://lorempixel.com/200/200/" class="img-thumbnail profile-picture" />
+                    <div class="center label-pill user-title">
+                        <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-circle btn-success middle"></i>
+                            &nbsp;
+                            <span class="white">Jelmer Stoker</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-caret dropdown-lighter">
+                            <li class="dropdown-header"> Change Status </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-circle btn-success"></i>
+                                    &nbsp;
+                                    <span class="green">Available</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-circle btn-danger"></i>
+                                    &nbsp;
+                                    <span class="red">Busy</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="icon-circle btn-default"></i>
+                                    &nbsp;
+                                    <span class="grey">Invisible</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <div class="row user-profile-info">
+                    <div class="container">
+                       <div class="col-md-2 user-text"> Name </div>
+                       <div class="col-md-8 user-info">
+                           <span class="editable editable-click" id="username">Jelmer B Stoker</span>
+                       </div>
+                   </div>
+                   <div class="container">
+                       <div class="col-md-2 user-text"> Location </div>
+                       <div class="col-md-8 user-info">
+                           <i class=" fa fa-map-marker light-orange bigger-110"></i>
+                           <span class="editable editable-click" id="country">Netherlands</span>
+                           <span class="editable editable-click" id="city">Amsterdam</span>
+                       </div>
+                   </div>
+                   <div class="container">
+                       <div class="col-md-2 user-text"> Age </div>
+                       <div class="col-md-8 user-info">
+                           <span class="editable editable-click" id="age">38</span>
+                       </div>
+                   </div>
+                   <div class="container">
+                       <div class="col-md-2 user-text"> Joined </div>
+                       <div class="col-md-8 user-info">
+                           <span class="editable editable-click" id="signup">20/06/2010</span>
+                       </div>
+                   </div>
+                   <div class="container">
+                       <div class="col-md-2 user-text"> Last Online </div>
+                       <div class="col-md-8 user-info">
+                           <span class="editable editable-click" id="login">3 hours ago</span>
+                       </div>
+                   </div>
+                   <div class="container">
+                       <div class="col-md-2 user-text"> About Me </div>
+                       <div class="col-md-8 user-info">
+                           <span class="editable editable-click" id="about">Editable as WYSIWYG</span>
+                       </div>
+                   </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="center">
+                    <h1>Change Password <span><input type="checkbox" id="ProfiletogglePass"></span></h1>
+                    </div>
+                    <div class="passbox disabled">
+                    <div class="form-group">
+                    <p class="text-center">Use the form below to change your password. <br/>Your password cannot be the same as your username.</p>
+                    <form method="post" id="passwordForm">
+                    <div class="col-md-12">   
+                        <input type="password" class="input-sm form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off">
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
+                                    <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
+                                    <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-md-12"><p></p></div>
+                    <div class="col-md-12">
+                        <input type="password" class="input-sm form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match
+                                </div>
+                            </div>
+                    </div>        
+                    <div class="col-md-12">
+                        <p>
+                        </p>
+                            <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
+                    </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

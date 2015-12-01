@@ -1,0 +1,94 @@
+/*#####################navigation panel with lpanel-bg8 theme Color Start################*/
+
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel {
+    background: #384b5f none repeat scroll 0 0;
+    color: #ced4d7;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .profile-box {
+    border-bottom: 1px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .profile-box {
+    border-bottom: 0px;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .profile-box .media a > img {
+    border: 1px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li > a {
+    background: #384b5f;
+    border-top: 1px solid #455769;
+    color: #ced4d7;
+	border-right: 1px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li:last-child > a {
+    border-bottom: 1px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li:first-child > a {
+    border-top: 0px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li > a:hover,
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li > a:focus {
+    color: #FFF;
+    background: #2c3e50;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li.active > a {
+    background: #2c3e50;
+    border-top: 1px solid #455769;
+    color: #FFF;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list > li.hoe-has-menu.opened > a {
+    background: #384b5f;
+    color: #FFF;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list ul {
+    background: #223140;
+    box-shadow: -1px 2px 3px 0px rgba(0, 0, 0, 0.2);
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list ul.hoe-sub-menu li > a {
+    background: #223140;
+    border-top: 1px solid #455769;
+    color: #ced4d7;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list li.hoe-has-menu > ul.hoe-sub-menu li > a:hover,
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list li.hoe-has-menu > ul.hoe-sub-menu li > a:focus {
+    color: #FFF;
+    background: #2c3e50;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list li.active > a .selected {
+    border-right: 7px solid #FFF;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .panel-list li a .label {
+    color: #ced4d7;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] .sul {
+    background-color: #2c3e50;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel {
+    background: #384b5f;
+    color: #ced4d7;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:hover > a,
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:focus > a {
+    border-radius: 0px 4px 0px 0px;
+    background: #2c3e50;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu.opened > a {
+    background: #384b5f;
+    color: #ced4d7;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu.opened > a:hover {
+    background: #2c3e50;
+    color: #FFF;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:hover > ul.hoe-sub-menu,
+#hoeapp-container[hoe-color-type="lpanel-bg8"].hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu:focus > ul.hoe-sub-menu {
+    border-right: 1px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .nav-level {
+    border-top: 1px solid #455769;
+}
+#hoeapp-container[hoe-color-type="lpanel-bg8"] #hoe-left-panel .nav-level:first-child {
+    border-top: 0px solid #455769;
+}
+/*#####################navigation panel with lpanel-bg8 theme Color close*################*/
+

@@ -365,7 +365,7 @@ body{position:relative;}
 }
 #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu > li > a span.menu-text:before {
     font-family: FontAwesome;
-    content: "\f0da";
+    content: "";
     font-size: 14px;
     position: relative;
     float: left;
@@ -373,7 +373,7 @@ body{position:relative;}
 }
 #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu > li.hoe-has-menu > ul.hoe-sub-menu > li > a span.menu-text:before {
     font-family: FontAwesome;
-    content: "\f0da";
+    content: "";
     font-size: 12px;
     position: relative;
     float: left;
@@ -381,7 +381,7 @@ body{position:relative;}
 }
 #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu > li.hoe-has-menu > ul.hoe-sub-menu > li > a span.menu-text:before {
     font-family: FontAwesome;
-    content: "\f0da";
+    content: "";
     font-size: 14px;
     position: relative;
     float: left;
@@ -389,12 +389,28 @@ body{position:relative;}
 }
 #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu > li.hoe-has-menu > ul.hoe-sub-menu > li.hoe-has-menu > ul.hoe-sub-menu > li > a span.menu-text:before {
     font-family: FontAwesome;
-    content: "\f0da";
+    content: "";
     font-size: 12px;
     position: relative;
     float: left;
     left: 30px;
 }
+
+aside ul.nav.panel-list [class^="filled-icon-"], [class*=" filled-icon-"] {
+    margin: 0px 10px 0px 5px;
+    height: 16px;
+    width: 16px;
+    float: left;
+    fill: currentColor;
+}
+
+
+.filled-icon-nav{
+    height:30px;
+    width:30px;
+    margin:-5px 10px 0px 0px;
+}
+
 #hoe-left-panel .panel-list li.active > a .selected {
     border-bottom: 7px solid transparent;
     border-right: 7px solid #7e7e7e;
@@ -482,6 +498,10 @@ body{position:relative;}
 .hoe-minimized-lpanel #hoe-left-panel .nav-level {
     display: none;
 }
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list > li  {
+    height: 41px;
+}
 .hoe-minimized-lpanel #hoe-left-panel .panel-list > li > a span.menu-text {
     display: none;
 }
@@ -498,10 +518,17 @@ body{position:relative;}
 .hoe-minimized-lpanel #hoe-left-panel .panel-list > li:focus > a {
     display: block;
     position: relative;
+    height:41px;
     width: 230px;
     margin-bottom: -1px;
     border-radius: 0px 4px 4px 0px;
 }
+
+.filled-icon-nav{
+    height:30px;
+    width:30px;
+}
+
 .hoe-minimized-lpanel #hoe-left-panel .panel-list > li:hover > a,
 .hoe-minimized-lpanel #hoe-left-panel .panel-list > li:focus > a {
     border-radius: 0px 4px 4px 0px;
@@ -519,6 +546,17 @@ body{position:relative;}
 }
 .hoe-minimized-lpanel #hoe-left-panel .panel-list ul.hoe-sub-menu li {
     list-style: none;
+}
+.hoe-minimized-lpanel #hoe-left-panel .panel-list ul.hoe-sub-menu li.active {
+    height: 41px !important;
+}
+
+.hoe-minimized-lpanel #hoe-left-panel .panel-list ul.hoe-sub-menu li.active a {
+    height: 41px !important;
+}
+
+ #hoe-left-panel .panel-list>li.active>a {
+    height: 41px !important;
 }
 
 .hoe-minimized-lpanel #hoe-left-panel .panel-list > li.hoe-has-menu > ul.hoe-sub-menu {

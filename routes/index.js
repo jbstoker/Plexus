@@ -26,7 +26,7 @@ router.get('/components', function(req, res, next) {
   res.render('bodies/components', { title: 'Components!',
                              subtitle: 'Preview some components',
                              showtitle: '',
-                             layout: 'layouts/default'
+                             layout: 'layouts/sidebar-left'
                            });
 });
 
@@ -35,7 +35,7 @@ router.get('/icons', function(req, res, next) {
   res.render('bodies/icons' , { title: 'Icons!',
                          subtitle: 'Many icons in SVG format',
                          showtitle: '',
-                         layout: 'layouts/default'
+                         layout: 'layouts/sidebar-left'
                       });
 });
 
@@ -149,7 +149,7 @@ router.get('/terms', function(req, res, next) {
   res.render('admin/terms', { title: 'Terms and Conditions!',
                         subtitle: 'These are our terms, just accept it',
                         showtitle: '',
-                        layout: 'layouts/clean'
+                        layout: 'layouts/sidebar-left'
                       });
 });
 
@@ -157,7 +157,7 @@ router.get('/faq', function(req, res, next) {
   res.render('admin/faq', { title: 'Frequent Asked Questions!',
                         subtitle: 'Don\'t ask, just read',
                         showtitle: '',
-                        layout: 'layouts/clean'
+                        layout: 'layouts/sidebar-left'
                       });  
 });
 

@@ -36,6 +36,7 @@
     "grunt-mocha": "^0.4.13",
     "grunt-mocha-appium": "^0.4.0",
     "grunt-mocha-browser": "0.0.5",
+    "grunt-strip-css-comments": "^1.2.0",
     "i18n": "^0.5.0",
     "jscover": "^0.2.4",
     "mocha": "^2.3.3",

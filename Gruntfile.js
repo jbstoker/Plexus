@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         less: {
             development: {
                 options: {
-                    compress: true,  //minifying the result
+                    compress: true
                 },
                 files: {
                     //compiling frontend.less into frontend.css
@@ -24,9 +24,13 @@ module.exports = function(grunt) {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js',
+                    './bower_components/bootstrap-toggle/js/bootstrap-toggle.js',
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
                     './bower_components/datatables/media/js/dataTables.bootstrap.js',
+                    './bower_components/fullcalendar/lib/moment.min.js',
+                    './bower_components/fullcalendar/fullcalendar.js',
+                    './config/theme/hoe.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'
@@ -65,6 +69,16 @@ module.exports = function(grunt) {
                             ],
                         },
                 },
+        stripCssComments: {
+            dist: {
+                options:{
+                    preserve: false
+                },
+                files: {
+                    './public/stylesheets/frontend.css': './public/stylesheets/frontend.css'
+                }
+            }
+        },
     });
 
     // Plugin loading
@@ -72,8 +86,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-strip-css-comments');
 
     // Task definition
-    grunt.registerTask('default', ['concat','less','uglify','copy']);
+    grunt.registerTask('default', ['concat','less','uglify','copy','stripCssComments']);
 
 };

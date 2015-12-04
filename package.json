@@ -25,6 +25,7 @@
   "devDependencies": {
     "bower": "^1.6.5",
     "chai": "^3.4.1",
+    "electron-prebuilt": "^0.35.4",
     "file-system": "^2.2.1",
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",

@@ -7,7 +7,9 @@
 var app = require('../');
 var debug = require('debug')('app:server');
 var http = require('http');
-
+var electron = require('electron-prebuilt');
+var proc = require('child_process');
+var path = require('path');
 /**
  * Get port from environment and store in Express.
  */
@@ -87,4 +89,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
+  proc.spawn(electron, [ process.cwd() + path.sep + "electron-app" + path.sep ]);
 }

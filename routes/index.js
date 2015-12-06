@@ -1,5 +1,84 @@
 var express = require('express');
+var passport = require('passport');
+var Account = require('../models/user');
+var Auth = require('../config/env/middlewares/authorization.js');
 var router = express.Router();
+
+//** New Routes
+//
+//
+module.exports = function(app, passport){
+  app.get("/", function(req, res){ 
+    if(req.isAuthenticated()){
+      res.render("home", { user : req.user}); 
+    }else{
+      res.render("home", { user : null});
+    }
+  });
+
+  app.get("/login", function(req, res){ 
+    res.render("login");
+  });
+
+  app.post("/login" 
+    ,passport.authenticate('local',{
+      successRedirect : "/",
+      failureRedirect : "/login",
+    })
+  );
+
+  app.get("/signup", function (req, res) {
+    res.render("signup");
+  });
+
+  app.post("/signup", Auth.userExist, function (req, res, next) {
+    User.signup(req.body.email, req.body.password, function(err, user){
+      if(err) throw err;
+      req.login(user, function(err){
+        if(err) return next(err);
+        return res.redirect("profile");
+      });
+    });
+  });
+
+  app.get("/auth/facebook", passport.authenticate("facebook",{ scope : "email"}));
+  app.get("/auth/facebook/callback", 
+    passport.authenticate("facebook",{ failureRedirect: '/login'}),
+    function(req,res){
+      res.render("profile", {user : req.user});
+    }
+  );
+
+  app.get('/auth/google',
+    passport.authenticate(
+      'google',
+      {
+        scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email'
+        ]
+      })
+    );
+
+  app.get('/auth/google/callback', 
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    });
+
+  app.get("/profile", Auth.isAuthenticated , function(req, res){ 
+    res.render("profile", { user : req.user});
+  });
+
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/login');
+  });
+}
+
+
+
 /* To disable title in page set "showtitle" to none // extends display:*/
 
 /**
@@ -92,7 +171,6 @@ router.get('/clean', function(req, res, next) {
  *
  *
  */
-
 /**
  *  Management Routes
  */
@@ -103,21 +181,55 @@ router.get('/manage_users', function(req, res, next) {
                         layout: 'layouts/sidebar-left'
                       });
 });
-
-
 /**
- * Acces Routes
+ * ACL Routes Register
  */
-router.get('/login', function(req, res, next) {
-  res.render('acl/login', { title: '',
-                        subtitle: '',
-                        showtitle: '',
-                        layout: 'layouts/clean'
-                      });
+ router.get('/register', function(req, res) {
+    res.render('acl/login', { title: '',
+                              subtitle: '',
+                              showtitle: '',
+                              layout: 'layouts/clean' 
+                             });
 });
+router.post('/register', function(req, res, next) 
+{
+  console.log('registering user');
+  Account.register(new Account({username: req.body.email}), req.body.password, function(err) 
+  {
+    if (err) 
+    {
+      console.log('error while user register!', err);
+      return next(err);
+    }
 
-
-/* User Routes */
+    console.log('user registered!');
+    res.redirect('/user/profile');
+  });
+});
+/**
+ * ACL Routes Login
+ */
+router.get('/login', function(req, res) {
+    res.render('acl/login', { user : req.user,
+                              title: '',
+                              subtitle: '',
+                              showtitle: '',
+                              layout: 'layouts/clean' 
+                            });
+});
+router.post('/login', passport.authenticate('local'), function(req, res) {
+    res.redirect('/');
+});
+/**
+ * ACL Routes Logout
+ */
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+/**
+ * ACL Routes Lock User
+ */
 router.get('/user/lock', function(req, res, next) {
   res.render('user/lock', { title: '',
                         subtitle: '',
@@ -126,6 +238,23 @@ router.get('/user/lock', function(req, res, next) {
                       });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* User Routes */
 router.get('/user/profile', function(req, res, next) {
   res.render('user/profile', { title: 'Profile!',
                         subtitle: 'Welkom Jelmer Stoker',

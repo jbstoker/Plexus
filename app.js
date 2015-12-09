@@ -1,94 +1,90 @@
-var fs = require('fs');
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var hbs = require('hbs');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongo = require('mongoskin');
-//var redis = require('redis');
-var i18n = require('i18n');
-//Fetch routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
-// databases and caching
-//var client = redis.createClient();
-//var db = mongo.db("mongodb://localhost:27017/plexus", {native_parser:true});
-
+/* 
+* @Project:   PlexusMain
+* -------------------------------------------
+* @Author:    JB Stoker
+* @Email:     Jelmer@probo.nl
+*
+* @File:    app.js
+* @Path:    C:\PrivateProjects\PlexusMain\app.js
+* @Created:     2015-11-10
+*
+* @Modified by: JB Stoker at 2015-12-06
+* 
+* @Copyright: Copyright (C) Probo - All Rights Reserved 
+*       Unauthorized copying, or using code of this file, trough any medium is strictly prohibited
+*       Proprietary and confidential
+*/            
+//Node modules
+var fs = require('fs'),express = require('express'),path = require('path'),favicon = require('serve-favicon'),logger = require('morgan'),hbs = require('hbs'),cookieParser = require('cookie-parser'),bodyParser = require('body-parser'),mongo = require('mongoose'),passport = require('passport'),redis = require('redis'),i18n = require('i18n');                                                   
+//Set Config
+var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
+//Include models
+var models_dir = __dirname + '/models';
+fs.readdirSync(models_dir).forEach(function(file){ if(file[0] === '.') return; require(models_dir+'/'+ file); });
+//passport config
+require('./config/env/passport')(passport, config)
 // Set languages
-i18n.configure({
-    locales:['en', 'nl'],
-    directory:__dirname + "/locales/",
-    defaultLocale:'en',
-    cookie:'language',
-    updateFiles: true,
-    extension: '.js',
-});
-
+i18n.configure(config.i18n);
+//Databases and Caching
+mongo.connect(config.db, function(err){ if (err){ console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!'); }});
+var client = redis.createClient();
+client.on("error", function (err){ console.log("Error " + err); });
+//Init express
 var app = express();
-
-// view engine setup
+//View engine Handlebars
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+//Set Partials Handlebars
 hbs.registerPartials(__dirname + '/views/partials');
-// register hbs helpers in res.locals' context which provides this.locale
-hbs.registerHelper('__', function () 
-{
-  return i18n.__.apply(this, arguments);
-});
-
-hbs.registerHelper('__n', function () 
-{
-  return i18n.__n.apply(this, arguments);
-});
-
+hbs.registerHelper('__', function(){ return i18n.__.apply(this, arguments); });
+hbs.registerHelper('__n', function(){ return i18n.__n.apply(this, arguments); });
+//favicon Uri
 app.use(favicon(path.join(__dirname, 'public/images/', 'favicon.ico')));
+app.use(express.static(path.join(__dirname, 'public')));
+//Log init
 app.use(logger('dev'));
+//Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+//Session middleware
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-//Routes
-app.use('/', routes);
-app.use('/users', users);
-app.use(i18n.init);
-
+app.use(require('express-session')(config.secret));
+//Autentication
+app.use(passport.initialize());
+app.use(passport.session());
+//Use language
+app.use(i18n.init);  
+//Regiser routes       
+require('./routes/index')(app, passport);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-// // error handlers
-//    client.on("error", function (err) {
-//    res.send("Redis server cannot be reached"); 
-//    });
-  next(err);
+app.use(function(req, res, next) 
+{ 
+  var err = new Error('Not Found'); 
+  err.status = 404; 
+  next(err); 
 });
 
-
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+//Development error handler
+if (app.get('env') === 'development') 
+{
+  app.use(function(err, req, res, next) 
+  {
     res.status(err.status || 500);
     res.render('error', {
-      message: err.message,
-      error: err
-    });
+                          message: err.message,
+                          error: err
+                        });
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+//Production error handler
+app.use(function(err, req, res, next) 
+{
   res.status(err.status || 500);
   res.render('error', {
-    message: err.message,
-    error: {}
-  });
+                        message: err.message,
+                        error: {}
+                      });
 });
-
-
 
 module.exports = app;

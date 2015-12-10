@@ -1,7 +1,12 @@
-data/*
-bin/*
-electron-app/*
-node_modules/*
+#Website Plexus
+bin/www
 bower_components/*
-public/*
-
+data/*.0
+data/*.ns
+data/*.lock
+data/*.ns
+node_modules/*
+public/images/*
+public/javascript/*
+public/stylesheets/*
+public/fonts/*

@@ -89,5 +89,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  proc.spawn(electron, [ process.cwd() + path.sep + "electron-app" + path.sep ]);
 }

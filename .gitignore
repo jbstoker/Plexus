@@ -1,26 +1,6 @@
-# Logs
-logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons and Data 
 data/*
 bin/*
-
-# Dependency directory
+electron-app/*
 node_modules/*
 bower_components/*
-
-# Debug log from npm
-npm-debug.log
-
-# Public folder files, is generated with npm start
 public/*

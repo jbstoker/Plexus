@@ -15,7 +15,7 @@
 *       Proprietary and confidential
 */            
 //Node modules
-var fs = require('fs'),express = require('express'),path = require('path'),favicon = require('serve-favicon'),logger = require('morgan'),hbs = require('hbs'),cookieParser = require('cookie-parser'),bodyParser = require('body-parser'),mongo = require('mongoose'),passport = require('passport'),redis = require('redis'),i18n = require('i18n');                                                   
+var fs = require('fs'),express = require('express'),path = require('path'),favicon = require('serve-favicon'),logger = require('morgan'),hbs = require('hbs'),cookieParser = require('cookie-parser'),bodyParser = require('body-parser'),mongo = require('mongoose'),passport = require('passport'),redis = require('redis'),i18n = require('i18n'), navigation = require('./config/env/navigation/navigation');                                                   
 //Set Config
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
 //Include models
@@ -38,6 +38,9 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerHelper('__', function(){ return i18n.__.apply(this, arguments); });
 hbs.registerHelper('__n', function(){ return i18n.__n.apply(this, arguments); });
+//navigation urls + custom hbs helpers
+app.locals.nav = navigation;
+require('./config/env/navigation/helpers')(hbs);
 //favicon Uri
 app.use(favicon(path.join(__dirname, 'public/images/', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));

@@ -28,9 +28,10 @@ module.exports = function(grunt) {
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
                     './bower_components/datatables/media/js/dataTables.bootstrap.js',
-                    './bower_components/fullcalendar/lib/moment.min.js',
-                    './bower_components/fullcalendar/fullcalendar.js',
-                    './config/theme/hoe.js',
+                    './bower_components/svgxuse/svgxuse.js',
+                    './config/dev-js/jquery.menu-aim.js',
+                    './config/dev-js/navigation.js',
+                    './config/dev-js/modernizer.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'
@@ -64,8 +65,10 @@ module.exports = function(grunt) {
                     files: [
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
-                            {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/datatables/media/images/*'], dest: './public/images/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/theme/img/*'], dest: './public/images/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/theme/favicons/*'], dest: './public/images/', filter: 'isFile'},
                             ],
                         },
                 },

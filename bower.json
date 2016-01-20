@@ -12,6 +12,7 @@
     "bootstrap": "~3.3.5",
     "datatables": "~1.10.10",
     "summernote": "~0.6.16",
-    "bootstrap-toggle": "~2.2.1"
+    "bootstrap-toggle": "~2.2.1",
+    "svgxuse": "~1.1.3"
   }
 }

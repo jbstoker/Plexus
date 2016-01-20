@@ -30,27 +30,15 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body hoe-navigation-type="horizontal" hoe-nav-placement="left" theme-layout="wide-layout" theme-bg="bg8" >
-    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
-        <header id="hoe-header" hoe-lpanel-effect="shrink" hoe-color-type="logo-bg8">
-            <div class="hoe-left-header">
-                <a href="#"><span class="logo">{{{__ "Plexus"}}}</span></a>
-            </div>
-            <div class="hoe-right-header" hoe-position-type="relative" hoe-color-type="header-bg8">              
-            </div>
-        </header>
-        <div id="hoeapp-container" hoe-color-type="lpanel-bg8" hoe-lpanel-effect="shrink">
-            <section id="main-content">    
-                <div class="content-title" style="display:{{showtitle}}">
-                    <h3 class="main-title">{{title}}</h3>
-                    <span>{{subtitle}}</span>
-                </div>
-                <div class="inner-content">            
-                    {{{body}}}
-                </div>
-            </section>
-        </div>
-    </div>
+<body>
+    <header class="cd-main-header">
+        <a href="/" class="cd-logo"><img src="/images/cd-logo.svg" alt="Logo"></a>
+    </header> <!-- .cd-main-header -->
+    <main class="main-content">
+        <div class="content-wrapper">
+        {{{body}}}
+        </div> <!-- .content-wrapper -->
+    </main> <!-- .cd-main-content -->
   {{> footer}}
   <script src="/javascript/frontend.js"></script>
 </body>

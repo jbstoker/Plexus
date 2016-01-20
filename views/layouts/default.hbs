@@ -30,28 +30,48 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body hoe-navigation-type="horizontal" hoe-nav-placement="left" theme-layout="wide-layout" theme-bg="bg8" >
-    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
-        <header id="hoe-header" hoe-lpanel-effect="shrink" hoe-color-type="logo-bg8">
-            <div class="hoe-left-header">
-                <a href="#"><span class="logo">{{{__ "Plexus"}}}</span></a>
+<body>
+    <header class="main-header">
+        <nav class="navbar" role="navigation">
+        <a href="/" class="logo"><img src="/images/logo.png" id="logoImg"/><span class="title">Plexus</span></a>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#leftmenu" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle search</span>
+                  <span class="icon-bar top-bar"></span>
+                  <span class="icon-bar middle-bar"></span>
+                  <span class="icon-bar bottom-bar"></span>
+                </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#rightmenu" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle links</span>
+                  <span class="icon-bar top-bar"></span>
+                  <span class="icon-bar middle-bar"></span>
+                  <span class="icon-bar bottom-bar"></span>
+                </button>
             </div>
-            <div class="hoe-right-header" hoe-position-type="relative" hoe-color-type="header-bg8">
-              {{> lefttopnav}}             
-            </div>
-        </header>
-        <div id="hoeapp-container" hoe-color-type="lpanel-bg8" hoe-lpanel-effect="shrink">
-            <section id="main-content">    
-                <div class="content-title" style="display:{{showtitle}}">
-                    <h3 class="main-title">{{title}}</h3>
-                    <span>{{subtitle}}</span>
-                </div>
-                <div class="inner-content">            
-                    {{{body}}}
-                </div>
-            </section>
-        </div>
-    </div>
+            <ul class="collapse navbar-collapse navbar-collapse nav navbar-nav top-nav pull-left" id="leftmenu">
+                {{#each nav.main}}
+                  {{topnav}}
+                {{/each}}
+            </ul>
+            <ul class="collapse navbar-collapse nav navbar-nav top-nav" id="rightmenu">
+                <li>
+                    <form class="navbar-left" action="#0" role="search">
+                        <div class="search">
+                            <input type="search" placeholder="Search...">
+                        </div> <!-- cd-search -->
+                    </form>
+                </li>
+                {{#each nav.acl.locked}}
+                  {{topnav}}
+                {{/each}}
+        </nav>
+    </header> <!-- .cd-main-header -->
+    <main class="main-content">
+        <div class="content-wrapper">
+        {{{body}}}
+        </div> <!-- .content-wrapper -->
+    </main> <!-- .cd-main-content -->
   {{> footer}}
   <script src="/javascript/frontend.js"></script>
 </body>

@@ -5,9 +5,9 @@ data/*.0
 data/*.ns
 data/*.lock
 data/*.ns
+data/*.bson
 node_modules/*
 public/images/*
 public/javascript/*
 public/stylesheets/*
 public/fonts/*
-data/*.bson

@@ -10,3 +10,4 @@ public/images/*
 public/javascript/*
 public/stylesheets/*
 public/fonts/*
+data/*.bson

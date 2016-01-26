@@ -125,6 +125,22 @@ app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
   }
 });
 
+app.get('/user/settings',Auth.isAuthenticated, function(req, res, next) {
+    if(req.isAuthenticated()){
+    
+    res.render('user/settings', { title: 'Settings!',
+                               user: req.user,
+                               subtitle: '',
+                               showtitle: 'none',
+                               layout: 'layouts/sidebar'
+                              });
+  }
+  else
+  {
+  res.redirect('/login');
+  }
+});
+
 
 
 

@@ -4,9 +4,10 @@ $(document).ready(function()
         $('#recentWork').carousel();
         //Edit Profile toggle
         $('#editProfile').change(function(){
-
+        //Check if swicth is selected  
         if($(this).prop('checked'))
         {
+          //Fetch existig data
            var image =  $('#profile-image img').attr('src');
            var quote =  $('#profile-quote blockquote').html();
            var info =  $('#profile-info p').html();
@@ -19,9 +20,9 @@ $(document).ready(function()
            var email =  $('ul.details li#email').children(":not('span')").html();
            var phone =  $('ul.details li#phone').children(":not('span')").html();
            var website =  $('ul.details li#website').children(":not('span')").html();
-
+           //Generate input fields for update profile
           $('#saveChanges').show();
-          $('#profile-image').html('<img src="http://placehold.it/400x400" class="img-thumbnail img-responsive" id="profile-img"/><br><div class="input-group"><span class="input-group-btn"><span class="btn btn-primary btn-file"><svg class="icon-folder-image"><use xlink:href="/fonts/icons.svg#icon-folder-image"></use></svg><input type="file" id="file-input"></span></span><input type="text" id="ïmg-text" class="form-control" readonly></div>');
+          $('#profile-image').html('<img src="http://placehold.it/400x400" class="img-thumbnail img-responsive" id="profile-img"/><br><div class="input-group"><span class="input-group-btn"><span class="btn btn-primary btn-file"><svg class="icon-folder-image"><use xlink:href="/fonts/icons.svg#icon-folder-image"></use></svg><input type="file" id="file-input"></span></span><input type="text" id="img-text" class="form-control" readonly></div>');
           $('#profile-quote').html('<textarea id="personal-quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
           $('#profile-info').html('<h3>Personal info</h3><textarea id="personal-info" class="summernote form-control col-md-12" rows="5">'+ info +'</textarea>');
           $('ul.details li#name').html('<span>Name</span><input type="text" value="'+ name +'" class="form-control" id="name" placeholder="Name">');
@@ -34,7 +35,16 @@ $(document).ready(function()
           $('ul.details li#phone').html('<span>Phone</span><input type="tel" value="'+ phone +'" class="form-control" id="phone" placeholder="Phone">');
           $('ul.details li#website').html('<span>Website</span><input type="url" value="'+ website +'" class="form-control" id="website" placeholder="Website">');
         
-        $('.summernote').summernote({toolbar: [['style', ['bold', 'italic', 'underline', 'clear']],['font', ['strikethrough', 'superscript', 'subscript']],['fontsize', ['fontsize']],['insert', ['hr','table']],['color', ['color']],['para', ['ul', 'ol', 'paragraph']],['height', ['height']],['misc', ['fullscreen']]]                                     ,height:300});
+          //Set summernote variables
+          $('.summernote').summernote({toolbar: [['style', ['bold', 'italic', 'underline', 'clear']],['font', ['strikethrough', 'superscript', 'subscript']],['fontsize', ['fontsize']],['insert', ['hr','table']],['color', ['color']],['para', ['ul', 'ol', 'paragraph']],['height', ['height']],['misc', ['fullscreen']]],height:300});
+          
+          //on avatar file change for upload show preview
+          $('#file-input').on('change' , function() 
+          {
+            var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+            readFileURL(this);
+            $('#img-text').val(label);
+          });
         }
         else
         {
@@ -54,28 +64,18 @@ $(document).ready(function()
         }  
     });
 
-
-        function readFileURL(input) 
-        {
-          console.log(['input'], [input]);
-            if (input.files && input.files[0]) 
-            {
-                var reader = new FileReader();
-                
-                reader.onload = function(e){
-                    $('#profile-img').attr('src', e.target.result);
-                }        
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-$('#file-input').on('change' , function() 
+//Read url selected file for upload      
+function readFileURL(input) 
 {
-        var input = $(this);
-        readFileURL(input);
-        var label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-});
-    
+    if (input.files && input.files[0]) 
+    {
+        var reader = new FileReader();
+        reader.onload = function(e){
+                                        $('#profile-img').attr('src', e.target.result);
+                                    }        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 
     //components js

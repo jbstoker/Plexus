@@ -26,10 +26,6 @@ module.exports = function (passport, config) {
     }));
 
 
-
-
-
-
 	passport.use(new FacebookStrategy({
 		clientID: config.facebook.clientID,
 		clientSecret: config.facebook.clientSecret,

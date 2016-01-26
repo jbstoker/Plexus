@@ -22,7 +22,7 @@ var env = process.env.NODE_ENV || 'development', config = require('./config/env/
 var models_dir = __dirname + '/models';
 fs.readdirSync(models_dir).forEach(function(file){ if(file[0] === '.') return; require(models_dir+'/'+ file); });
 //passport config
-require('./config/env/passport')(passport, config)
+require('./config/env/acl/passport')(passport, config)
 // Set languages
 i18n.configure(config.i18n);
 //Databases and Caching
@@ -35,7 +35,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 //Set Partials Handlebars
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + '/views/layouts/partials');
 hbs.registerHelper('__', function(){ return i18n.__.apply(this, arguments); });
 hbs.registerHelper('__n', function(){ return i18n.__n.apply(this, arguments); });
 //navigation urls + custom hbs helpers
@@ -57,6 +57,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Use language
 app.use(i18n.init);  
+app.use(function (req, res, next) { res.locals.loggedin = req.isAuthenticated(); next(); });
 //Regiser routes       
 require('./routes/index')(app, passport);
 // catch 404 and forward to error handler
@@ -66,7 +67,6 @@ app.use(function(req, res, next)
   err.status = 404; 
   next(err); 
 });
-
 //Development error handler
 if (app.get('env') === 'development') 
 {
@@ -79,7 +79,6 @@ if (app.get('env') === 'development')
                         });
   });
 }
-
 //Production error handler
 app.use(function(err, req, res, next) 
 {
@@ -89,5 +88,4 @@ app.use(function(err, req, res, next)
                         error: {}
                       });
 });
-
 module.exports = app;

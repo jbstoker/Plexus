@@ -33,7 +33,7 @@ module.exports = {
 			name: 'Plexus! Create, Read and Compose'
 		},
 		i18n:{
-            locales:['en', 'nl'],
+            locales:['en', 'nl','frl'],
             directory:__dirname + "/locales/",
             defaultLocale:'en',
             cookie:'language',

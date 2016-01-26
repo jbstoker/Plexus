@@ -2,7 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
-var Auth = require('../config/env/middlewares/authorization.js');
+var Auth = require('../config/env/acl/middlewares/authorization.js');
 
 module.exports = function(app, passport)
 {
@@ -65,7 +65,7 @@ app.get('/', function(req, res, next) {
  * Terms and FAQ Routes
  */
 app.get('/terms', function(req, res, next) {
-  res.render('admin/terms', { title: 'Terms and Conditions!',
+  res.render('bodies/terms', { title: 'Terms and Conditions!',
                         subtitle: 'These are our terms, just accept it',
                         showtitle: '',
                         layout: 'layouts/default'
@@ -73,7 +73,7 @@ app.get('/terms', function(req, res, next) {
 });
 
 app.get('/faq', function(req, res, next) {
-  res.render('admin/faq', { title: 'Frequent Asked Questions!',
+  res.render('bodies/faq', { title: 'Frequent Asked Questions!',
                         subtitle: 'Don\'t ask, just read',
                         showtitle: '',
                         layout: 'layouts/default'
@@ -95,7 +95,7 @@ app.get('/faq', function(req, res, next) {
 app.get('/manage_users', function(req, res, next) {
   if(req.isAuthenticated()){
     
-    res.render('acl/index', { title: 'Users!',
+    res.render('admin/index', { title: 'Users!',
                               subtitle: 'Management',
                               showtitle: '',
                               layout: 'layouts/sidebar',
@@ -201,8 +201,8 @@ app.post("/login" ,passport.authenticate('local',{
 /**
  * ACL Routes Lock User
  */
-app.get('/user/lock', function(req, res, next) {
-  res.render('user/lock', { title: '',
+app.get('/acl/lock', function(req, res, next) {
+  res.render('acl/lock', { title: '',
                         subtitle: '',
                         showtitle: 'none',
                         layout: 'layouts/default'

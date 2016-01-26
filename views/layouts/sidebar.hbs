@@ -44,9 +44,15 @@
     </button>
     <nav class="cd-nav">
       <ul class="cd-top-nav">
-        {{#each nav.acl.open}}
-          {{sidenav}}
-        {{/each}}
+        {{#if loggedin}}
+          {{#each nav.acl.open}}
+            {{sidenav}}
+          {{/each}}
+        {{else}}
+          {{#each nav.acl.locked}}
+            {{sidenav}}
+          {{/each}}
+        {{/if}}
       </ul>
     </nav>
   </header> <!-- .cd-main-header -->

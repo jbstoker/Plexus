@@ -16,30 +16,30 @@
 */			 			 
 'use strict';
 var mongo = require('mongoose');
-var hash = require('../config/env/middlewares/hash');
+var hash = require('../config/env/acl/middlewares/hash');
 
-var UserSchema = mongo.Schema({surname: String,
-    					    	 middlename: String,
-    					    	 lastname: String,
-    					    	 email: String,
-    					    	 phone: String,
-    					    	 mobile: String,
-    					    	 birtdate: Date,
-    					    	 salt:       String,
-						    	 hash:       String,
-    					    	 apikey: String,
-    					    	 apisecret: String,
-						    	 facebook:{
-						    	 	id:       String,
-						    	 	email:    String,
-						    	 	name:     String
-						    	 },
-						    	 google:{
-						    	 	id:       String,
-						    	 	email:    String,
-						    	 	name:     String
-						    	 }
-						  });
+var UserSchema = mongo.Schema({	surname: String,
+    					    	middlename: String,
+    					    	lastname: String,
+    					    	email: String,
+    					    	phone: String,
+    					    	mobile: String,
+    					    	birtdate: Date,
+    					    	salt:       String,
+						    	hash:       String,
+    					    	apikey: String,
+    					    	apisecret: String,
+						    	facebook:{
+						    		id:       String,
+						    		email:    String,
+						    		name:     String
+						    	},
+						    	google:{
+						    		id:       String,
+						    		email:    String,
+						    		name:     String
+						    	}
+						  	});
 
 UserSchema.statics.signup = function(email, password, done){
 	var User = this;
@@ -57,7 +57,6 @@ UserSchema.statics.signup = function(email, password, done){
 		});
 	});
 }
-
 
 UserSchema.statics.isValidUserPassword = function(email, password, done) {
 	this.findOne({email : email}, function(err, user){

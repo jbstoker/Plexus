@@ -1,135 +1,206 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-12 center">
-                    <img alt="Avatar Demo" src="http://lorempixel.com/200/200/" class="img-thumbnail profile-picture" />
-                    <div class="center label-pill user-title">
-                        <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon-circle btn-success middle"></i>
-                            &nbsp;
-                            <span class="white">Jelmer Stoker</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-caret dropdown-lighter">
-                            <li class="dropdown-header"> Change Status </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-circle btn-success"></i>
-                                    &nbsp;
-                                    <span class="green">Available</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-circle btn-danger"></i>
-                                    &nbsp;
-                                    <span class="red">Busy</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="icon-circle btn-default"></i>
-                                    &nbsp;
-                                    <span class="grey">Invisible</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-                <div class="row user-profile-info">
-                    <div class="container">
-                       <div class="col-md-2 user-text"> Name </div>
-                       <div class="col-md-8 user-info">
-                           <span class="editable editable-click" id="username">Jelmer B Stoker</span>
-                       </div>
-                   </div>
-                   <div class="container">
-                       <div class="col-md-2 user-text"> Location </div>
-                       <div class="col-md-8 user-info">
-                           <i class=" fa fa-map-marker light-orange bigger-110"></i>
-                           <span class="editable editable-click" id="country">Netherlands</span>
-                           <span class="editable editable-click" id="city">Amsterdam</span>
-                       </div>
-                   </div>
-                   <div class="container">
-                       <div class="col-md-2 user-text"> Age </div>
-                       <div class="col-md-8 user-info">
-                           <span class="editable editable-click" id="age">38</span>
-                       </div>
-                   </div>
-                   <div class="container">
-                       <div class="col-md-2 user-text"> Joined </div>
-                       <div class="col-md-8 user-info">
-                           <span class="editable editable-click" id="signup">20/06/2010</span>
-                       </div>
-                   </div>
-                   <div class="container">
-                       <div class="col-md-2 user-text"> Last Online </div>
-                       <div class="col-md-8 user-info">
-                           <span class="editable editable-click" id="login">3 hours ago</span>
-                       </div>
-                   </div>
-                   <div class="container">
-                       <div class="col-md-2 user-text"> About Me </div>
-                       <div class="col-md-8 user-info">
-                           <span class="editable editable-click" id="about">Editable as WYSIWYG</span>
-                       </div>
-                   </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-            </div>
+<div class="container">
+        <div class="row">
+            <button class="btn btn-sm btn-warning" id="saveChanges">Save Changes</button> <input type="checkbox" class="input-sm" data-height="30px" data-toggle="toggle" data-on="<svg class='icon-edit-3'><use xlink:href='/fonts/icons.svg#icon-edit-3'></use></svg>" data-off="<svg class='icon-preview-1'><use xlink:href='/fonts/icons.svg#icon-preview-1'></use></svg>" data-offstyle="primary" data-size="mini" data-style="pull-right icon-toggle" data-onstyle="warning" id="editProfile"/>
         </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="center">
-                    <h1>Change Password <span><input type="checkbox" id="ProfiletogglePass"></span></h1>
-                    </div>
-                    <div class="passbox disabled">
-                    <div class="form-group">
-                    <p class="text-center">Use the form below to change your password. <br/>Your password cannot be the same as your username.</p>
-                    <form method="post" id="passwordForm">
-                    <div class="col-md-12">   
-                        <input type="password" class="input-sm form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off">
-                            <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-2">
-                                    <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
-                                    <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter
-                                </div>
-                                <div class="col-sm-6">
-                                    <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
-                                    <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number
-                                </div>
-                            </div>
-                    </div>
-                    <div class="col-md-12"><p></p></div>
-                    <div class="col-md-12">
-                        <input type="password" class="input-sm form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
-                            <div class="form-group">
-                                <div class="col-sm-10 col-sm-offset-2">
-                                    <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match
-                                </div>
-                            </div>
-                    </div>        
-                    <div class="col-md-12">
-                        <p>
-                        </p>
-                            <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
-                    </div>
-                    </form>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                </div>
-            </div>
+    <div class="row">     
+      <div class="col-md-4">
+      <div class="row"  id="profile-image">
+        <img class="img-thumbnail img-responsive" src="http://placehold.it/400x400"/>
+      </div>
+      <div class="row"  id="profile-quote">
+        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</blockquote>
+      </div>
+      
+      </div>
+      <div class="col-md-8">
+        <div class="row"  id="profile-info">
+          <h3>Personal info</h3>
+          <p>Hey there! I am Ipsum Lorem from Lorem island. Vivamus eu metus condimentum lectus ultrices aliquam eget in dui. Ut ultrices ante malesuada est consequat bibendum. Quisque sed metus lacinia mauris sollicitudin euismod nec ac sem. Aenean ac libero et purus sodales ornare fermentum porta lectus. Nam vel rhoncus lectus, ac mattis nunc. In posuere ante ut tempor tincidunt. Integer mattis vel lectus cursus aliquam. Morbi pretium sem massa, ac imperdiet massa elementum ac. Curabitur aliquet aliquam iaculis. Aliquam fermentum, diam id aliquam maximus, metus augue sodales justo, rutrum tincidunt ligula nunc nec ex. Vivamus cursus sodales magna, quis sodales nulla rhoncus ac. Curabitur euismod, dolor a malesuada viverra, dui lectus consectetur quam, sit amet tempus mi ex eu lectus. Donec sapien quam, gravida eu massa vel, maximus ornare nisi. Maecenas in ligula scelerisque, viverra mauris vel, gravida nisl. Nunc rhoncus efficitur tellus a posuere</p>
         </div>
-    </div>
-</div>
+        <div class="row">
+          <ul class="details">
+            <li id="name"><span>Name</span><a>Ash Dreamer</a></li>
+            <li id="birthday"><span>Birthday</span><a>1983-10-10</a></li>
+            <li id="address"><span>Address</span><a>Creative Avenue<a><a>11</a></li>
+            <li id="postalcode"><span>Postalcode</span><a>9005 MH</a></li>
+            <li id="city"><span>City</span><a>Wergea</a></li>
+            <li id="country"><span>Country</span><a>Netherlands</a></li>
+            <li id="email"><span>Email</span><a href="mailto:{{user.email}}" oldtitle="Get in touch">{{user.email}}</a></li>
+            <li id="phone"><span>Phone</span><a>+00 230 790-1171</a></li>
+            <li id="website"><span>Website</span> <a href="http://www.simplesphere.net" oldtitle="Simplesphere">www.simplesphere.net</a></li>
+        </ul>
+        </div>
+      </div>
+      </div>
+        <div class="row" id="recentwork-carousel">
+          <h3>Recent work</h3>  
+              <div class="carousel slide" id="recentWork" style="max-height:350px">
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <ul class="thumbnails">
+                <li class="col-sm-3">
+                  <div class="fff">
+                    <div class="thumbnail">
+                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                    </div>
+                    <div class="caption">
+                      <h4>Praesent commodo</h4>
+                      <p>Nullam Condimentum Nibh Etiam Sem</p>
+                      <a class="btn btn-mini" href="#">» Read More</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="col-sm-3">
+                  <div class="fff">
+                    <div class="thumbnail">
+                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                    </div>
+                    <div class="caption">
+                      <h4>Praesent commodo</h4>
+                      <p>Nullam Condimentum Nibh Etiam Sem</p>
+                      <a class="btn btn-mini" href="#">» Read More</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="col-sm-3">
+                  <div class="fff">
+                    <div class="thumbnail">
+                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                    </div>
+                    <div class="caption">
+                      <h4>Praesent commodo</h4>
+                      <p>Nullam Condimentum Nibh Etiam Sem</p>
+                      <a class="btn btn-mini" href="#">» Read More</a>
+                    </div>
+                  </div>
+                </li>
+                <li class="col-sm-3">
+                  <div class="fff">
+                    <div class="thumbnail">
+                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                    </div>
+                    <div class="caption">
+                      <h4>Praesent commodo</h4>
+                      <p>Nullam Condimentum Nibh Etiam Sem</p>
+                      <a class="btn btn-mini" href="#">» Read More</a>
+                    </div>
+                  </div>
+                </li>
+                    </ul>
+                  </div><!-- /Slide1 -->
+                  <div class="item">
+                    <ul class="thumbnails">
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div><!-- /Slide2 --> 
+                  <div class="item">
+                    <ul class="thumbnails">
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="col-sm-3">
+                        <div class="fff">
+                          <div class="thumbnail">
+                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
+                          </div>
+                          <div class="caption">
+                            <h4>Praesent commodo</h4>
+                            <p>Nullam Condimentum Nibh Etiam Sem</p>
+                            <a class="btn btn-mini" href="#">» Read More</a>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div><!-- /Slide3 --> 
+                </div>
+                <nav>
+                  <ul class="control-box pager">
+                    <li><a data-slide="prev" href="#recentWork" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
+                    <li><a data-slide="next" href="#recentWork" class=""><i class="glyphicon glyphicon-chevron-right"></i></li>
+                  </ul>
+                </nav>
+                <!-- /.control-box -->                          
+              </div><!-- /#recentWork -->
+         <!-- /Carousel column -->
+        </div>
+    <!-- End Profile -->

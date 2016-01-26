@@ -62,9 +62,15 @@
                         </div> <!-- cd-search -->
                     </form>
                 </li>
+              {{#if loggedin}}
+                {{#each nav.acl.open}}
+                  {{topnav}}
+                {{/each}}
+              {{else}}
                 {{#each nav.acl.locked}}
                   {{topnav}}
                 {{/each}}
+              {{/if}}
         </nav>
     </header> <!-- .cd-main-header -->
     <main class="main-content">

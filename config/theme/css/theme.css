@@ -25,6 +25,9 @@ body::after
     clear: both;
     content: '';
 }
+.container {
+    width: 100%;
+}
 .row {
     margin-left: 0px !important;
     margin-right: 0px !important;

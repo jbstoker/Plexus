@@ -22,10 +22,18 @@ module.exports = {
 				count:'',
 				children:[ //Dropdown
 							{ liClass:'', url: "/components", title: "Components", icon:'',smOnlyIcon:false,notify:false,color:'', count:''},
-							{ liClass:'', url: "/icons", title: "Icons", icon:'',smOnlyIcon:false,notify:false,color:'', count:''},
-							{ liClass:'', url: "/terms", title: "Terms of Use", smOnlyIcon:false,icon:'',notify:false,color:'', count:''},
-							{ liClass:'', url:"/faq", title: "Frequent Asked Questions", smOnlyIcon:false,icon:'',notify:false,color:'', count:''}
+							{ liClass:'', url: "/icons", title: "Icons", icon:'',smOnlyIcon:false,notify:false,color:'', count:''}
 						]
+			},
+			{ 	liClass:'', 
+				url:"/faq", 
+				title: "Frequent Asked Questions", 
+				smOnlyIcon:false,
+				icon:'',
+				notify:false,
+				color:'', 
+				count:'',
+				children:[]
 			}
 		 ],
 	acl:{ locked:[//loggedout menu has one sub

@@ -1,7 +1,7 @@
 {
 	"Plexus, icons demo!":"Plexus, icons demo!",
 	"Plexus":"Plexus!",
-	"Home":"Home",
-	"Components":"Components",
-	"Icons":"Icons"
+	"Home":"Thús",
+	"Components":"Komponinten",
+	"Icons":"Ikoanen"
 }

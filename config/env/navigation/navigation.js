@@ -27,7 +27,7 @@ module.exports = {
 			},
 			{ 	liClass:'', 
 				url:"/faq", 
-				title: "Frequent Asked Questions", 
+				title: "FAQ", 
 				smOnlyIcon:false,
 				icon:'',
 				notify:false,
@@ -51,6 +51,7 @@ module.exports = {
      					count:'',
      					children:[
   	         						{ liClass:'', url: "/user/profile", title: "Profile", smOnlyIcon:false,icon:'',notify:false,color:'', count:''},
+  	         						{ liClass:'', url: "/user/settings", title: "Settings", smOnlyIcon:false,icon:'',notify:false,color:'', count:''},
   		   	  						{ liClass:'', url: "/user/lock", title: "Lock", smOnlyIcon:false,icon:'',notify:false,color:'', count:''},
   		      						{ liClass:'', url: "/logout", title: "Logout", smOnlyIcon:false,icon:'',notify:false,color:'', count:''}
   	         					]

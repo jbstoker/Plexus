@@ -59,6 +59,12 @@ input[type='search']::-webkit-search-results-decoration
         line-height:15px;
     }
 }
+.preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
 .container {
     width: 100%;
 }

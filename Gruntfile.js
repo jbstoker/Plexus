@@ -23,6 +23,7 @@ module.exports = function(grunt) {
             js_frontend: {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
+                    './bower_components/jquery-touchswipe/jquery.touchSwipe.min.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js',
                     './bower_components/bootstrap-toggle/js/bootstrap-toggle.js',
                     './bower_components/summernote/dist/summernote.js',
@@ -33,6 +34,7 @@ module.exports = function(grunt) {
                     './config/theme/js/navigation.js',
                     './config/theme/js/cd-tabs.js',
                     './config/theme/js/modernizer.js',
+                    './config/theme/js/preload.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'

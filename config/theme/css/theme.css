@@ -1,6 +1,4 @@
-/* -------------------------------- 
-Primary style
--------------------------------- */
+/*basic theme css*/
 *,
 *::after,
 *::before
@@ -24,6 +22,42 @@ body::after
     display: table;
     clear: both;
     content: '';
+}
+a
+{
+    text-decoration: none;
+    color: #1784c7;
+}
+a:hover,
+a:focus
+{
+    text-decoration: none;
+}
+input
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.6rem;
+}
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-results-button,
+input[type='search']::-webkit-search-results-decoration
+{
+    display: none;
+}
+.input-group .form-control {
+    position: relative;
+    z-index: 1;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+}
+/* .ie fix datetime line-height */
+@media screen and (-webkit-min-device-pixel-ratio:0){
+    input[type='date'].form-control, input[type='time'].form-control, input[type='datetime-local'].form-control, input[type='month'].form-control{
+    
+        line-height:15px;
+    }
 }
 .container {
     width: 100%;
@@ -52,8 +86,6 @@ footer{
     background: #384b5f; /* Old browsers */
     color: #ffffff !important;
 }
-
-
 .jumbotron p {
     color: #ffffff !important;
 }
@@ -82,40 +114,12 @@ footer{
 .jumbotron h5 {
     color: #ffffff !important;
 }
-
-
-a
-{
-    text-decoration: none;
-    color: #1784c7;
-}
-a:hover,
-a:focus
-{
-    text-decoration: none;
-}
-input
-{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.6rem;
-}
-input[type='search']::-webkit-search-decoration,
-input[type='search']::-webkit-search-cancel-button,
-input[type='search']::-webkit-search-results-button,
-input[type='search']::-webkit-search-results-decoration
-{
-    display: none;
-}
-.cd-side-nav ul
-{
-    list-style-type: none;
-}
 /* -------------------------------- 
 Main Page Content
 -------------------------------- */
 .main-content .content-wrapper
 {
-    padding: 80px 20px;
+    padding: 55px 10px;
 }
 .main-content::before
 {
@@ -124,7 +128,7 @@ Main Page Content
 }
 .cd-main-content .content-wrapper
 {
-    padding: 80px 20px;
+    padding: 55px 10px;
 }
 .cd-main-content::before
 {
@@ -239,9 +243,19 @@ ul.nav.navbar-nav{
     font-weight: 300;
     background-color: #2a3d50;
 }
+.cd-side-nav ul
+{
+    list-style-type: none;
+}
 .cd-side-nav ul li a:hover
 {
     background-color: #2a3d50;
+}
+.cd-side-nav ul li.has-children.selected a {
+    background-color: #2a3d50;
+}
+.cd-side-nav ul li.has-children.selected ul li a:hover {
+    background-color: #384B5f;
 }
 .top-nav li a span.count
 {
@@ -360,7 +374,7 @@ Header
 .search
 {
     position: relative;
-    margin: 1.2em 5% .6em;
+    margin: 1.2em 4.65% .6em;
 }
 .search.is-hidden
 {
@@ -441,27 +455,28 @@ Top Navigation
 }
 .top-nav > li a
 {
-    font-size: 15px !important;
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
-    padding-left: calc(5%) !important;
+    font-size: 1.6rem !important;
+    padding-top: 13px !important;
+    padding-bottom: 13px !important;
+    padding-left: calc(4.6%) !important;
+    padding-right: calc(4.6%) !important;
     color: #fff;
 }
 .top-nav img
 {
-    /* avatar image */
-    position: absolute;
-    top: 50%;
+position: relative;
+    display: inline-block!important;
+    top: 15px;
     bottom: auto;
-    left: 1.8em;
-    display: none;
-    width: 20px;
-    height: 20px;
+    left: -5px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
     -webkit-transform: translateY(-50%);
-       -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-         -o-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
     border-radius: 50%;
 }
 /* -------------------------------- 
@@ -499,7 +514,7 @@ Sidebar
 }
 .cd-side-nav > ul
 {
-    padding: .6em 0;
+    padding: 0px;
 }
 .cd-side-nav > ul:last-of-type
 {
@@ -581,7 +596,7 @@ Sidebar
     width: 100%;
     padding: 0 !important;
     list-style: none;
-    background-color: #384b5f;
+    background-color: #2A3D50;
 }
 .dropdown > a::after
 {
@@ -640,7 +655,7 @@ Sidebar
 @media only screen and (min-width: 1170px){
     .cd-main-content .content-wrapper
     {
-        margin-left: 200px;
+        margin-left: 200px !important;
     }
     .cd-main-content::before
     {
@@ -653,7 +668,7 @@ Sidebar
         font-weight: 300;
         display: block;
         float: left;
-        width: 160px;
+        width: 170px !important;
         margin: 2px 0 0 2px;
         color: white;
     }
@@ -664,13 +679,15 @@ Sidebar
     }
     .cd-logo img
     {
-        width: 50px;
-        margin: 0 0 0 5px;
-        padding: 5px;
+        width: 35px;
+        margin: -2px 5px 0 5px;
+        padding: 0;
+        display: inline-block !important;
     }
     .cd-logo .title
     {
-        display: inline;
+        display: inline !important;
+        padding-left:0px !important;
     }
     .logo
     {
@@ -690,7 +707,7 @@ Sidebar
     }
     .logo img
     {
-        width: 50px;
+        width: 35px;
         margin: 0 0 0 5px;
         padding: 5px;
     }
@@ -710,7 +727,8 @@ Sidebar
     }
     .cd-side-nav
     {
-        width: 193px;
+        width: 200px !important;
+        display:block !important;
     }
     .cd-side-nav > ul
     {
@@ -803,8 +821,8 @@ Sidebar
 @media only screen and (min-width: 768px){
     .cd-main-content .content-wrapper
     {
-        margin-left: 110px;
-        padding-top: 70px;
+        margin-left: 112px;
+        padding-top: 55px;
     }
     .cd-main-content::before
     {
@@ -817,27 +835,28 @@ Sidebar
     .cd-main-header
     {
         position: fixed;
-        height: 55px;
+        height: 45px;
     }
     .main-header
     {
         position: fixed;
-        height: 55px;
+        height: 45px;
     }
     .cd-logo
     {
         font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
-        font-size: 2em;
         font-weight: 300;
         display: block;
+        font-size: 26px;
         float: left;
-        width: 75px;
+        width: 100px;
         margin: 2px 0 0 2px;
         color: white;
     }
     .cd-logo .title
     {
-        display: none;
+        display: inline-block;
+        padding-left: 5px;
     }
     .cd-logo:hover
     {
@@ -846,24 +865,22 @@ Sidebar
     }
     .cd-logo img
     {
-        width: 50px;
-        margin: 0 0 0 30px;
-        padding: 0;
+    display: none;
     }
     .logo
     {
         font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
-        font-size: 2em;
+        font-size: 26px;
         font-weight: 300;
         display: block;
         float: left;
-        width: 120px;
+        width: 140px;
         margin: 2px 0 0 2px;
         color: white;
     }
     .logo .title
     {
-        display: none;
+        display: inline-block !important;
     }
     .logo:hover
     {
@@ -872,8 +889,8 @@ Sidebar
     }
     .logo img
     {
-        width: 50px;
-        margin: 0 0 0 30px;
+        width: 35px;
+        margin: -2px 5px 0 5px;
         padding: 0;
     }
     .cd-search
@@ -911,7 +928,7 @@ Sidebar
     .cd-search input:focus,
     .cd-search:hover input
     {
-        height: 40px;
+        height: 30px;
         margin: 7px 0;
         padding-left: 2.6em;
         color: #fff;
@@ -940,7 +957,7 @@ Sidebar
         display: inline-block;
         float: left;
         width: 250px;
-        height: 55px;
+        height: 45px;
         margin: 0 0 0 2.5em;
     }
     .search.is-hidden
@@ -970,7 +987,7 @@ Sidebar
     .search input:focus,
     .search:hover input
     {
-        height: 40px;
+        height: 30px;
         margin: 7px 0;
         padding-left: 2.6em;
         color: #fff;
@@ -1022,7 +1039,7 @@ Sidebar
     }
     .cd-top-nav > li a
     {
-        padding: 1em .6em !important;
+        padding: 0.44em .6em !important;
     }
     .cd-top-nav img
     {
@@ -1050,11 +1067,12 @@ Sidebar
     }
     .top-nav > li a
     {
-        padding: 17px 15px !important;
+        padding: 12px 15px !important;
     }
     .top-nav > li.dropdown a
     {
-        padding: 17px 45px 17px 15px !important;
+        line-height: 30px;
+        padding: 7px 57px 7px 15px !important;
     }
     .top-nav img
     {
@@ -1083,7 +1101,7 @@ Sidebar
         width: 110px;
         min-height: 100vh;
         max-height: none;
-        padding-top: 55px;
+        padding-top: 45px;
         opacity: 1;
     }
     .cd-side-nav.nav-is-visible
@@ -1145,7 +1163,7 @@ Sidebar
         position: absolute;
         top: 50%;
         bottom: auto;
-        left: 80%;
+        right: 5%;
         width: 16px;
         height: 16px;
         content: '';
@@ -1231,7 +1249,7 @@ Sidebar
     }
     .cd-top-nav .has-children > a
     {
-        line-height: 55px;
+        line-height: 45px;
         height: 100%;
         padding: 0 calc(3.5em) 0 calc(3.5em) !important;
     }
@@ -1245,7 +1263,7 @@ Sidebar
         top: 100%;
         right: 0;
         left: auto;
-        width: 200px;
+        width: 100%;
         list-style: none;
         background-color: #384b5f;
     }
@@ -1266,7 +1284,7 @@ Sidebar
     }
     .top-nav .has-children > a
     {
-        line-height: 55px;
+        line-height: 45px;
         height: 100%;
         padding: 0 calc(1.8em + 22px) 0 calc(1.8em + 26px) !important;
     }
@@ -1292,7 +1310,7 @@ Sidebar
 @media only screen and (max-width:767px){
     .main-content .content-wrapper
     {
-        padding: 50px 10px;
+        padding: 55px 10px;
     }
     .nav .open > a,
     .nav .open > a:hover,
@@ -1317,6 +1335,18 @@ Sidebar
         height: 20px !important;
         margin: 14px 5px 0 0 !important;
         color: #fff;
+    }
+    .top-nav > li a
+    {
+        font-size: 1.4rem !important;
+        padding-top: 13px !important;
+        padding-bottom: 13px !important;
+        padding-left: calc(4.6%) !important;
+        padding-right: calc(4.6%) !important;
+        color: #fff;
+    }
+    .top-nav li a img{
+        display: none !important;
     }
     .top-nav li a span.count
     {
@@ -1363,7 +1393,7 @@ Sidebar
     }
     .cd-main-content .content-wrapper
     {
-        padding: 50px 10px;
+        padding: 55px 10px;
     }
     .cd-logo
     {
@@ -1373,12 +1403,12 @@ Sidebar
         display: block;
         float: left;
         width: auto;
-        margin: 2px 0 0 7px;
+        margin: 2px 0 0 2px;
         color: white;
     }
     .cd-logo .title
     {
-        display: inline;
+        display: inline !important;
     }
     .cd-logo:hover
     {
@@ -1387,8 +1417,8 @@ Sidebar
     }
     .cd-logo img
     {
-        width: 40px;
-        margin: -2px 10px 0 15px;
+        width: 35px;
+        margin: -2px 10px 0 5px;
         padding: 0;
     }
     .logo
@@ -1413,8 +1443,8 @@ Sidebar
     }
     .logo img
     {
-        width: 40px;
-        margin: -2px 10px 0 20px;
+        width: 35px;
+        margin: -2px 10px 0 5px;
         padding: 0;
     }
     .dropdown > a::after

@@ -1,6 +1,4 @@
 jQuery(document).ready(function(){
-
-	 
 	//cache DOM elements
 	var mainContent = $('.cd-main-content'),
 		header = $('.cd-main-header'),
@@ -9,7 +7,6 @@ jQuery(document).ready(function(){
 		topNavigation = $('.cd-top-nav'),
 		searchForm = $('.cd-search'),
 		accountInfo = $('.account');
-
 	//on resize, move search and top nav position according to window width
 	var resizing = false;
 	moveNavigation();
@@ -42,7 +39,6 @@ jQuery(document).ready(function(){
 	});
 	$( "#nav-side-toggle" ).on( "click", function(e) {
 	  e.preventDefault();
-	    
 	    if($(this).attr('class') === "active")
 	    {
 	        $(this).attr('class', '');
@@ -54,9 +50,7 @@ jQuery(document).ready(function(){
 	        $(this).attr('class', 'active');
 	        $('.cd-side-nav ').hide();
 	        $('.content-wrapper').css('margin-left', '5px');
-	        
 	    } 
-	
 	});
 	//click on account and show submenu - desktop version only
 	accountInfo.children('a').on('click', function(event){
@@ -68,14 +62,12 @@ jQuery(document).ready(function(){
 			sidebar.find('.has-children.selected').removeClass('selected');
 		}
 	});
-
 	$(document).on('click', function(event){
 		if( !$(event.target).is('.has-children a') ) {
 			sidebar.find('.has-children.selected').removeClass('selected');
 			accountInfo.removeClass('selected');
 		}
 	});
-
 	//on desktop - differentiate between a user trying to hover over a dropdown item vs trying to navigate into a submenu's contents
 	sidebar.children('ul').menuAim({
         activate: function(row) {
@@ -153,11 +145,25 @@ jQuery(document).ready(function(){
         $('.main-content').css('min-height', c);
         $('.cd-main-content ').css('min-height', c);
     }  
+    function resizeContentWrapper()
+    {
+    	  var navbarHeight = $('.navbar').innerHeight()
+    	if(navbarHeight > 46)
+    	{ // menu is bigges enlarge paddding content wrapper
+    	  var newHeight = navbarHeight + 9;
+    	  $('.content-wrapper').attr('style', 'padding:'+newHeight+'px 10px !important');
+		}
+		else
+		{
+    	  $('.content-wrapper').attr('style', 'padding:55px 10px !important');
+		}	
+	}
     $(window).on('resize', function(){
     	cHeight();
       	onlyIcon();
+  		resizeContentWrapper();
     });
   cHeight();
   onlyIcon();
-
+  resizeContentWrapper();
 })

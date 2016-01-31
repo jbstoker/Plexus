@@ -1,3 +1,16 @@
+//Read url selected file for upload      
+function readFileURL(input) 
+{
+    if (input.files && input.files[0]) 
+    {
+        var reader = new FileReader();
+        reader.onload = function(e){
+                                        $('#profile-img').attr('src', e.target.result);
+                                    }        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 $(document).ready(function() 
 {       
         //Recent work carousel on profile page
@@ -64,25 +77,19 @@ $(document).ready(function()
         }  
     });
 
-//Read url selected file for upload      
-function readFileURL(input) 
-{
-    if (input.files && input.files[0]) 
-    {
-        var reader = new FileReader();
-        reader.onload = function(e){
-                                        $('#profile-img').attr('src', e.target.result);
-                                    }        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
 
 
     //components js
     $('.datatable').DataTable();
     $('.summernote').summernote({height:300});
 
-    //Profile js
+
+
+
+
+
+    //Settings page
+    //
     $('#ProfiletogglePass').change(function(event) 
     {
         $('.passbox').toggleClass('disabled');

@@ -24,16 +24,6 @@ module.exports = {
 							{ liClass:'', url: "/components", title: "Components", icon:'',smOnlyIcon:false,notify:false,color:'', count:''},
 							{ liClass:'', url: "/icons", title: "Icons", icon:'',smOnlyIcon:false,notify:false,color:'', count:''}
 						]
-			},
-			{ 	liClass:'', 
-				url:"/faq", 
-				title: "FAQ", 
-				smOnlyIcon:false,
-				icon:'',
-				notify:false,
-				color:'', 
-				count:'',
-				children:[]
 			}
 		 ],
 	acl:{ locked:[//loggedout menu has one sub

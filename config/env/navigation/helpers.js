@@ -54,7 +54,15 @@ hbs.registerHelper('topnav', function(){
 
       if(children.length > 0)
       {
-        var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown">'+ icon + title + count +'</a><ul class="dropdown-menu">';
+                //Check if link is of type account.
+        if(liClass === 'account')
+        {
+          var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown"><img src="http://lorempixel.com/100/100/people" id="menu-avatar" alt="avatar">'+ icon + title + count +'</a><ul class="dropdown-menu">';
+        }
+        else
+        { 
+          var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown">'+ icon + title + count +'</a><ul class="dropdown-menu">';
+        } 
         for (var i = 0; i < children.length; i++) 
         {
                 if(children[i].liClass.length > 0)

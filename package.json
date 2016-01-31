@@ -26,6 +26,7 @@
     "blueimp-file-upload-node": "^2.1.0",
     "bower": "^1.6.5",
     "chai": "^3.4.1",
+    "cloudcmd": "^5.0.7",
     "electron-prebuilt": "^0.35.4",
     "express-session": "^1.12.1",
     "file-system": "^2.2.1",

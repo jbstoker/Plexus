@@ -29,9 +29,10 @@ module.exports = function(grunt) {
                     './bower_components/datatables/media/js/jquery.dataTables.js',
                     './bower_components/datatables/media/js/dataTables.bootstrap.js',
                     './bower_components/svgxuse/svgxuse.js',
-                    './config/dev-js/jquery.menu-aim.js',
-                    './config/dev-js/navigation.js',
-                    './config/dev-js/modernizer.js',
+                    './config/theme/js/jquery.menu-aim.js',
+                    './config/theme/js/navigation.js',
+                    './config/theme/js/cd-tabs.js',
+                    './config/theme/js/modernizer.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'

@@ -1,0 +1,140 @@
+/* 
+* @Author: JB Stoker
+* @Date:   2016-02-01
+* @Last Modified by:   JB Stoker
+* @Last Modified time: 2016-02-01
+*/
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-regular-webfont.eot');
+  src: url('../fonts/opensans-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans-regular-webfont.woff') format('woff'),
+       url('../fonts/opensans-regular-webfont.ttf') format('truetype'),
+       url('../fonts/opensans-regular-webfont.svg#OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-italic-webfont.eot');
+  src: url('../fonts/opensans-italic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans-italic-webfont.woff') format('woff'),
+       url('../fonts/opensans-italic-webfont.ttf') format('truetype'),
+       url('../fonts/opensans-italic-webfont.svg#OpenSansItalic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-bold-webfont.eot');
+  src: url('../fonts/opensans-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans-bold-webfont.woff') format('woff'),
+       url('../fonts/opensans-bold-webfont.ttf') format('truetype'),
+       url('../fonts/opensans-bold-webfont.svg#OpenSansBold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-bolditalic-webfont.eot');
+  src: url('../fonts/opensans-bolditalic-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans-bolditalic-webfont.woff') format('woff'),
+       url('../fonts/opensans-bolditalic-webfont.ttf') format('truetype'),
+       url('../fonts/opensans-bolditalic-webfont.svg#OpenSansBoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('../fonts/opensans-extrabold-webfont.eot');
+  src: url('../fonts/opensans-extrabold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/opensans-extrabold-webfont.woff') format('woff'),
+       url('../fonts/opensans-extrabold-webfont.ttf') format('truetype'),
+       url('../fonts/opensans-extrabold-webfont.svg#OpenSansExtrabold') format('svg');
+  font-weight: 800;
+  font-style: normal;
+}
+
+
+
+a#forkme_banner {
+    position: absolute;
+    top: 0;
+    right: 110px;
+    width: 76px;
+    height: 140px;
+    display: block;
+    background: transparent url(../images/fork-sprite.png) -46px 0 no-repeat;
+    text-indent: -9000px;
+    z-index: 3;
+}
+
+a#forkme_banner:hover {
+  background-position: -276px 0px;
+}
+.container{
+	width:100wh;
+}
+
+.downloads{
+	height: 200px;
+    display: block;
+}
+.downloads a {
+  display: block;
+  position: relative;
+  height: 165px;
+  text-align: center;
+  line-height: 1;
+  color: #cccccc;
+  font-family: 'Open Sans', Myriad, Calibri, sans-serif;
+  font-weight: 800;
+  font-size: 10em;
+}
+
+.downloads a:hover {
+  text-decoration: none;
+}
+
+.downloads a em {
+  font: bold italic 0.2em Georgia, Times, “Times New Roman”, serif;
+  color: #83b7da;
+  display: block;
+}
+
+.downloads a.zip {
+  float: left;
+}
+
+.downloads a.tgz {
+  float: right;
+}
+
+footer {
+  	position: relative;
+  	width:100%;
+  	height:100%;
+  	background-color: #008CBA;
+}
+footer p{
+    color: #ffffff;
+    text-align: left;
+    line-height: 30px;
+    padding: 10px 10px 0px;
+}
+footer p a,footer p a:hover{
+    color: #ffffff;
+    text-align: left;
+}
+footer span.octocat {
+  background: transparent url(../images/octocat.png) 0 0 no-repeat;
+  display: block;
+  float:right;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+}

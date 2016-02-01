@@ -19,21 +19,4 @@ Run `npm install` to install/update the NodeJS packages and run `bower update` f
 The package.json file contains all start data, just start the app with `npm start` and all Grunt Tasks will be runned also.
 
 ## Structure ##
-
-
-# Components #
-## Node ##
-## Express ##
-## Grunt ##
-## Bower ##
-## Twitter Bootstrap ##
-## Summernote Editor ##
-
-# Storage #
-## Redis ##
-## MongoDB ##
-
-# Theme #
-
-# Testing #
-
+[Plexus Docs](http://jbstoker.github.io/Plexus)

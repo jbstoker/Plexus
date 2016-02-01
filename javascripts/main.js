@@ -19,7 +19,7 @@
         var a = $(window).height();
         var b = $('#nav-header').innerHeight();
         var c = $('#footer').innerHeight();
-        var d = a - b - c - 21;
+        var d = a - b - c - 52;
         $('#main-content').css('min-height', d);
     }  
     function activeNavButton(){
@@ -32,7 +32,7 @@
     $(window).on('resize', function(){
     	cHeight();
     });
-    
+
   $(document).ready(function(){
   	cHeight();
 	activeNavButton();

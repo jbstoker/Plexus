@@ -3,14 +3,6 @@ Express app Boilerplate for rapid app development. This branch is the Master bra
 
 > Warning this is an project created for my own fun and learning curve. You are free to fork or pull one of the plexus branches, but i won't do bugfixes of any kind. Also i won't awnser to an feature request of sorts.
 
-## pre-defined pages ##
-- Login/Register
-- Login
-- Lock
-- Profile
-- User management
-- Configuration page
-
 # Usage #
 Plexus uses two package managers, Node and Bower. Before you start the app you should update the packages for these managers.
 ## install/update ##

@@ -127,6 +127,8 @@ a#forkme_banner:hover {
 footer {
   	position: relative;
   	margin-top: 30px;
+  	margin-left: -15px;
+    margin-right: -15px;
   	width:100%;
   	height:100%;
   	background-color: #008CBA;

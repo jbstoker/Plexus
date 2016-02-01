@@ -10,5 +10,5 @@ Run `npm install` to install/update the NodeJS packages and run `bower update` f
 ## Starting app ##
 The package.json file contains all start data, just start the app with `npm start` and all Grunt Tasks will be runned also.
 
-## Structure ##
+## Wiki ##
 [Plexus Docs](http://jbstoker.github.io/Plexus)

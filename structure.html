@@ -4,22 +4,27 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=640">
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/yeti/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="stylesheets/style.css">
+
     <script type="text/javascript" src="javascripts/modernizr.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript" src="javascripts/main.js"></script>
   </head>
+
   <body>
-  <a id="forkme_banner" href="https://github.com/jbstoker/Plexus">View on GitHub</a>
   <div class="container">
     <div class="row">
-      <nav class="navbar navbar-inverse">
+      <nav class="navbar navbar-inverse" id="nav-header">
+        <a id="forkme_banner" href="https://github.com/jbstoker/Plexus">View on GitHub</a>
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -32,7 +37,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="setup.html">Setup</a></li>
                 <li><a href="structure.html">Structure</a></li>
                 <li class="dropdown">
@@ -52,153 +57,155 @@
           </div><!--/.container-fluid -->
       </nav>
     </div>
-    <div class="row">
-    <!-- Main content page -->
-        <div class="col-md-3" id="myScrollspy">
+    <div class="row" id="main-content">
+    <div class="col-md-3" id="myScrollspy">
+          <!-- sections menu -->
             <ul class="nav nav-tabs nav-stacked" data-offset-top="120" data-spy="affix">
-                <li class="active"><a href="#section1">Section One</a></li>
+                <li class="active"><a href="#section1">Files and Folders</a></li>
                 <li><a href="#section2">Section Two</a></li>
             </ul>
     </div>
     <div class="col-md-9">
-    	<div id="section1">
-				<h2>Section One</h2>
-				<div class="table table-responsive">
-    				<table class="table-hover table-condensed">
-		<tr><th class="col-md-3">Name</th><th class="col-md-3">Type</th><th class="col-md-6">Info</th></tr>
-		<tr><td></td><td>Folder</td><td></td></tr>
-		<tr><td>\</td><td>Textdocument</td><td></td></tr>
-		<tr><td>\app</td><td>JS-file</td><td></td></tr>
-		<tr><td>\bower</td><td>JSON-file</td><td></td></tr>
-		<tr><td>\Gruntfile</td><td>JS-file</td><td></td></tr>
-		<tr><td>\npm-debug</td><td>Textdocument</td><td></td></tr>
-		<tr><td>\package</td><td>JSON-file</td><td></td></tr>
-		<tr><td>\README</td><td>MD-file</td><td></td></tr>
-		<tr><td>.git</td><td>Folder</td><td></td></tr>
-		<tr><td>bin</td><td>Folder</td><td></td></tr>
-		<tr><td>bin\www</td><td>File</td><td></td></tr>
-		<tr><td>bower_components</td><td>Folder</td><td></td></tr>
-		<tr><td>config</td><td>Folder</td><td></td></tr>
-		<tr><td>dev-css</td><td>Folder</td><td></td></tr>
-		<tr><td>dev-css\backend</td><td>LESS-file</td><td></td></tr>
-		<tr><td>dev-css\base</td><td>LESS-file</td><td></td></tr>
-		<tr><td>dev-css\demopages</td><td>CSS-file</td><td></td></tr>
-		<tr><td>dev-css\fonts</td><td>CSS-file</td><td></td></tr>
-		<tr><td>dev-css\frontend</td><td>LESS-file</td><td></td></tr>
-		<tr><td>dev-css\loader</td><td>LESS-file</td><td></td></tr>
-		<tr><td>dev-css\side-toggle</td><td>CSS-file</td><td></td></tr>
-		<tr><td>dev-css\toggle</td><td>LESS-file</td><td></td></tr>
-		<tr><td>dev-fonts</td><td>Folder</td><td></td></tr>
-		<tr><td>fonts</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-300</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-300italic</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-600</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-600italic</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-700</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-700italic</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-800</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-800italic</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-italic</td><td>Folder</td><td></td></tr>
-		<tr><td>Open-Sans-regular</td><td>Folder</td><td></td></tr>
-		<tr><td>svg-icons</td><td>Folder</td><td></td></tr>
-		<tr><td>svg-icons\icons</td><td>SVG-file</td><td></td></tr>
-		<tr><td>dev-js</td><td>Folder</td><td></td></tr>
-		<tr><td>dev-js\dev</td><td>JS-file</td><td></td></tr>
-		<tr><td>env</td><td>Folder</td><td></td></tr>
-		<tr><td>env\config</td><td>JS-file</td><td></td></tr>
-		<tr><td>acl</td><td>Folder</td><td></td></tr>
-		<tr><td>acl\passport</td><td>JS-file</td><td></td></tr>
-		<tr><td>middlewares</td><td>Folder</td><td></td></tr>
-		<tr><td>middlewares\authorization</td><td>JS-file</td><td></td></tr>
-		<tr><td>middlewares\hash</td><td>JS-file</td><td></td></tr>
-		<tr><td>locales</td><td>Folder</td><td></td></tr>
-		<tr><td>locales\en</td><td>JS-file</td><td></td></tr>
-		<tr><td>locales\frl</td><td>JS-file</td><td></td></tr>
-		<tr><td>locales\nl</td><td>JS-file</td><td></td></tr>
-		<tr><td>navigation</td><td>Folder</td><td></td></tr>
-		<tr><td>navigation\helpers</td><td>JS-file</td><td></td></tr>
-		<tr><td>navigation\navigation</td><td>JS-file</td><td></td></tr>
-		<tr><td>tests</td><td>Folder</td><td></td></tr>
-		<tr><td>theme</td><td>Folder</td><td></td></tr>
-		<tr><td>css</td><td>Folder</td><td></td></tr>
-		<tr><td>css\cd-tabs</td><td>CSS-file</td><td></td></tr>
-		<tr><td>css\datatables-theme</td><td>CSS-file</td><td></td></tr>
-		<tr><td>css\fonts-theme</td><td>CSS-file</td><td></td></tr>
-		<tr><td>css\summernote-theme</td><td>CSS-file</td><td></td></tr>
-		<tr><td>css\theme</td><td>CSS-file</td><td></td></tr>
-		<tr><td>css\user-profile</td><td>CSS-file</td><td></td></tr>
-		<tr><td>css\yeti</td><td>CSS-file</td><td></td></tr>
-		<tr><td>favicons</td><td>Folder</td><td></td></tr>
-		<tr><td>img</td><td>Folder</td><td></td></tr>
-		<tr><td>js</td><td>Folder</td><td></td></tr>
-		<tr><td>js\cd-tabs</td><td>JS-file</td><td></td></tr>
-		<tr><td>js\jquery.menu-aim</td><td>JS-file</td><td></td></tr>
-		<tr><td>js\modernizr</td><td>JS-file</td><td></td></tr>
-		<tr><td>js\navigation</td><td>JS-file</td><td></td></tr>
-		<tr><td>js\preload</td><td>JS-file</td><td></td></tr>
-		<tr><td>controllers</td><td>Folder</td><td></td></tr>
-		<tr><td>controllers\user</td><td>JS-file</td><td></td></tr>
-		<tr><td>data</td><td>Folder</td><td></td></tr>
-		<tr><td>models</td><td>Folder</td><td></td></tr>
-		<tr><td>models\user</td><td>JS-file</td><td></td></tr>
-		<tr><td>node_modules</td><td>Folder</td><td></td></tr>
-		<tr><td>public</td><td>Folder</td><td></td></tr>
-		<tr><td>fonts</td><td>Folder</td><td></td></tr>
-		<tr><td>fonts\FontAwesome</td><td>OpenType-lettertypefile</td><td></td></tr>
-		<tr><td>fonts\fontawesome-webfont</td><td>EOT-file</td><td></td></tr>
-		<tr><td>fonts\fontawesome-webfont</td><td>SVG-file</td><td></td></tr>
-		<tr><td>fonts\fontawesome-webfont</td><td>TrueType-lettertypefile</td><td></td></tr>
-		<tr><td>fonts\fontawesome-webfont</td><td>WOFF-file</td><td></td></tr>
-		<tr><td>fonts\fontawesome-webfont</td><td>WOFF2-file</td><td></td></tr>
-		<tr><td>fonts\glyphicons-halflings-regular</td><td>EOT-file</td><td></td></tr>
-		<tr><td>fonts\glyphicons-halflings-regular</td><td>SVG-file</td><td></td></tr>
-		<tr><td>fonts\glyphicons-halflings-regular</td><td>TrueType-lettertypefile</td><td></td></tr>
-		<tr><td>fonts\glyphicons-halflings-regular</td><td>WOFF-file</td><td></td></tr>
-		<tr><td>fonts\glyphicons-halflings-regular</td><td>WOFF2-file</td><td></td></tr>
-		<tr><td>fonts\icons</td><td>SVG-file</td><td></td></tr>
-		<tr><td>images</td><td>Folder</td><td></td></tr>
-		<tr><td>javascript</td><td>Folder</td><td></td></tr>
-		<tr><td>javascript\backend</td><td>JS-file</td><td></td></tr>
-		<tr><td>javascript\frontend</td><td>JS-file</td><td></td></tr>
-		<tr><td>stylesheets</td><td>Folder</td><td></td></tr>
-		<tr><td>stylesheets\backend</td><td>CSS-file</td><td></td></tr>
-		<tr><td>stylesheets\frontend</td><td>CSS-file</td><td></td></tr>
-		<tr><td>routes</td><td>Folder</td><td></td></tr>
-		<tr><td>routes\index</td><td>JS-file</td><td></td></tr>
-		<tr><td>views</td><td>Folder</td><td></td></tr>
-		<tr><td>views\error</td><td>HBS-file</td><td></td></tr>
-		<tr><td>acl</td><td>Folder</td><td></td></tr>
-		<tr><td>acl\lock</td><td>HBS-file</td><td></td></tr>
-		<tr><td>acl\login</td><td>HBS-file</td><td></td></tr>
-		<tr><td>admin</td><td>Folder</td><td></td></tr>
-		<tr><td>admin\index</td><td>HBS-file</td><td></td></tr>
-		<tr><td>bodies</td><td>Folder</td><td></td></tr>
-		<tr><td>bodies\components</td><td>HBS-file</td><td></td></tr>
-		<tr><td>bodies\faq</td><td>HBS-file</td><td></td></tr>
-		<tr><td>bodies\icons</td><td>HBS-file</td><td></td></tr>
-		<tr><td>bodies\index</td><td>HBS-file</td><td></td></tr>
-		<tr><td>bodies\terms</td><td>HBS-file</td><td></td></tr>
-		<tr><td>layouts</td><td>Folder</td><td></td></tr>
-		<tr><td>layouts\clean</td><td>HBS-file</td><td></td></tr>
-		<tr><td>layouts\default</td><td>HBS-file</td><td></td></tr>
-		<tr><td>layouts\sidebar</td><td>HBS-file</td><td></td></tr>
-		<tr><td>partials</td><td>Folder</td><td></td></tr>
-		<tr><td>partials\footer</td><td>HBS-file</td><td></td></tr>
-		<tr><td>user</td><td>Folder</td><td></td></tr>
-		<tr><td>user\profile</td><td>HBS-file</td><td></td></tr>
-		<tr><td>user\settings</td><td>HBS-file</td><td></td></tr>
-					</table>
-    			</div>
-		</div>
-		<div id="section2">
-				<h2>Section Two</h2>
-				<p>.....</p>
-		</div>		
+      <!-- Main content sections -->
+    <div id="section1">
+      			<div class="table table-responsive">
+    					<table class="table-hover table-condensed">
+							<tr><th class="col-md-3">Name</th><th class="col-md-3">Type</th><th class="col-md-6">Info</th></tr>
+							<tr><td></td><td>Folder</td><td></td></tr>
+							<tr><td>\</td><td>Textdocument</td><td></td></tr>
+							<tr><td>\app</td><td>JS-file</td><td></td></tr>
+							<tr><td>\bower</td><td>JSON-file</td><td></td></tr>
+							<tr><td>\Gruntfile</td><td>JS-file</td><td></td></tr>
+							<tr><td>\npm-debug</td><td>Textdocument</td><td></td></tr>
+							<tr><td>\package</td><td>JSON-file</td><td></td></tr>
+							<tr><td>\README</td><td>MD-file</td><td></td></tr>
+							<tr><td>.git</td><td>Folder</td><td></td></tr>
+							<tr><td>bin</td><td>Folder</td><td></td></tr>
+							<tr><td>bin\www</td><td>File</td><td></td></tr>
+							<tr><td>bower_components</td><td>Folder</td><td></td></tr>
+							<tr><td>config</td><td>Folder</td><td></td></tr>
+							<tr><td>dev-css</td><td>Folder</td><td></td></tr>
+							<tr><td>dev-css\backend</td><td>LESS-file</td><td></td></tr>
+							<tr><td>dev-css\base</td><td>LESS-file</td><td></td></tr>
+							<tr><td>dev-css\demopages</td><td>CSS-file</td><td></td></tr>
+							<tr><td>dev-css\fonts</td><td>CSS-file</td><td></td></tr>
+							<tr><td>dev-css\frontend</td><td>LESS-file</td><td></td></tr>
+							<tr><td>dev-css\loader</td><td>LESS-file</td><td></td></tr>
+							<tr><td>dev-css\side-toggle</td><td>CSS-file</td><td></td></tr>
+							<tr><td>dev-css\toggle</td><td>LESS-file</td><td></td></tr>
+							<tr><td>dev-fonts</td><td>Folder</td><td></td></tr>
+							<tr><td>fonts</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-300</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-300italic</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-600</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-600italic</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-700</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-700italic</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-800</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-800italic</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-italic</td><td>Folder</td><td></td></tr>
+							<tr><td>Open-Sans-regular</td><td>Folder</td><td></td></tr>
+							<tr><td>svg-icons</td><td>Folder</td><td></td></tr>
+							<tr><td>svg-icons\icons</td><td>SVG-file</td><td></td></tr>
+							<tr><td>dev-js</td><td>Folder</td><td></td></tr>
+							<tr><td>dev-js\dev</td><td>JS-file</td><td></td></tr>
+							<tr><td>env</td><td>Folder</td><td></td></tr>
+							<tr><td>env\config</td><td>JS-file</td><td></td></tr>
+							<tr><td>acl</td><td>Folder</td><td></td></tr>
+							<tr><td>acl\passport</td><td>JS-file</td><td></td></tr>
+							<tr><td>middlewares</td><td>Folder</td><td></td></tr>
+							<tr><td>middlewares\authorization</td><td>JS-file</td><td></td></tr>
+							<tr><td>middlewares\hash</td><td>JS-file</td><td></td></tr>
+							<tr><td>locales</td><td>Folder</td><td></td></tr>
+							<tr><td>locales\en</td><td>JS-file</td><td></td></tr>
+							<tr><td>locales\frl</td><td>JS-file</td><td></td></tr>
+							<tr><td>locales\nl</td><td>JS-file</td><td></td></tr>
+							<tr><td>navigation</td><td>Folder</td><td></td></tr>
+							<tr><td>navigation\helpers</td><td>JS-file</td><td></td></tr>
+							<tr><td>navigation\navigation</td><td>JS-file</td><td></td></tr>
+							<tr><td>tests</td><td>Folder</td><td></td></tr>
+							<tr><td>theme</td><td>Folder</td><td></td></tr>
+							<tr><td>css</td><td>Folder</td><td></td></tr>
+							<tr><td>css\cd-tabs</td><td>CSS-file</td><td></td></tr>
+							<tr><td>css\datatables-theme</td><td>CSS-file</td><td></td></tr>
+							<tr><td>css\fonts-theme</td><td>CSS-file</td><td></td></tr>
+							<tr><td>css\summernote-theme</td><td>CSS-file</td><td></td></tr>
+							<tr><td>css\theme</td><td>CSS-file</td><td></td></tr>
+							<tr><td>css\user-profile</td><td>CSS-file</td><td></td></tr>
+							<tr><td>css\yeti</td><td>CSS-file</td><td></td></tr>
+							<tr><td>favicons</td><td>Folder</td><td></td></tr>
+							<tr><td>img</td><td>Folder</td><td></td></tr>
+							<tr><td>js</td><td>Folder</td><td></td></tr>
+							<tr><td>js\cd-tabs</td><td>JS-file</td><td></td></tr>
+							<tr><td>js\jquery.menu-aim</td><td>JS-file</td><td></td></tr>
+							<tr><td>js\modernizr</td><td>JS-file</td><td></td></tr>
+							<tr><td>js\navigation</td><td>JS-file</td><td></td></tr>
+							<tr><td>js\preload</td><td>JS-file</td><td></td></tr>
+							<tr><td>controllers</td><td>Folder</td><td></td></tr>
+							<tr><td>controllers\user</td><td>JS-file</td><td></td></tr>
+							<tr><td>data</td><td>Folder</td><td></td></tr>
+							<tr><td>models</td><td>Folder</td><td></td></tr>
+							<tr><td>models\user</td><td>JS-file</td><td></td></tr>
+							<tr><td>node_modules</td><td>Folder</td><td></td></tr>
+							<tr><td>public</td><td>Folder</td><td></td></tr>
+							<tr><td>fonts</td><td>Folder</td><td></td></tr>
+							<tr><td>fonts\FontAwesome</td><td>OpenType-lettertypefile</td><td></td></tr>
+							<tr><td>fonts\fontawesome-webfont</td><td>EOT-file</td><td></td></tr>
+							<tr><td>fonts\fontawesome-webfont</td><td>SVG-file</td><td></td></tr>
+							<tr><td>fonts\fontawesome-webfont</td><td>TrueType-lettertypefile</td><td></td></tr>
+							<tr><td>fonts\fontawesome-webfont</td><td>WOFF-file</td><td></td></tr>
+							<tr><td>fonts\fontawesome-webfont</td><td>WOFF2-file</td><td></td></tr>
+							<tr><td>fonts\glyphicons-halflings-regular</td><td>EOT-file</td><td></td></tr>
+							<tr><td>fonts\glyphicons-halflings-regular</td><td>SVG-file</td><td></td></tr>
+							<tr><td>fonts\glyphicons-halflings-regular</td><td>TrueType-lettertypefile</td><td></td></tr>
+							<tr><td>fonts\glyphicons-halflings-regular</td><td>WOFF-file</td><td></td></tr>
+							<tr><td>fonts\glyphicons-halflings-regular</td><td>WOFF2-file</td><td></td></tr>
+							<tr><td>fonts\icons</td><td>SVG-file</td><td></td></tr>
+							<tr><td>images</td><td>Folder</td><td></td></tr>
+							<tr><td>javascript</td><td>Folder</td><td></td></tr>
+							<tr><td>javascript\backend</td><td>JS-file</td><td></td></tr>
+							<tr><td>javascript\frontend</td><td>JS-file</td><td></td></tr>
+							<tr><td>stylesheets</td><td>Folder</td><td></td></tr>
+							<tr><td>stylesheets\backend</td><td>CSS-file</td><td></td></tr>
+							<tr><td>stylesheets\frontend</td><td>CSS-file</td><td></td></tr>
+							<tr><td>routes</td><td>Folder</td><td></td></tr>
+							<tr><td>routes\index</td><td>JS-file</td><td></td></tr>
+							<tr><td>views</td><td>Folder</td><td></td></tr>
+							<tr><td>views\error</td><td>HBS-file</td><td></td></tr>
+							<tr><td>acl</td><td>Folder</td><td></td></tr>
+							<tr><td>acl\lock</td><td>HBS-file</td><td></td></tr>
+							<tr><td>acl\login</td><td>HBS-file</td><td></td></tr>
+							<tr><td>admin</td><td>Folder</td><td></td></tr>
+							<tr><td>admin\index</td><td>HBS-file</td><td></td></tr>
+							<tr><td>bodies</td><td>Folder</td><td></td></tr>
+							<tr><td>bodies\components</td><td>HBS-file</td><td></td></tr>
+							<tr><td>bodies\faq</td><td>HBS-file</td><td></td></tr>
+							<tr><td>bodies\icons</td><td>HBS-file</td><td></td></tr>
+							<tr><td>bodies\index</td><td>HBS-file</td><td></td></tr>
+							<tr><td>bodies\terms</td><td>HBS-file</td><td></td></tr>
+							<tr><td>layouts</td><td>Folder</td><td></td></tr>
+							<tr><td>layouts\clean</td><td>HBS-file</td><td></td></tr>
+							<tr><td>layouts\default</td><td>HBS-file</td><td></td></tr>
+							<tr><td>layouts\sidebar</td><td>HBS-file</td><td></td></tr>
+							<tr><td>partials</td><td>Folder</td><td></td></tr>
+							<tr><td>partials\footer</td><td>HBS-file</td><td></td></tr>
+							<tr><td>user</td><td>Folder</td><td></td></tr>
+							<tr><td>user\profile</td><td>HBS-file</td><td></td></tr>
+							<tr><td>user\settings</td><td>HBS-file</td><td></td></tr>
+						</table>
+    					</div>
+    </div>
+    <div id="section2">
+    ................
     </div>
     </div>
-       <footer>
-            <p>This project by <a href="https://github.com/jbstoker">JB Stoker</a> can be found on <a href="https://github.com/jbstoker/Plexus">GitHub</a><span class="octocat"></span></p> 
-      </footer>
-    </div>
+   </div>
+      <footer id="footer">
+            <p>This project by <a href="https://github.com/jbstoker">Plexus Team</a> can be found on <a href="https://github.com/jbstoker/Plexus">GitHub</a><span class="octocat"></span></p> 
+      </footer>  
+  </div>
   </body>
 </html>
+
+
+	

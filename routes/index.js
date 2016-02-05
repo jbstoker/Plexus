@@ -9,35 +9,6 @@ module.exports = function(app, passport)
 
 /* To disable title in page set "showtitle" to none // extends display:*/
 
-/**
- *
- *
- *
- * ####################### DEMO ROUTES ###################
- *
- *
- *
- *
- */
-/* GET components page. */
-app.get('/components', function(req, res, next) {
-  res.render('bodies/components', { title: 'Components!',
-                             subtitle: 'Preview some components',
-                             showtitle: '',
-                             layout: 'layouts/default'
-                           });
-});
-
-/* GET icons page. */
-app.get('/icons', function(req, res, next) {
-  res.render('bodies/icons' , { title: 'Icons!',
-                         subtitle: 'Many icons in SVG format',
-                         showtitle: '',
-                         layout: 'layouts/default'
-                      });
-});
-
-
 /* GET clean demo page. */
 app.get('/clean', function(req, res, next) {
   res.render('bodies/index', { title: 'Clean!',

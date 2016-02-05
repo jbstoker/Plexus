@@ -2,13 +2,15 @@
 * @Author: JB Stoker
 * @Date:   2016-01-28
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-01-31
+* @Last Modified time: 2016-02-04
 */
 /*Settings page*/
 
 .cd-tabs {
+  display: block;
   position: relative;
   width: 100%;
+  min-height:400px;
   margin: 0 auto;
 }
 .cd-tabs:after {
@@ -91,7 +93,7 @@ ul.nav.nav-tabs > li > a > svg{
 }
 .cd-tabs-content li {
   display: none;
-  padding: 1em;
+  padding: 0em;
 }
 .cd-tabs-content li.selected {
   display: block;
@@ -137,7 +139,7 @@ ul.nav.nav-tabs > li > a > svg{
     -webkit-padding-start: 50px;
     }
   .cd-tabs-content li {
-    padding: 1em;
+    padding: 0em;
   }
 }
 @media only screen and (min-width: 1170px) {

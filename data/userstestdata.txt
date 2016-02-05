@@ -1,0 +1,57 @@
+{
+  "data": [
+    {
+	"code":"0000000001",
+	"avatar":"testurl",
+	"name":"JB Stoker",
+	"email":"lorem@ipsum.com",
+	"role":"Admin",
+	"status":"Acces",
+	"phone":"00516373737",
+	"website":"Http://www.lorem.com",
+	"street":"loremstreet 22",
+	"postalcode":"2393 HH",
+	"city":"Loremstad",
+	"country":"Ipsum"
+    },
+    {
+	"code":"0000000002",
+	"avatar":"testurl",
+	"name":"JB Stoker",
+	"email":"lorem@ipsum.com",
+	"role":"Admin",
+	"status":"Acces",
+	"phone":"00516373737",
+	"website":"Http://www.lorem.com",
+	"street":"loremstreet 22",
+	"postalcode":"2393 HH",
+	"city":"Loremstad",
+	"country":"Ipsum"
+    },{
+	"code":"0000000003",
+	"avatar":"testurl",
+	"name":"JB Stoker",
+	"email":"lorem@ipsum.com",
+	"role":"Admin",
+	"status":"Acces",
+	"phone":"00516373737",
+	"website":"Http://www.lorem.com",
+	"street":"loremstreet 22",
+	"postalcode":"2393 HH",
+	"city":"Loremstad",
+	"country":"Ipsum"
+    },{
+	"code":"0000000005",
+	"avatar":"testurl",
+	"name":"JB Stoker",
+	"email":"lorem@ipsum.com",
+	"role":"Admin",
+	"status":"Acces",
+	"phone":"00516373737",
+	"website":"Http://www.lorem.com",
+	"street":"loremstreet 22",
+	"postalcode":"2393 HH",
+	"city":"Loremstad",
+	"country":"Ipsum"
+    }]
+}

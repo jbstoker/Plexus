@@ -2,12 +2,18 @@
 * @Author: JB Stoker
 * @Date:   2016-01-27
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-01-27
+* @Last Modified time: 2016-02-04
 */
 /* Profile page css */
 
   .toggle.icon-toggle, .toggle-on.icon-toggle, .toggle-off.icon-toggle { border-radius: 5px; }
   .toggle.icon-toggle .toggle-handle { border-radius: 5px; }
+  .toggle-on {
+    line-height: 18px !important;
+}
+.toggle-off {
+    line-height: 18px !important;
+}
 
 /*Save Changes buttons */
 #saveChanges{
@@ -86,7 +92,7 @@ ul.details li input {
     -webkit-border-radius: 4px;
     color: #555;
 }
-.btn-file svg{
+.btn [class^="icon-"], [class*=" icon-"]{
     height:20.5px;
 }
 

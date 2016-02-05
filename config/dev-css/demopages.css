@@ -1,44 +1,4 @@
 
-/* Icons Page */
-
-  .small{font-size:14px;color:#a5adb4;}
-  .small a{color:#a5adb4;}
-  .small a:hover{color:#fb565e}
-  .glyphs{margin:0 0 60px 0;padding:30px 0 20px 30px;color:rgba(0,0,0,0.8);border:1px solid #d8e0e5;-webkit-border-radius:3px;border-radius:3px;}
-  .glyphs li{margin:0 30px 20px 0;padding:0;display:inline-block;overflow:hidden}
-  .glyphs input{margin:0;margin-top:5px;padding:8px;line-height:16px;font-size:16px;display:block;width:150px;height:40px;border:1px solid #d8e0e5;-webkit-border-radius:5px;border-radius:5px;background:#fff;outline:0;float:right;}
-  .glyphs input:focus{border:1px solid #fbde4a;-webkit-box-shadow:inset 0 0 3px #fbde4a;box-shadow:inset 0 0 3px #fbde4a}
-  .glyphs input:hover{-webkit-box-shadow:inset 0 0 3px #fbde4a;box-shadow:inset 0 0 3px #fbde4a}
-
-  .tip {
-    font-size: 16px;
-    line-height: 25px;
-    margin-bottom: 30px;
-  }
-  .tip > .number {
-    display: inline-block;
-    font-size: 16px;
-    line-height: 16px;
-    margin-right: 12px;
-    padding: 3px 7px;
-    -webkit-border-radius: 50px;
-    border-radius: 50px;
-    background-color: #fb565e;
-    color: #fff;
-    text-align: center;
-  }
-  code {
-    background: #faf9ff;
-    border: 1px solid #bab9c0;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    padding: 0 4px;
-    font-size: 14px;
-  }
-  pre code {
-    display: block;
-    padding: 4px 6px;
-  }
 
 /* Lock page */
 

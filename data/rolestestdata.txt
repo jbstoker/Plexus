@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+	"code":"0001"
+	"name":"Rolename",
+	"read":1,
+	"write":0,
+	"edit":1,
+	"accept":1
+    },{
+	"code":"0002"
+	"name":"Rolename",
+	"read":1,
+	"write":0,
+	"edit":1,
+	"accept":1
+    },{
+	"code":"0003"
+	"name":"Rolename",
+	"read":1,
+	"write":0,
+	"edit":1,
+	"accept":0
+    },{
+	"code":"0004"
+	"name":"Rolename",
+	"read":1,
+	"write":0,
+	"edit":1,
+	"accept":1
+    }]
+}

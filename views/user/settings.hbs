@@ -4,20 +4,61 @@
             <li><a data-content="global" class="selected" href="#0"><svg class="icon-user-setting-2"><use xlink:href="/fonts/icons.svg#icon-user-setting-2"></use></svg><span class="cd-tab-text">Global<span/></a></li>
             <li><a data-content="password" href="#0"><svg class="icon-key-1"><use xlink:href="/fonts/icons.svg#icon-key-1"></use></svg><span class="cd-tab-text">Access<span/></a></li>
             <li><a data-content="media" href="#0"><svg class="icon-photos-2"><use xlink:href="/fonts/icons.svg#icon-photos-2"></use></svg><span class="cd-tab-text">Media<span/></a></li>
-            <li><a data-content="mail" href="#0"><svg class="icon-mail-setting"><use xlink:href="/fonts/icons.svg#icon-mail-setting"></use></svg><span class="cd-tab-text">Email<span/></a></li>
         </ul> <!-- cd-tabs-navigation -->
     </nav>
 
     <ul class="cd-tabs-content">
         <li data-content="global" class="selected">
-            <p>Trash Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio itaque a iure nostrum animi praesentium, numquam quidem, nemo, voluptatem, aspernatur incidunt. Fugiat aspernatur excepturi fugit aut, dicta reprehenderit temporibus, nobis harum consequuntur quo sed, illum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima doloremque optio tenetur, natus voluptatum error vel dolorem atque perspiciatis aliquam nemo id libero dicta est saepe laudantium provident tempore ipsa, accusamus similique laborum, consequatur quia, aut non maiores. Consectetur minus ipsum aliquam pariatur dolorem rerum laudantium minima perferendis in vero voluptatem suscipit cum labore nemo explicabo, itaque nobis debitis molestias officiis? Impedit corporis voluptates reiciendis deleniti, magnam, fuga eveniet! Velit ipsa quo labore molestias mollitia, quidem, alias nisi architecto dolor aliquid qui commodi tempore deleniti animi repellat delectus hic. Alias obcaecati fuga assumenda nihil aliquid sed vero, modi, voluptatem? Vitae voluptas aperiam nostrum quo harum numquam earum facilis sequi. Labore maxime laboriosam omnis delectus odit harum recusandae sint incidunt, totam iure commodi ducimus similique doloremque! Odio quaerat dolorum, alias nihil quam iure delectus repellendus modi cupiditate dolore atque quasi obcaecati quis magni excepturi vel, non nemo consequatur, mollitia rerum amet in. Nesciunt placeat magni, provident tempora possimus ut doloribus ullam!</p>
-        </li>
-        <li data-content="password">
+            <div class="col-md-12"><legend>Set Language</legend></div>
             <div class="row">
             <div class="form-group">
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <select id="" class="input form-control">
+                        <option value="en">English</option>
+                        <option value="nl">Dutch</option>
+                        <option value="frl">Frisian</option>
+                    </select>
+                </div>
+            </div>
+            </div>
+        </li>
+        <li data-content="password">
+             <div class="row">
+            <div class="col-md-12">
+                    <legend>Change login name</legend>
+            </div>        
+            <div class="form-group">
+                <div id="nameForm">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="name_old" class="control-label col-md-2">Old Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="name_old" id="name_old" placeholder="Old Name" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newname" class="control-label col-md-2">New Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="newname" id="newname" placeholder="New Password" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div  class="row">
+                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="Changing Password..." value="Change Password">
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="row">
+            <div class="col-md-12">
+                    <legend>Change password</legend>
+            </div>        
+            <div class="form-group">
                 <div id="passwordForm">
-                    <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
                         <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter<br>
                         <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
@@ -25,59 +66,143 @@
                         <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match<br>
                     <br>
                     </div>
-                    <div class="col-sm-12 col-md-8 col-lg-8">
-                        <input type="password" class="input-sm form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off"><br>
-                        <input type="password" class="input-sm form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off"><br>
-                    </div>
-                    <div class="col-sm-12 col-md-4 col-lg-2">
-                        <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-sm" data-loading-text="Changing Password..." value="Change Password">
+                    <div class="col-sm-12 col-md-9 col-lg-9">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="password_old" class="control-label col-md-2">Old Password</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" name="password_old" id="password_old" placeholder="Old Password" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password1" class="control-label col-md-2">New Password</label>
+                                <div class="col-md-10">
+                            <input type="password" class="form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password2" class="control-label col-md-2">Repeat Password</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="Changing Password..." value="Change Password">
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>
             </div>
         </li>
-        <li data-content="mail">
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-
-            <p>New Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non a voluptatibus, ex odit totam cumque nihil eos asperiores ea, labore rerum. Doloribus tenetur quae impedit adipisci, laborum dolorum eaque ratione quaerat, eos dicta consequuntur atque ex facere voluptate cupiditate incidunt.</p>
-        </li>
-
         <li data-content="media">
-            <p>Gallery Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque tenetur aut, cupiditate, libero eius rerum incidunt dolorem quo in officia.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ipsa vero, culpa doloremque voluptatum consectetur mollitia, atque expedita unde excepturi id, molestias maiores delectus quos molestiae. Ab iure provident adipisci eveniet quisquam ratione libero nam inventore error pariatur optio facilis assumenda sint atque cumque, omnis perspiciatis. Maxime minus quam voluptatum provident aliquam voluptatibus vel rerum. Soluta nulla tempora aspernatur maiores! Animi accusamus officiis neque exercitationem dolore ipsum maiores delectus asperiores reprehenderit pariatur placeat, quaerat sed illum optio qui enim odio temporibus, nulla nihil nemo quod dicta consectetur obcaecati vel. Perspiciatis animi corrupti quidem fugit deleniti, atque mollitia labore excepturi ut.</p>
+            <div class="col-md-12 well">
+            <legend>Add Media</legend>
+            <div class="row">
+                <label class="control-label">Select File</label>
+                <input id="mediaUploader" name="mediaUploader[]" type="file" class="file-loading" multiple="true">
+            </div>
+            </div>
+            <div class="col-md-12">
+            <legend>Media Library</legend>
+            <div class="row">
+                <div class="btn-group pull-right">
+                  <button type="button" class="btn btn-primary"><svg fill="#ffffff" class="icon-gramophone"><use xlink:href="/fonts/icons.svg#icon-gramophone"></use></svg></button>
+                  <button type="button" class="btn btn-primary"><svg fill="#ffffff" class="icon-video-camera-1"><use xlink:href="/fonts/icons.svg#icon-video-camera-1"></use></svg></button>
+                  <button type="button" class="btn btn-primary"><svg fill="#ffffff" class="icon-photo-frame"><use xlink:href="/fonts/icons.svg#icon-photo-frame"></use></svg></button>
+                  <button type="button" class="btn btn-primary"><svg fill="#ffffff" class="icon-file-list"><use xlink:href="/fonts/icons.svg#icon-file-list"></use></svg></button>
+                </div>
+            </div>
+            <ul class="row mediagallery">
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-174908-rocking-the-night-away-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-287182-blah-blah-blah-yellow-road-sign-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-460760-colors-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-461673-retro-party-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-514834-touchscreen-technology-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-916206-legal-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-1062948-nature-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-1471528-insant-camera-kid-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-2255072-relaxed-man-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-2360379-colors-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-2360571-jump-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-2361384-culture-for-business-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-2441670-spaghetti-with-tuna-fish-and-parsley-s.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-2943363-budget-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-3444921-street-art-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-3552322-insurance-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-3807845-food-s.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-3835655-down-office-worker-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-4619216-ui-control-knob-regulators-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-5771958-health-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-268693-businesswoman-using-laptop-outdoors-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-352207-search-of-code-s.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-247190-secret-email-xs.jpg">
+            </li>
+            <li class="col-lg-2 col-md-2 col-sm-4 col-xs-6">
+                <img class="img-responsive img-polaroid" src="images/photodune-682990-online-search-xs.jpg">
+            </li>
+          </ul>      
+            </div>
         </li>
     </ul> <!-- cd-tabs-content -->
 </div> <!-- cd-tabs -->
 
-
-
+    <div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title"></h4>
+            </div>         
+          <div class="modal-body">                
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 

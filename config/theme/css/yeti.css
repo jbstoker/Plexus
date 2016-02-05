@@ -4019,7 +4019,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group {
-  z-index: 2;
+  z-index: 1;
   margin-left: -1px;
 }
 .nav {
@@ -5948,7 +5948,7 @@ button.close {
 }
 .modal-dialog {
   position: relative;
-  width: auto;
+  width: 90%;
   margin: 10px;
 }
 .modal-content {
@@ -6020,7 +6020,7 @@ button.close {
 }
 @media (min-width: 768px) {
   .modal-dialog {
-    width: 600px;
+    width: 90%;
     margin: 30px auto;
   }
   .modal-content {

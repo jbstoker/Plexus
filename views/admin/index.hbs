@@ -1,164 +1,159 @@
 <div class="container">
     <div class="row">
 <!-- Centered tabs -->
-<ul class="nav nav-tabs nav-justified">
-   <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
-   <li role="presentation" class=""><a href="#roles" aria-controls="roles" role="tab" data-toggle="tab">Roles</a></li>
-</ul>
-  <!-- Tab panels -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="users">
-    <div class="center col-md-12 horizontaltab-form well">
+<div class="cd-tabs">
+    <nav>
+        <ul class="cd-tabs-navigation">
+            <li><a data-content="users" class="selected" href="#0"><svg class="icon-contacts-2"><use xlink:href="/fonts/icons.svg#icon-contacts-2"></use></svg><span class="cd-tab-text">Users<span/></a></li>
+            <li><a data-content="roles" href="#0"><svg class="icon-lock-5"><use xlink:href="/fonts/icons.svg#icon-lock-5"></use></svg><span class="cd-tab-text">Roles<span/></a></li>
+        </ul> <!-- cd-tabs-navigation -->
+    </nav>
+    <ul class="cd-tabs-content">
+        <li data-content="users" class="selected row">
+    <div class="col-md-12 horizontaltab-form well">
         <form class="form-inline">
-          <div class="col-md-3">
-            <label class="sr-only" for="user-name">Name</label>
-                <input type="text" class="form-control input-sm" id="user-name" placeholder="Jane Doe">
+          <div class="col-md-3"> 
+            <div class="form-group">
+              <label class="sr-only" for="user-name">Name</label>
+                  <input type="text" class="form-control" id="user-name" placeholder="Jane Doe">
+            </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3">    
+          <div class="form-group">
             <label class="sr-only" for="user-email">Email</label>
-                <input type="email" class="form-control input-sm" id="user-email" placeholder="jane.doe@example.com">
+                <input type="email" class="form-control" id="user-email" placeholder="jane.doe@example.com">
          </div>
-         <div class="col-md-1">
+          </div>
+          <div class="col-md-2">   
+         <div class="form-group">
             <label class="sr-only" for="user-role">Role</label>
-                <select class="form-control input-sm" id="user-role">
+                <select class="form-control" id="user-role">
                     <option>Role 1</option>
                     <option>Role 2</option>
                 </select>
         </div>
-         <div class="col-md-2">
-                <input type="checkbox" checked class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle" data-on="Accepted" data-off="Blocked" data-offstyle="danger" data-onstyle="success" id="role-read"/>   
+          </div>
+          <div class="col-md-2"> 
+         <div class="form-group">
+                <input type="checkbox" checked class="form-control" data-width="100%" data-height="38px" data-toggle="toggle" data-on="Accepted" data-off="Blocked" data-offstyle="danger" data-onstyle="success" id="user-accepted"/>   
          </div>
-          <div class="col-md-3">
-                <button type="submit" class="btn-sm col-md-12 btn btn-primary">Save User & Send invitation</button>
-            </div> 
-        </form>  
-    </div>
-    <br>
-        <div class="table-responsive col-md-12 table-hover table-striped">    
-            <table width="100%" class="display table" id="example" class="" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Resend Email</th>
-                        <th>Modify</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th>Avatar</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Resend Email</th>
-                        <th>Modify</th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><img alt="Demo Avatar" src="http://lorempixel.com/75/75/" class="img-thumbnail" /></td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Role</td>
-                        <td>Accepted</td>
-                        <td><button class="btn btn-sm btn-primary">Send Email</button></td>
-                        <td>Edit/Delete</td>
-                    </tr>
-                    <tr>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><img alt="Demo Avatar" src="http://lorempixel.com/75/75/" class="img-thumbnail" /></td>
-                        <td>Name</td>
-                        <td>Email</td>
-                        <td>Role</td>
-                        <td>Accepted</td>
-                        <td><button class="btn btn-sm btn-primary">Send Email</button></td>
-                        <td>Edit/Delete</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>  
-    </div>
-    <div role="tabpanel" class="tab-pane" id="roles">
-        <br>
-        <br>
-        <div class="center col-md-12 horizontaltab-form">
-        <form class="form-inline">
-          <div class="col-md-2">
-            <label class="sr-only" for="role-name">Rolename</label>
-                <input type="text" class="form-control input-sm" id="role-name" placeholder="Rolename">
           </div>
           <div class="col-md-2">
-                <input type="checkbox" checked class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle" data-on="Can Read" data-off="No Reading" data-offstyle="danger" data-onstyle="success" id="role-read"/>   
-         </div>
-         <div class="col-md-2">
-                <input type="checkbox" class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle"  data-on="Can Write" data-off="No Writing" data-offstyle="danger" data-onstyle="success" id="role-write"/>   
-         </div>
-         <div class="col-md-2">
-                <input type="checkbox" class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle"  data-on="Can Edit" data-off="No Editing" data-offstyle="danger" data-onstyle="success" id="role-edit"/>
-         </div>
-         <div class="col-md-2">
-                <input type="checkbox" class="input-sm" data-width="100%" data-height="20px" data-toggle="toggle"  data-on="Can Delete" data-off="No Deleting" data-offstyle="danger" data-onstyle="success" id="role-delete"/>   
-         </div>
-          <div class="col-md-2">
-                <button type="submit" class="btn-sm col-md-12 btn btn-primary">Save Role</button>
+          <div class="form-group">
+                <button type="submit" class="col-md-12 btn btn-primary">Save User</button>
             </div> 
-        </form> 
+          </div>
+        </form>  
     </div>
-<br>
+           <br>
         <div class="table-responsive col-md-12 table-hover table-striped">    
-            <table width="100%" class="display table" id="example" class="" cellspacing="0">
+            <table width="100%" class="display table" id="users-management" class="" cellspacing="0">
                 <thead>
                     <tr>
                         <th></th>
                         <th>Name</th>
-                        <th>Read</th>
-                        <th>Write</th>
-                        <th>Edit</th>
-                        <th>Accept</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Mail</th>
                         <th>Modify</th>
+                        <th>Trash</th>
                     </tr>
                 </thead>
-                <tfoot>
+                <tbody>
+                </tbody>
+            </table>
+        </div>  
+
+
+
+        </li>
+        <li data-content="roles" class="row">
+        <div class="col-md-12 horizontaltab-form well">
+            <form class="form-inline">
+              <div class="col-md-2">
+              <div class="form-group">
+                <label class="sr-only" for="role-name">Rolename</label>
+                    <input type="text" class="form-control" id="role-name" placeholder="Rolename">
+              </div>
+              </div>
+              <div class="col-md-2">
+              <div class="form-group">
+                    <input type="checkbox" class="form-control" checked data-width="100%" data-height="38px" data-toggle="toggle" data-on="Can Read" data-off="No Reading" data-offstyle="danger" data-onstyle="success" id="role-read"/>  
+             </div>
+              </div>
+             <div class="col-md-2">
+              <div class="form-group">
+                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="Can Write" data-off="No Writing" data-offstyle="danger" data-onstyle="success" id="role-write"/>   
+              </div>
+             </div>
+             <div class="col-md-2">
+              <div class="form-group">
+                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="Can Edit" data-off="No Editing" data-offstyle="danger" data-onstyle="success" id="role-edit"/>
+              </div>
+             </div>
+             <div class="col-md-2">
+              <div class="form-group">
+                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="Can Delete" data-off="No Deleting" data-offstyle="danger" data-onstyle="success" id="role-delete"/>   
+              </div>
+             </div>
+              <div class="col-md-2">
+              <div class="form-group">
+                    <button type="submit" class="col-md-12 btn btn-primary">Save Role</button>
+              </div>
+                </div> 
+            </form> 
+        </div>
+        <br>
+        <div class="table-responsive col-md-12 table-hover table-striped">    
+            <table width="100%" class="display table" id="roles-management" cellspacing="0">
+                <thead>
                     <tr>
-                        <th></th>
+                        <th>Code</th>
                         <th>Name</th>
                         <th>Read</th>
                         <th>Write</th>
                         <th>Edit</th>
                         <th>Accept</th>
                         <th>Modify</th>
+                        <th>Trash</th>
                     </tr>
-                </tfoot>
+                </thead>
                 <tbody>
-                    <tr>
-                        <td class="center"><input type="checkbox"></td>
-                        <td>Name</td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td>edit/delete</td>
-                    </tr>
-                    <tr>
-                        <td class="center"><input type="checkbox"></td>
-                        <td>Name</td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td class="center"><input type="checkbox"></td>
-                        <td>edit/delete</td>
-                    </tr>
                 </tbody>
             </table>
         </div>  
+        </li>
+    </ul> <!-- cd-tabs-content -->
+</div> <!-- cd-tabs -->
+
+
+<!-- Modal -->
+<div id="mailUserModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Send Message</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        <p>Write your email below, the mail wich is send will be optimized for spam filters</p>
+        </div>
+        <div class="row">
+            <input type="text" class="form-control" placeholder="Subject">
+            <br>
+        </div>
+        <div class="row">
+            <textarea id="userMailText"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Reset</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+      </div>
     </div>
+
   </div>
-    </div>
-  </div>  
+</div>

@@ -25,6 +25,7 @@ module.exports = function(grunt) {
                     './bower_components/jquery/dist/jquery.js',
                     './bower_components/jquery-touchswipe/jquery.touchSwipe.min.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js',
+                    './bower_components/bootstrap-fileinput/js/fileinput.js',
                     './bower_components/bootstrap-toggle/js/bootstrap-toggle.js',
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
@@ -33,6 +34,7 @@ module.exports = function(grunt) {
                     './config/theme/js/jquery.menu-aim.js',
                     './config/theme/js/navigation.js',
                     './config/theme/js/cd-tabs.js',
+                    './config/theme/js/cd-gallery.js',
                     './config/theme/js/modernizer.js',
                     './config/theme/js/preload.js',
                     './config/dev-js/dev.js'

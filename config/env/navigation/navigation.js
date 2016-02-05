@@ -10,21 +10,7 @@ module.exports = {
 				color:'', 
 				count:'', 
 				children:[]
-			},
-			{ 
-				liClass:'', 
-				url: "#", 
-				title: "Demo Pages", 
-				icon:'',
-				smOnlyIcon:false,
-				notify:false,
-				color:'',
-				count:'',
-				children:[ //Dropdown
-							{ liClass:'', url: "/components", title: "Components", icon:'',smOnlyIcon:false,notify:false,color:'', count:''},
-							{ liClass:'', url: "/icons", title: "Icons", icon:'',smOnlyIcon:false,notify:false,color:'', count:''}
-						]
-			}
+			 }
 		 ],
 	acl:{ locked:[//loggedout menu has one sub
 		 		  		{ liClass:'', url:"/login", title: "Login/Register", icon:'icon-lock-2', children:[]}

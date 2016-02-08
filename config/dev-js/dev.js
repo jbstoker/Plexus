@@ -1,16 +1,3 @@
-//Read url selected file for upload preview      
-function readFileURL(input) 
-{
-    if (input.files && input.files[0]) 
-    {
-        var reader = new FileReader();
-        reader.onload = function(e){
-                                        $('#profile-img').attr('src', e.target.result);
-                                    }        
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
 $(document).ready(function() 
 {       
         //Recent work carousel on profile page
@@ -35,7 +22,6 @@ $(document).ready(function()
            var website =  $('ul.details li#website').children(":not('span')").html();
            //Generate input fields for update profile
           $('#saveChanges').show();
-          $('#profile-image').html('<img src="http://placehold.it/400x400" class="img-thumbnail img-responsive" id="profile-img"/><br><div class="input-group"><span class="input-group-btn"><span class="btn btn-primary btn-file"><svg class="icon-folder-image"><use xlink:href="/fonts/icons.svg#icon-folder-image"></use></svg><input type="file" id="file-input"></span></span><input type="text" id="img-text" class="form-control" readonly></div>');
           $('#profile-quote').html('<textarea id="personal-quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
           $('#profile-info').html('<h3>Personal info</h3><textarea id="personal-info" class="summernote form-control col-md-12" rows="5">'+ info +'</textarea>');
           $('ul.details li#name').html('<span>Name</span><input type="text" value="'+ name +'" class="form-control" id="name" placeholder="Name">');
@@ -50,19 +36,10 @@ $(document).ready(function()
         
           //Set summernote variables
           $('.summernote').summernote({toolbar: [['style', ['bold', 'italic', 'underline', 'clear']],['font', ['strikethrough', 'superscript', 'subscript']],['fontsize', ['fontsize']],['insert', ['hr','table']],['color', ['color']],['para', ['ul', 'ol', 'paragraph']],['height', ['height']],['misc', ['fullscreen']]],height:300});
-          
-          //on avatar file change for upload show preview
-          $('#file-input').on('change' , function() 
-          {
-            var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-            readFileURL(this);
-            $('#img-text').val(label);
-          });
         }
         else
         {
           $('#saveChanges').hide();
-          $('#profile-image').html('<img  class="img-thumbnail img-responsive" src="http://placehold.it/400x400"/>');
           $('#profile-quote').html('<blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</blockquote>');
           $('#profile-info').html('<h3>Personal info</h3><p>Hey there! I am Ipsum Lorem from Lorem island. Vivamus eu metus condimentum lectus ultrices aliquam eget in dui. Ut ultrices ante malesuada est consequat bibendum. Quisque sed metus lacinia mauris sollicitudin euismod nec ac sem. Aenean ac libero et purus sodales ornare fermentum porta lectus. Nam vel rhoncus lectus, ac mattis nunc. In posuere ante ut tempor tincidunt. Integer mattis vel lectus cursus aliquam. Morbi pretium sem massa, ac imperdiet massa elementum ac. Curabitur aliquet aliquam iaculis. Aliquam fermentum, diam id aliquam maximus, metus augue sodales justo, rutrum tincidunt ligula nunc nec ex. Vivamus cursus sodales magna, quis sodales nulla rhoncus ac. Curabitur euismod, dolor a malesuada viverra, dui lectus consectetur quam, sit amet tempus mi ex eu lectus. Donec sapien quam, gravida eu massa vel, maximus ornare nisi. Maecenas in ligula scelerisque, viverra mauris vel, gravida nisl. Nunc rhoncus efficitur tellus a posuere</p>');
           $('ul.details li#name').html('<span>Name</span><a>Ash Dreamer</a>');
@@ -78,18 +55,24 @@ $(document).ready(function()
     });
 
 
+$("#avatar").fileinput({
+    overwriteInitial: true,
+    maxFileSize: 1500,
+    showClose: false,
+    showCaption: false,
+    browseLabel: '',
+    removeLabel: '',
+    browseIcon: '<svg class="icon-photos-1"><use xlink:href="/fonts/icons.svg#icon-photos-1"></use></svg>',
+    removeIcon: '<svg class="icon-cross"><use xlink:href="/fonts/icons.svg#icon-cross"></use></svg>',
+    removeTitle: 'Cancel or reset changes',
+    elErrorContainer: '#kv-avatar-errors',
+    msgErrorClass: 'alert alert-block alert-danger',
+    defaultPreviewContent: '<svg class="icon-id-8" style="height:100%; width:100%;"><use xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>',
+    layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
+    allowedFileExtensions: ["jpg", "png", "gif"]
+});
 
 
-
-
-
-
-    //Settings page
-    //
-    $('#ProfiletogglePass').change(function(event) 
-    {
-        $('.passbox').toggleClass('disabled');
-    });
                     
     $("input[type=password]").keyup(function()
     {

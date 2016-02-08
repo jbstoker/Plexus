@@ -257,6 +257,7 @@ ul.nav.navbar-nav{
 .cd-side-nav ul
 {
     list-style-type: none;
+    margin-bottom: 0px !important;
 }
 .cd-side-nav ul li a:hover
 {
@@ -1479,4 +1480,23 @@ Sidebar
         background: url(/images/cd-arrow-white.svg);
         fill:#ffffff!important;
     }
+}
+
+.cd-top-nav .has-children.selected{
+  background-color: #2a3d50;
+}
+.cd-top-nav .has-children.selected ul{
+  background-color: #2a3d50;
+}
+.cd-top-nav .has-children.selected ul li a:hover{
+  background-color: #384b5f;
+}
+.form-group{
+    margin-bottom: 15px!important;
+}
+.form-inline .form-group {
+    width:100%;
+}
+.form-inline .form-control {
+    width:100%;
 }

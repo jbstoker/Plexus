@@ -5,7 +5,12 @@
     <div class="row">     
       <div class="col-md-4">
       <div class="row" id="profile-image">
-        <img class="img-thumbnail img-responsive" src="http://placehold.it/400x400"/>
+      <div id="kv-avatar-errors" class="center-block" style="width:100%;display:none"></div>
+        <form class="text-center" action="/avatar_change.js" method="post" enctype="multipart/form-data">
+            <div class="kv-avatar center-block col-md-12">
+                <input id="avatar" name="avatar" type="file" class="file-loading">
+            </div>
+        </form>
       </div>
       <div class="row" id="profile-quote">
         <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</blockquote>

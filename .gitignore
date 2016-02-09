@@ -12,3 +12,4 @@ public/stylesheets/*
 public/fonts/*
 data/*.bson
 npm-debug.log
+public/

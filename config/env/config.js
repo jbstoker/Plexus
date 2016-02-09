@@ -4,7 +4,7 @@ module.exports = {
 			name: 'Plexus Development Madness'
 		},
 		modules:{
-			register: false,
+			register: true,
 			contact: {
 						active:true,
 						contact_address:'jelmer@probomail.nl'

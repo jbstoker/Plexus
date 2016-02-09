@@ -96,5 +96,10 @@
 	"Welcome": "Welcome",
 	"Write your email below, the mail wich is send will be optimized for spam filters": "Write your email below, the mail wich is send will be optimized for spam filters",
 	"Write": "Write",
-	"You can always check the": " You can always check the "
+	"You can always check the": " You can always check the ",
+	"Register": "Register",
+	"Full Name": "Full Name",
+	"Confirm Password": "Confirm Password",
+	"Agree": "Agree",
+	"Terms & Conditions": "Terms & Conditions"
 }

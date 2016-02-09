@@ -17,6 +17,7 @@
     "jquery-touchswipe": "~1.6.15"
   },
   "devDependencies": {
-    "bootstrap-fileinput": "~4.3.0"
+    "bootstrap-fileinput": "~4.3.0",
+    "flag-icon-css": "~1.1.0"
   }
 }

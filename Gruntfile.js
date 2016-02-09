@@ -74,6 +74,7 @@ module.exports = function(grunt) {
                     files: [
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true, cwd:'./bower_components/flag-icon-css/flags/', src: ['**'], dest: './public/flags/'},
                             {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true, cwd:'./config/dev-fonts/fonts/', src: ['**'], dest: './public/fonts/'},
                             {expand: true,flatten: true, src: ['./config/theme/img/*'], dest: './public/images/', filter: 'isFile'},

@@ -37,6 +37,10 @@ module.exports = function(grunt) {
                     './config/theme/js/cd-gallery.js',
                     './config/theme/js/modernizer.js',
                     './config/theme/js/preload.js',
+                    './config/theme/js/user-profile.js',
+                    './config/theme/js/user-management.js',
+                    './config/theme/js/password-check.js',
+                    './config/theme/js/pincode-check.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/frontend.js'
@@ -70,11 +74,10 @@ module.exports = function(grunt) {
                     files: [
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
-                            {expand: true,flatten: true, src: ['./bower_components/datatables/media/images/*'], dest: './public/images/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true, cwd:'./config/dev-fonts/fonts/', src: ['**'], dest: './public/fonts/'},
                             {expand: true,flatten: true, src: ['./config/theme/img/*'], dest: './public/images/', filter: 'isFile'},
-                            {expand: true,flatten: true, src: ['./config/theme/favicons/*'], dest: './public/images/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./config/theme/favicons/*'], dest: './public/images/favicons/', filter: 'isFile'},
                             ],
                         },
                 },

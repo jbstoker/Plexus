@@ -4,8 +4,8 @@
 <div class="cd-tabs">
     <nav>
         <ul class="cd-tabs-navigation">
-            <li><a data-content="users" class="selected" href="#0"><svg class="icon-contacts-2"><use xlink:href="/fonts/icons.svg#icon-contacts-2"></use></svg><span class="cd-tab-text">Users<span/></a></li>
-            <li><a data-content="roles" href="#0"><svg class="icon-lock-5"><use xlink:href="/fonts/icons.svg#icon-lock-5"></use></svg><span class="cd-tab-text">Roles<span/></a></li>
+            <li><a data-content="users" class="selected" href="#0"><svg class="icon-contacts-2"><use xlink:href="/fonts/icons.svg#icon-contacts-2"></use></svg><span class="cd-tab-text">{{{__ "Users"}}}<span/></a></li>
+            <li><a data-content="roles" href="#0"><svg class="icon-lock-5"><use xlink:href="/fonts/icons.svg#icon-lock-5"></use></svg><span class="cd-tab-text">{{{__ "Roles"}}}<span/></a></li>
         </ul> <!-- cd-tabs-navigation -->
     </nav>
     <ul class="cd-tabs-content">
@@ -14,19 +14,19 @@
         <form class="form-inline">
           <div class="col-md-3"> 
             <div class="form-group">
-              <label class="sr-only" for="user-name">Name</label>
-                  <input type="text" class="form-control" id="user-name" placeholder="Jane Doe">
+              <label class="sr-only" for="user-name">{{{__ "Name"}}}</label>
+                  <input type="text" class="form-control" id="user-name" placeholder="{{{__ 'Jane Doe'}}}">
             </div>
           </div>
           <div class="col-md-3">    
           <div class="form-group">
-            <label class="sr-only" for="user-email">Email</label>
-                <input type="email" class="form-control" id="user-email" placeholder="jane.doe@example.com">
+            <label class="sr-only" for="user-email">{{{__ "Email"}}}</label>
+                <input type="email" class="form-control" id="user-email" placeholder="{{{__ 'jane.doe@example.com'}}}">
          </div>
           </div>
           <div class="col-md-2">   
          <div class="form-group">
-            <label class="sr-only" for="user-role">Role</label>
+            <label class="sr-only" for="user-role">{{{__ "Role"}}}</label>
                 <select class="form-control" id="user-role">
                     <option>Role 1</option>
                     <option>Role 2</option>
@@ -35,12 +35,12 @@
           </div>
           <div class="col-md-2"> 
          <div class="form-group">
-                <input type="checkbox" checked class="form-control" data-width="100%" data-height="38px" data-toggle="toggle" data-on="Accepted" data-off="Blocked" data-offstyle="danger" data-onstyle="success" id="user-accepted"/>   
+                <input type="checkbox" checked class="form-control" data-width="100%" data-height="38px" data-toggle="toggle" data-on="{{{__ 'Accepted'}}}" data-off="{{{__ 'Blocked'}}}" data-offstyle="danger" data-onstyle="success" id="user-accepted"/>   
          </div>
           </div>
           <div class="col-md-2">
           <div class="form-group">
-                <button type="submit" class="col-md-12 btn btn-primary">Save User</button>
+                <button type="submit" class="col-md-12 btn btn-primary">{{{__ "Save User"}}}</button>
             </div> 
           </div>
         </form>  
@@ -51,13 +51,13 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Mail</th>
-                        <th>Modify</th>
-                        <th>Trash</th>
+                        <th>{{{__ "Name"}}}</th>
+                        <th>{{{__ "Email"}}}</th>
+                        <th>{{{__ "Role"}}}</th>
+                        <th>{{{__ "Status"}}}</th>
+                        <th>{{{__ "Mail"}}}</th>
+                        <th>{{{__ "Modify"}}}</th>
+                        <th>{{{__ "Trash"}}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,33 +73,33 @@
             <form class="form-inline">
               <div class="col-md-2">
               <div class="form-group">
-                <label class="sr-only" for="role-name">Rolename</label>
-                    <input type="text" class="form-control" id="role-name" placeholder="Rolename">
+                <label class="sr-only" for="role-name">{{{__ "Rolename"}}}</label>
+                    <input type="text" class="form-control" id="role-name" placeholder="{{{__ 'Rolename'}}}">
               </div>
               </div>
               <div class="col-md-2">
               <div class="form-group">
-                    <input type="checkbox" class="form-control" checked data-width="100%" data-height="38px" data-toggle="toggle" data-on="Can Read" data-off="No Reading" data-offstyle="danger" data-onstyle="success" id="role-read"/>  
+                    <input type="checkbox" class="form-control" checked data-width="100%" data-height="38px" data-toggle="toggle" data-on="{{{__ 'Can Read'}}}" data-off="{{{__ 'No Reading'}}}" data-offstyle="danger" data-onstyle="success" id="role-read"/>  
              </div>
               </div>
              <div class="col-md-2">
               <div class="form-group">
-                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="Can Write" data-off="No Writing" data-offstyle="danger" data-onstyle="success" id="role-write"/>   
+                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Write'}}}" data-off="{{{__ 'No Writing'}}}" data-offstyle="danger" data-onstyle="success" id="role-write"/>   
               </div>
              </div>
              <div class="col-md-2">
               <div class="form-group">
-                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="Can Edit" data-off="No Editing" data-offstyle="danger" data-onstyle="success" id="role-edit"/>
+                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Edit'}}}" data-off="{{{__ 'No Editing'}}}" data-offstyle="danger" data-onstyle="success" id="role-edit"/>
               </div>
              </div>
              <div class="col-md-2">
               <div class="form-group">
-                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="Can Delete" data-off="No Deleting" data-offstyle="danger" data-onstyle="success" id="role-delete"/>   
+                    <input type="checkbox" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Delete'}}}" data-off="{{{__ 'No Deleting'}}}" data-offstyle="danger" data-onstyle="success" id="role-delete"/>   
               </div>
              </div>
               <div class="col-md-2">
               <div class="form-group">
-                    <button type="submit" class="col-md-12 btn btn-primary">Save Role</button>
+                    <button type="submit" class="col-md-12 btn btn-primary">{{{__ "Save Role"}}}</button>
               </div>
                 </div> 
             </form> 
@@ -109,14 +109,14 @@
             <table width="100%" class="display table" id="roles-management" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Read</th>
-                        <th>Write</th>
-                        <th>Edit</th>
-                        <th>Accept</th>
-                        <th>Modify</th>
-                        <th>Trash</th>
+                        <th>{{{__ "Code"}}}</th>
+                        <th>{{{__ "Name"}}}</th>
+                        <th>{{{__ "Read"}}}</th>
+                        <th>{{{__ "Write"}}}</th>
+                        <th>{{{__ "Edit"}}}</th>
+                        <th>{{{__ "Accept"}}}</th>
+                        <th>{{{__ "Modify"}}}</th>
+                        <th>{{{__ "Trash"}}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -135,14 +135,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Send Message</h4>
+        <h4 class="modal-title">{{{__ "Send Message"}}}</h4>
       </div>
       <div class="modal-body">
         <div class="row">
-        <p>Write your email below, the mail wich is send will be optimized for spam filters</p>
+        <p>{{{__ "Write your email below, the mail wich is send will be optimized for spam filters"}}}</p>
         </div>
         <div class="row">
-            <input type="text" class="form-control" placeholder="Subject">
+            <input type="text" class="form-control" placeholder="{{{__ 'Subject'}}}">
             <br>
         </div>
         <div class="row">
@@ -150,8 +150,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Reset</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Send</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{{__ "Reset"}}}</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">{{{__ "Send"}}}</button>
       </div>
     </div>
 

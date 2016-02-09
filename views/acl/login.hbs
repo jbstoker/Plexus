@@ -1,115 +1,108 @@
 		 <div class="login-page">
 			<div class="container">
-
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs nav-justified">
-				  <li class="active"><a href="#login" data-toggle="tab"><i class="fa fa-sign-in"></i> Login</a></li>
-				  <li><a href="#register" data-toggle="tab"><i class="fa fa-pencil"></i> Register</a></li>
-				  <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i> Contact</a></li>
+				  <li class="active"><a href="#login" data-toggle="tab"><i class="fa fa-sign-in"></i> {{{__ "Login"}}}</a></li>
+ 					{{#if modules.register}}
+				  		<li><a href="#register" data-toggle="tab"><i class="fa fa-pencil"></i> {{{__ "Register"}}}</a></li>
+ 					{{/if}}
+ 					{{#if modules.contact}}				  
+				  		<li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i> {{{__ "Contact"}}}</a></li>
+					{{/if}}
 				</ul>
-
 				<!-- Tab panes -->
 				<div class="tab-content">
 				  <div class="tab-pane fade active in" id="login">
-				  
-					<div class="alert alert-warning">Just <strong>Click "Submit"</strong> to visit the Dashboard</div>
-				  
 					<!-- Login form -->
-					
 					<form role="form" method="post" action="/login">
 					  <div class="form-group">
-						<label for="email">Email</label>
-						<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+						<label for="email">{{{__ "Email"}}}</label>
+						<input type="text" class="form-control" id="email" name="email" placeholder="{{{__ 'Email'}}}">
 					  </div>
 					  <div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+						<label for="password">{{{__ "Password"}}}</label>
+						<input type="password" class="form-control" id="password" name="password" placeholder="{{{__ 'Password'}}}">
 					  </div>
 					  <div class="checkbox">
 						<label>
-						  <input type="checkbox"> Remember Me Next Time
+						  <input type="checkbox"> {{{__ "Remember Me Next Time"}}}
 						</label>
 					  </div>
-					  <button type="submit" class="btn btn-danger btn-sm">Submit</button>
-					  <button type="reset" class="btn btn-black btn-sm">Reset</button>
+					  <button type="submit" class="btn btn-danger btn-sm">{{{__ 'Submit'}}}</button>
+					  <button type="reset" class="btn btn-black btn-sm">{{{__ 'Reset'}}}</button>
 					</form>
-					
 				  </div>
-				  
-				  
+				  {{#if modules.register}}
 				  <div class="tab-pane fade" id="register">
 					<!-- Register form -->
-					
 					<form role="form" method="post" action="/register">
 					  <div class="form-group">
-						<label for="name">Full Name</label>
-						<input type="text" class="form-control" id="name" name="fullname" placeholder="Full Name">
+						<label for="name">{{{__ "Full Name"}}}</label>
+						<input type="text" class="form-control" id="name" name="fullname" placeholder="{{{__ 'Full Name'}}}">
 					  </div>
 					  <div class="form-group">
-						<label for="email">Email</label>
-						<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+						<label for="email">{{{__ "Email"}}}</label>
+						<input type="text" class="form-control" id="email" name="email" placeholder="{{{__ 'Email'}}}">
 					  </div>
 					  <div class="form-group">
-						<label for="password">Password</label>
-						<input type="password" class="form-control" id="password1" name="password" placeholder="Password">
+						<label for="password">{{{__ "Password"}}}</label>
+						<input type="password" class="form-control" id="password1" name="password" placeholder="{{{__ 'Password'}}}">
 						<br>
 					  		<div class="col-sm-6">
-                        	    <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
-                        	    <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter
+                        	    <span id="password_8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ "8 Characters Long"}}}<br>
+                        	    <span id="password_ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ "One Uppercase Letter"}}}
                         	</div>
                             <div class="col-sm-6">
-                            	<span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
-                            	<span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number<br>
+                            	<span id="password_lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ "One Lowercase Letter"}}}<br>
+                            	<span id="password_num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ "One Number"}}}<br>
 					  			<br>
                             </div>
 					  </div>
 					  <div class="form-group">
-						<label for="password2">Confirm Password</label>
-						<input type="password" class="form-control" id="password2" placeholder="Confirm Password">
+						<label for="password2">{{{__ "Confirm Password"}}}</label>
+						<input type="password" class="form-control" id="password2" placeholder="{{{__ 'Confirm Password'}}}">
 						<br>
 						<div class="col-sm-12">
-                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match<br>
+                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "Passwords Match"}}}<br>
                         </div>
 					  </div>
 					  <div class="checkbox">
 						<br>
 						<label>
-						  <input type="checkbox" name="agreed"> Agree <a href="/terms">Terms & Conditions</a>
+						  <input type="checkbox" name="agreed">{{{__ "Agree"}}}<a href="/terms">{{{__ "Terms & Conditions"}}}</a>
 						</label>
 					  </div>
-					  <button type="submit" class="btn btn-danger btn-sm">Submit</button>
-					  <button type="reset" class="btn btn-black btn-sm">Reset</button>
+					  <button type="submit" class="btn btn-danger btn-sm">{{{__ "Submit"}}}</button>
+					  <button type="reset" class="btn btn-black btn-sm">{{{__ "Reset"}}}</button>
 					</form>
-				  
 				  </div>
+				  {{/if}}
+				  {{#if modules.contact.active}}
 				  <div class="tab-pane fade" id="contact">
-					
 					<!-- Contact Form -->
-					
-					<form role="form" action="/mail">
+					<form role="form" id="mailForm" data-mailto="{{modules.contact.contact_address}}">
 					  <div class="form-group">
-						<label for="name">Name</label>
-						<input type="text" class="form-control" id="name" placeholder="Name">
+						<label for="name">{{{__ "Name"}}}</label>
+						<input type="text" class="form-control" id="name" placeholder="{{{__ 'Name'}}}">
 					  </div>
 					  <div class="form-group">
-						<label for="email">Email</label>
-						<input type="text" class="form-control" id="email" placeholder="Email">
+						<label for="email">{{{__ "Email"}}}</label>
+						<input type="text" class="form-control" id="email" placeholder="{{{__ 'Email'}}}">
 					  </div>
 					  <div class="form-group">
-						<label for="message">Message</label>
+						<label for="message">{{{__ "Message"}}}</label>
 						<textarea rows="3" class="form-control"></textarea>
 					  </div>
 					  <div class="form-group">
 					  <label>
-						   You can always check the<a href="/faq"> FAQ page</a>
+						   {{{__ "You can always check the"}}}<a href="/faq">{{{__ "FAQ page"}}}</a>
 						</label>
 					  </div>	
-					  <button type="submit" class="btn btn-danger btn-sm">Submit</button>
-					  <button type="reset" class="btn btn-black btn-sm">Reset</button>
+					  <button type="submit" class="btn btn-danger btn-sm">{{{__ "Submit"}}}</button>
+					  <button type="reset" class="btn btn-black btn-sm">{{{__ "Reset"}}}</button>
 					</form>
-					
 				  </div>
+				  {{/if}}
 				</div>
-				
 			</div>
 		 </div>	

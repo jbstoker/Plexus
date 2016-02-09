@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-01-27
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-02-04
+* @Last Modified time: 2016-02-08
 */
 /* Profile page css */
 
@@ -52,6 +52,11 @@ li { list-style-type:none;}
     text-align: center;
 }
 
+.file-preview-frame{
+    margin:0 auto;
+    float:none;
+}
+
 /*Details*/
 ul.details{
 	padding:10px 0px 0px 0px;
@@ -69,6 +74,7 @@ ul.details li span {
     border-right: 3px solid #6BBFE0;
     width: 28%;
     float: left;
+    font-size: 12px;
     margin-right: 10px;
     line-height: 18px;
     border-radius: 4px;
@@ -121,7 +127,27 @@ ul.details li input {
     height: 30px;
     width: 15px;
 }
-
+/*toggle fix full width column*/
+.form-group{
+    margin-bottom: 15px!important;
+}
+.form-inline .form-group {
+    width:100%;
+}
+.form-inline .form-control {
+    width:100%;
+}
+.file-loading {
+    background:none;
+}
+.file-thumb-loading 
+{
+    background:none;
+}
+.file-uploading 
+{
+    background:none;
+}
 
 /* Carousel Control */
 @media screen and (max-width: 767px){

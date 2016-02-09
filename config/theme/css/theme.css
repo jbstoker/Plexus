@@ -81,6 +81,12 @@ footer{
     text-align: center;
     color: #ffffff;
 }
+
+footer a{
+    background-color: #384b5f;
+    text-align: center;
+    color: #ffffff;
+}
 /* End Footer*/
 
 /* Jumbotron */
@@ -490,6 +496,15 @@ position: relative;
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
     border-radius: 50%;
+}
+.cd-top-nav .has-children.selected{
+  background-color: #2a3d50;
+}
+.cd-top-nav .has-children.selected ul{
+  background-color: #2a3d50;
+}
+.cd-top-nav .has-children.selected ul li a:hover{
+  background-color: #384b5f;
 }
 /* -------------------------------- 
 Sidebar
@@ -1482,21 +1497,4 @@ Sidebar
     }
 }
 
-.cd-top-nav .has-children.selected{
-  background-color: #2a3d50;
-}
-.cd-top-nav .has-children.selected ul{
-  background-color: #2a3d50;
-}
-.cd-top-nav .has-children.selected ul li a:hover{
-  background-color: #384b5f;
-}
-.form-group{
-    margin-bottom: 15px!important;
-}
-.form-inline .form-group {
-    width:100%;
-}
-.form-inline .form-control {
-    width:100%;
-}
+

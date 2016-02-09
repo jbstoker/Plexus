@@ -3,8 +3,15 @@ module.exports = {
 		app: {
 			name: 'Plexus Development Madness'
 		},
+		modules:{
+			register: false,
+			contact: {
+						active:true,
+						contact_address:'jelmer@probomail.nl'
+					 }
+		},
 		i18n:{
-            locales:['en', 'nl'],
+            locales:['en','nl','frl'],
             directory:__dirname + "/locales/",
             defaultLocale:'en',
             cookie:'language',
@@ -32,12 +39,19 @@ module.exports = {
 		app: {
 			name: 'Plexus! Create, Read and Compose'
 		},
+		modules:{
+			register: true,
+			contact: {
+						active:true,
+						contact_address:'jelmer@probomail.nl'
+					 }
+		},
 		i18n:{
-            locales:['en', 'nl','frl'],
+            locales:['en','nl','frl'],
             directory:__dirname + "/locales/",
             defaultLocale:'en',
             cookie:'language',
-            updateFiles: true,
+            updateFiles: false,
             extension: '.js',
             },  		
 		secret:{

@@ -1,49 +1,49 @@
 <div class="cd-tabs">
     <nav>
         <ul class="cd-tabs-navigation">
-            <li><a data-content="global" class="selected" href="#0"><svg class="icon-user-setting-2"><use xlink:href="/fonts/icons.svg#icon-user-setting-2"></use></svg><span class="cd-tab-text">Global<span/></a></li>
-            <li><a data-content="password" href="#0"><svg class="icon-key-1"><use xlink:href="/fonts/icons.svg#icon-key-1"></use></svg><span class="cd-tab-text">Access<span/></a></li>
+            <li><a data-content="global" class="selected" href="#0"><svg class="icon-user-setting-2"><use xlink:href="/fonts/icons.svg#icon-user-setting-2"></use></svg><span class="cd-tab-text">{{{__ 'Global'}}}<span/></a></li>
+            <li><a data-content="password" href="#0"><svg class="icon-key-1"><use xlink:href="/fonts/icons.svg#icon-key-1"></use></svg><span class="cd-tab-text">{{{__ 'Access'}}}<span/></a></li>
         </ul> <!-- cd-tabs-navigation -->
     </nav>
 
     <ul class="cd-tabs-content">
         <li data-content="global" class="selected">
-            <div class="col-md-12"><legend>Set Language</legend></div>
+            <div class="col-md-12"><legend>{{{__ 'Set Language'}}}</legend></div>
             <div class="row">
             <div class="form-group">
                 <div class="col-sm-12 col-md-4 col-lg-4">
                     <select id="" class="input form-control">
-                        <option value="en">English</option>
-                        <option value="nl">Dutch</option>
-                        <option value="frl">Frisian</option>
+                        <option value="en">{{{__ 'English'}}}</option>
+                        <option value="nl">{{{__ 'Dutch'}}}</option>
+                        <option value="frl">{{{__ 'Frisian'}}}</option>
                     </select>
                 </div>
             </div>
             </div>
         </li>
         <li data-content="password">
-             <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="col-md-12">
-                    <legend>Change login name</legend>
+                    <legend>{{{__ 'Change login name'}}}</legend>
             </div>        
             <div class="form-group">
                 <div id="nameForm">
                     <div class="col-sm-12 col-md-12 col-lg-12">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="name_old" class="control-label col-md-2">Old Name</label>
+                            <label for="name_old" class="control-label col-md-2">{{{__ 'Old Name'}}}</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="name_old" id="name_old" placeholder="Old Name" autocomplete="off"><br>
+                                <input type="text" class="form-control" name="name_old" id="name_old" placeholder="{{{__ 'Old Name'}}}" autocomplete="off"><br>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="newname" class="control-label col-md-2">New Name</label>
+                            <label for="newname" class="control-label col-md-2">{{{__ 'New Name'}}}</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="newname" id="newname" placeholder="New Name" autocomplete="off"><br>
+                                <input type="text" class="form-control" name="newname" id="newname" placeholder="{{{__ 'New Name'}}}" autocomplete="off"><br>
                             </div>
                         </div>
                         <div  class="row">
-                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="Changing Login Name..." value="Change Login Name">
+                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Login Name...'}}}" value="{{{__ 'Change Login Name'}}}">
                         </div>
                     </form>
                     </div>
@@ -51,42 +51,72 @@
             </div>
             </div>
 
-            <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-7">
             <div class="col-md-12">
-                    <legend>Change password</legend>
+                    <legend>{{{__ 'Change password'}}}</legend>
             </div>        
             <div class="form-group">
                 <div id="passwordForm">
-                    <div class="col-sm-12 col-md-3 col-lg-3">
-                        <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
-                        <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter<br>
-                        <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
-                        <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number<br>
-                        <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match<br>
+                    <div class="col-sm-12 col-md-3 col-lg-4">
+                        <span id="password_8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ '8 Characters Long'}}}<br>
+                        <span id="password_ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ 'One Uppercase Letter'}}}<br>
+                        <span id="password_lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ 'One Lowercase Letter'}}}<br>
+                        <span id="password_num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ 'One Number'}}}<br>
+                        <span id="password_pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ 'Passwords Match'}}}<br>
                     <br>
                     </div>
-                    <div class="col-sm-12 col-md-9 col-lg-9">
+                    <div class="col-sm-12 col-md-9 col-lg-8">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="password_old" class="control-label col-md-2">Old Password</label>
+                            <label for="password_old" class="control-label col-md-2">{{{__ 'Old Password'}}}</label>
                             <div class="col-md-10">
-                                <input type="password" class="form-control" name="password_old" id="password_old" placeholder="Old Password" autocomplete="off"><br>
+                                <input type="password" class="form-control" name="password_old" id="password_old" placeholder="{{{__ 'Old Password'}}}" autocomplete="off"><br>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password1" class="control-label col-md-2">New Password</label>
+                            <label for="password1" class="control-label col-md-2">{{{__ 'New Password'}}}</label>
                                 <div class="col-md-10">
-                            <input type="password" class="form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off"><br>
+                            <input type="password" class="form-control" name="password1" id="password1" placeholder="{{{__ 'New Password'}}}" autocomplete="off"><br>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password2" class="control-label col-md-2">Repeat Password</label>
+                            <label for="password2" class="control-label col-md-2">{{{__ 'Repeat Password'}}}</label>
                             <div class="col-md-10">
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off"><br>
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="{{{__ 'Repeat Password'}}}" autocomplete="off"><br>
                             </div>
                         </div>
                         <div class="row">
-                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="Changing Password..." value="Change Password">
+                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Password...'}}}" value="{{{__ 'Change Password'}}}">
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-5">
+            <div class="col-md-12">
+                    <legend>{{{__ 'Change Pincode'}}}</legend>
+            </div>        
+            <div class="form-group">
+                <div id="pincodeForm">
+                <div class="col-sm-12 col-md-3 col-lg-4"><span id="pincode_match" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span>{{{__ 'Pincodes Match'}}}<br></div>
+                    <div class="col-sm-12 col-md-9 col-lg-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="old_pincode" class="control-label col-md-2">{{{__ 'Old Pincode'}}}</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" name="old_pincode" maxlength="4" size="6" pattern="[0-9]*" id="old_pincode" placeholder="{{{__ 'Old Pincode'}}}" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_pincode" class="control-label col-md-2">{{{__ 'New Pincode'}}}</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" name="new_pincode" maxlength="4" pattern="[0-9]*" id="new_pincode" placeholder="{{{__ 'New Pincode'}}}" autocomplete="off"><br>
+                            </div>
+                        </div>
+                        <div  class="row">
+                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Pincode...'}}}" value="{{{__ 'Change Pincode'}}}">
                         </div>
                     </form>
                     </div>
@@ -96,18 +126,4 @@
         </li>
     </ul> <!-- cd-tabs-content -->
 </div> <!-- cd-tabs -->
-
-    <div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title"></h4>
-            </div>         
-          <div class="modal-body">                
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
 

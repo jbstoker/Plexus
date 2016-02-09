@@ -15,7 +15,7 @@
 *       Proprietary and confidential
 */            
 //Node modules
-var fs = require('fs'),express = require('express'),path = require('path'),favicon = require('serve-favicon'),logger = require('morgan'),hbs = require('hbs'),cookieParser = require('cookie-parser'),bodyParser = require('body-parser'),mongo = require('mongoose'),passport = require('passport'),redis = require('redis'),i18n = require('i18n'), navigation = require('./config/env/navigation/navigation');                                                   
+var fs = require('fs'),express = require('express'),path = require('path'),favicon = require('serve-favicon'),logger = require('morgan'),hbs = require('hbs'),cookieParser = require('cookie-parser'),bodyParser = require('body-parser'),mongo = require('mongoose'),passport = require('passport'),redis = require('redis'),i18n = require('i18n');                                                   
 //Set Config
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
 //Include models
@@ -31,19 +31,24 @@ var client = redis.createClient();
 client.on("error", function (err){ console.log("Error " + err); });
 //Init express
 var app = express();
-//View engine Handlebars
+app.use(i18n.init);  
+//View engine hbs
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
-//Set Partials Handlebars
-hbs.registerPartials(__dirname + '/views/layouts/partials');
-hbs.registerHelper('__', function(){ return i18n.__.apply(this, arguments); });
-hbs.registerHelper('__n', function(){ return i18n.__n.apply(this, arguments); });
 //navigation urls + custom hbs helpers
+var navigation = require('./config/env/navigation/navigation')(i18n);
 app.locals.nav = navigation;
 require('./config/env/navigation/helpers')(hbs);
 //favicon Uri
-app.use(favicon(path.join(__dirname, 'public/images/', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public/images/favicons/', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'public')));
+//Set Partials hbs
+hbs.registerPartials(__dirname + '/views/layouts/partials');
+// set default locale for hbs fix
+app.locals.locale = i18n.getLocale();
+// register hbs helpers that still receive the current context as the `this`, but `i18n.__` will take `app.locals` as the `this`
+hbs.registerHelper('__', function(){ return i18n.__.apply(app.locals, arguments); });
+hbs.registerHelper('__n', function(){ return i18n.__n.apply(app.locals, arguments); });
 //Log init
 app.use(logger('dev'));
 //Body parser middleware
@@ -56,8 +61,11 @@ app.use(require('express-session')(config.secret));
 app.use(passport.initialize());
 app.use(passport.session());
 //Use language
-app.use(i18n.init);  
-app.use(function (req, res, next) { res.locals.loggedin = req.isAuthenticated(); next(); });
+app.use(function (req, res, next){ 
+                                    res.locals.loggedin = req.isAuthenticated(); 
+                                    res.locals.modules = config.modules; 
+                                    next(); 
+                                  });
 //Regiser routes       
 require('./routes/index')(app, passport);
 // catch 404 and forward to error handler

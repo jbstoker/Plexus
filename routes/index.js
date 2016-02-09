@@ -8,18 +8,9 @@ module.exports = function(app, passport)
 {
 
 /* To disable title in page set "showtitle" to none // extends display:*/
-
-/* GET clean demo page. */
-app.get('/clean', function(req, res, next) {
-  res.render('bodies/index', { title: 'Clean!',
-                        subtitle: 'Clean view with no menus',
-                        showtitle: '',
-                        layout: 'layouts/clean'
-                      });
-});
 /**
  *
- * ####################### END DEMO ROUTES ###################
+ * ####################### Basic ROUTES ###################
  *
  *
  */
@@ -68,6 +59,21 @@ app.get('/manage_users', function(req, res, next) {
     
     res.render('admin/index', { title: 'Users!',
                               subtitle: 'Management',
+                              showtitle: '',
+                              layout: 'layouts/sidebar',
+                              user: req.user
+                            });
+  }
+  else
+  {
+  res.redirect('/login');
+  }
+});
+app.get('/settings', function(req, res, next) {
+  if(req.isAuthenticated()){
+    
+    res.render('admin/settings', { title: 'Settings!',
+                              subtitle: '',
                               showtitle: '',
                               layout: 'layouts/sidebar',
                               user: req.user

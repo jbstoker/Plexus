@@ -4,7 +4,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 var Auth = require('../config/env/acl/middlewares/authorization.js');
 
-module.exports = function(app, passport)
+module.exports = function(app, passport,i18n)
 {
 
 /* To disable title in page set "showtitle" to none // extends display:*/
@@ -119,6 +119,10 @@ app.get('/user/settings',Auth.isAuthenticated, function(req, res, next) {
 });
 
 
+app.get('/setlocale/:locale', function (req, res) {
+   app.locals.locale =  req.params.locale;
+    res.redirect("back");
+});
 
 
 /**

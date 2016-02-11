@@ -8,15 +8,15 @@
 
     <ul class="cd-tabs-content">
         <li data-content="global" class="selected">
-            <div class="col-md-12"><legend>{{{__ 'Set Language'}}}</legend></div>
-            <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
             <div class="form-group">
-                <div class="col-sm-12 col-md-4 col-lg-4">
-                    <select id="" class="input form-control">
-                        <option value="en">{{{__ 'English'}}}</option>
-                        <option value="nl">{{{__ 'Dutch'}}}</option>
-                        <option value="frl">{{{__ 'Frisian'}}}</option>
-                    </select>
+                <div class="row">
+                    <legend>{{{__ 'Set Language'}}}</legend>
+                    <ul id="setlang" class="col-xs-12 col-sm-12 col-md- 12 col-lg-12">
+                          {{#each languages}}
+                          {{langList}}
+                          {{/each}}
+                    </ul>
                 </div>
             </div>
             </div>

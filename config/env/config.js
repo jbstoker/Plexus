@@ -1,7 +1,7 @@
 module.exports = {
 	development: {
 		app: {
-			name: 'Plexus Development Madness'
+			name: 'Plexus!'
 		},
 		modules:{
 			register: true,
@@ -14,7 +14,7 @@ module.exports = {
             locales:['en','nl','frl'],
             directory:__dirname + "/locales/",
             defaultLocale:'en',
-            cookie:'language',
+            cookie:'locale',
             updateFiles: true,
             extension: '.js',
             },
@@ -50,7 +50,7 @@ module.exports = {
             locales:['en','nl','frl'],
             directory:__dirname + "/locales/",
             defaultLocale:'en',
-            cookie:'language',
+            cookie:'locale',
             updateFiles: false,
             extension: '.js',
             },  		

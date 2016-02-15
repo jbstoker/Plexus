@@ -1,0 +1,49 @@
+/* 
+* @Author: JB Stoker
+* @Date:   2016-02-11
+* @Last Modified by:   JB Stoker
+* @Last Modified time: 2016-02-11
+*/
+/* Language selection and Flags */
+#setlang li{
+	display:block;
+	height: 125px;
+  width: 175px;
+	padding:10px;
+}
+
+#setlang li.active{
+	border: 3px dotted #384b5f;
+}
+
+
+#flag_en{
+    display: block;
+    line-height: 100px;
+    text-indent: -9999px;
+    width: 150px;
+    height: 100px;
+    background: url(/images/flags/en.svg);
+    background-size: cover;
+    background-position: -25px 100px;
+}
+
+#flag_nl{
+	display: block;
+	line-height:100px;
+  text-indent: -9999px;
+  width: 150px;
+  height: 100px;
+  background: url(/images/flags/nl.svg);
+  background-size:cover;
+}
+
+#flag_frl{
+	display: block;
+	line-height:100px;
+  text-indent: -9999px;
+  width: 150px;
+  height: 100px;
+  background: url(/images/flags/frl.svg);
+  background-size:cover;
+}

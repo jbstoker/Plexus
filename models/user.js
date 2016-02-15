@@ -14,27 +14,39 @@
 *				Unauthorized copying, or using code of this file, trough any medium is strictly prohibited
 *				Proprietary and confidential
 */			 			 
-'use strict';
 var mongo = require('mongoose');
 var hash = require('../config/env/acl/middlewares/hash');
 
-var UserSchema = mongo.Schema({	surname: String,
-    					    	middlename: String,
-    					    	lastname: String,
-    					    	email: String,
-    					    	phone: String,
-    					    	mobile: String,
-    					    	birtdate: Date,
-    					    	salt:       String,
-						    	hash:       String,
-    					    	apikey: String,
-    					    	apisecret: String,
-						    	facebook:{
+var UserSchema = mongo.Schema({	name: String, 			//Normal name
+    					    	email: String, 			//Contact email
+    					    	phone: String, 			//phonnumber
+    					    	address:{ 				//Address
+    					    		street:String,
+    					    		postalcode:String,
+    					    		city:String,
+    					    		country:String,
+    					    	},
+    					    	website: String,		//Website
+    					    	birthday: Date,			//Date of birth
+    					    	avatar: String,			//Avatar link
+    					    	info:{					//peronal info and quote
+    					    		personal_text:String,
+    					    		quote:String,
+    					    	},
+    					    	locale: 	String, 	//User prefered language
+    					    	role: 		String,		//User acces role
+    					    	login: 		String,		//Login Name
+    					    	salt:   	String,		//Salt Pass
+						    	hash:   	String,		//Hashed Pass
+						    	pin:        String,  	//Hashed Pincode
+    					    	apikey: 	String,		//Apikey if needed
+    					    	apisecret: 	String,		//ApiSecret
+						    	facebook:{				//Facebook login
 						    		id:       String,
 						    		email:    String,
 						    		name:     String
 						    	},
-						    	google:{
+						    	google:{				//Google login
 						    		id:       String,
 						    		email:    String,
 						    		name:     String
@@ -45,14 +57,14 @@ UserSchema.statics.signup = function(email, password, done){
 	var User = this;
 	hash(password, function(err, salt, hash){
 		if(err) throw err;
-		// if (err) return done(err);
 		User.create({
 			email : email,
+			login : email,
 			salt : salt,
 			hash : hash
-		}, function(err, user){
+		}, function(err, user)
+		{
 			if(err) throw err;
-			// if (err) return done(err);
 			done(null, user);
 		});
 	});
@@ -73,65 +85,14 @@ UserSchema.statics.isValidUserPassword = function(email, password, done) {
 	});
 };
 
-// Create a new user given a profile
-UserSchema.statics.findOrCreateOAuthUser = function(profile, done){
+UserSchema.statics.findUserAndUpdate = function(id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
+{
 	var User = this;
-
-	// Build dynamic key query
-	var query = {};
-	query[profile.authOrigin + '.id'] = profile.id;
-
-	// Search for a profile from the given auth origin
-	User.findOne(query, function(err, user){
+	User.findOneAndUpdate(id,{name: name, email: email, phone: phone, address:{ street:address, postalcode:postalcode, city:city, country:country }, website: website, birthday: birthday, info:{ personal_text:personal_info, quote:personal_quote }},function(err, user){
 		if(err) throw err;
-
-		// If a user is returned, load the given user
-		if(user){
-			done(null, user);
-		} else {
-			// Otherwise, store user, or update information for same e-mail
-			User.findOne({ 'email' : profile.emails[0].value }, function(err, user){
-				if(err) throw err;
-
-				if(user){
-					// Preexistent e-mail, update
-					user[''+profile.authOrigin] = {};
-					user[''+profile.authOrigin].id = profile.id;
-					user[''+profile.authOrigin].email = profile.emails[0].value;
-					user[''+profile.authOrigin].name = profile.displayName;
-
-					user.save(function(err, user){
-						if(err) throw err;
-						done(null, user);
-					});
-				} else {
-					// New e-mail, create
-					
-					// Fixed fields
-					user = {
-						email : profile.emails[0].value,
-						firstName : profile.displayName.split(" ")[0],
-						lastName : profile.displayName.replace(profile.displayName.split(" ")[0] + " ", "")
-					};
-
-					// Dynamic fields
-					user[''+profile.authOrigin] = {};
-					user[''+profile.authOrigin].id = profile.id;
-					user[''+profile.authOrigin].email = profile.emails[0].value;
-					user[''+profile.authOrigin].name = profile.displayName;
-
-					User.create(
-						user,
-						function(err, user){
-							if(err) throw err;
-							done(null, user);
-						}
-					);
-				}
-			});
-		}
+		done(null, user);	
 	});
-}
+};
 
 var User = mongo.model("User", UserSchema);
 module.exports = User;

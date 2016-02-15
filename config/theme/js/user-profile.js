@@ -16,9 +16,6 @@
 */			 			 
 		
 jQuery(document).ready(function($) {
-			
-//Recent work carousel on profile page
-$('#recentWork').carousel();
 //Edit Profile toggle
 $('#editProfile').change(function(){
 	
@@ -26,7 +23,6 @@ $('#editProfile').change(function(){
         if($(this).prop('checked'))
         {
           //Fetch existig data
-           var image =  $('#profile-image img').attr('src');
            var quote =  $('#profile-quote blockquote').html();
            var info =  $('#profile-info p').html();
            var name =  $('ul.details li#name').children(":not('span')").html();
@@ -40,35 +36,48 @@ $('#editProfile').change(function(){
            var website =  $('ul.details li#website').children(":not('span')").html();
            //Generate input fields for update profile
           $('#saveChanges').show();
-          $('#profile-quote').html('<textarea id="personal-quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
-          $('#profile-info').html('<h3>Personal info</h3><textarea id="personal-info" class="summernote form-control col-md-12" rows="5">'+ info +'</textarea>');
-          $('ul.details li#name').html('<span>Name</span><input type="text" value="'+ name +'" class="form-control" id="name" placeholder="Name">');
-          $('ul.details li#birthday').html('<span>Birthday</span><input type="date" value="'+ birthday +'" class="form-control" id="birthday" placeholder="Birthday">');
-          $('ul.details li#address').html('<span>Address</span><input type="text" value="'+ address +'" class="form-control" id="address" placeholder="Address">');
-          $('ul.details li#postalcode').html('<span>Postalcode</span><input type="text" value="'+ postalcode +'" class="form-control" id="postalcode" placeholder="Postalcode">');
-          $('ul.details li#city').html('<span>City</span><input type="text" value="'+ city +'" class="form-control" id="city" placeholder="City">');
-          $('ul.details li#country').html('<span>Country</span><input type="text" value="'+ country +'" class="form-control" id="country" placeholder="Country">');
-          $('ul.details li#email').html('<span>Email</span><input type="email" value="'+ email +'" class="form-control" id="Email" placeholder="Email">');
-          $('ul.details li#phone').html('<span>Phone</span><input type="tel" value="'+ phone +'" class="form-control" id="phone" placeholder="Phone">');
-          $('ul.details li#website').html('<span>Website</span><input type="url" value="'+ website +'" class="form-control" id="website" placeholder="Website">');
+          $('#profile-quote').html('<textarea data-old="'+quote+'" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
+          $('#profile-info').html('<h3>Personal info</h3><textarea data-old="'+info+'" id="personal_info" name="personal_info" class="summernote form-control col-md-12" rows="5">'+ info +'</textarea>');
+          $('ul.details li#name').html('<span>Name</span><input type="text" value="'+ name +'" class="form-control" data-old="'+name+'" id="name" name="name" placeholder="Name">');
+          $('ul.details li#birthday').html('<span>Birthday</span><input type="date" value="'+ birthday +'" class="form-control" data-old="'+birthday+'" id="birthday" name="birthday" placeholder="Birthday">');
+          $('ul.details li#address').html('<span>Address</span><input type="text" value="'+ address +'" class="form-control" data-old="'+address+'" id="address" name="address" placeholder="Address">');
+          $('ul.details li#postalcode').html('<span>Postalcode</span><input type="text" value="'+ postalcode +'" class="form-control" data-old="'+postalcode+'" id="postalcode" name="postalcode" placeholder="Postalcode">');
+          $('ul.details li#city').html('<span>City</span><input type="text" value="'+ city +'" class="form-control" data-old="'+city+'" id="city" name="city" placeholder="City">');
+          $('ul.details li#country').html('<span>Country</span><input type="text" value="'+ country +'" class="form-control" data-old="'+country+'" id="country" name="country" placeholder="Country">');
+          $('ul.details li#email').html('<span>Email</span><input type="email" value="'+ email +'" class="form-control" data-old="'+email+'" id="email" name="email" placeholder="Email">');
+          $('ul.details li#phone').html('<span>Phone</span><input type="tel" value="'+ phone +'" class="form-control" data-old="'+phone+'" id="phone" name="phone" placeholder="Phone">');
+          $('ul.details li#website').html('<span>Website</span><input type="url" value="'+ website +'" class="form-control" data-old="'+website+'" id="website" name="website" placeholder="Website">');
         
           //Set summernote variables
           $('.summernote').summernote({toolbar: [['style', ['bold', 'italic', 'underline', 'clear']],['font', ['strikethrough', 'superscript', 'subscript']],['fontsize', ['fontsize']],['insert', ['hr','table']],['color', ['color']],['para', ['ul', 'ol', 'paragraph']],['height', ['height']],['misc', ['fullscreen']]],height:300});
         }
         else
         {
+          //Fetch old data if not saved; Reset
+           var quote =  $('#personal_quote').attr('data-old');
+           var info =  $('#personal_info').attr('data-old');
+           var name =  $('input#name').attr('data-old');
+           var birthday =  $('input#birthday').attr('data-old');
+           var address =  $('input#address').attr('data-old');
+           var postalcode =  $('input#postalcode').attr('data-old');
+           var city =  $('input#city').attr('data-old');
+           var country =  $('input#country').attr('data-old');
+           var email =  $('input#email').attr('data-old');
+           var phone =  $('input#phone').attr('data-old');
+           var website =  $('input#website').attr('data-old');
+
           $('#saveChanges').hide();
-          $('#profile-quote').html('<blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</blockquote>');
-          $('#profile-info').html('<h3>Personal info</h3><p>Hey there! I am Ipsum Lorem from Lorem island. Vivamus eu metus condimentum lectus ultrices aliquam eget in dui. Ut ultrices ante malesuada est consequat bibendum. Quisque sed metus lacinia mauris sollicitudin euismod nec ac sem. Aenean ac libero et purus sodales ornare fermentum porta lectus. Nam vel rhoncus lectus, ac mattis nunc. In posuere ante ut tempor tincidunt. Integer mattis vel lectus cursus aliquam. Morbi pretium sem massa, ac imperdiet massa elementum ac. Curabitur aliquet aliquam iaculis. Aliquam fermentum, diam id aliquam maximus, metus augue sodales justo, rutrum tincidunt ligula nunc nec ex. Vivamus cursus sodales magna, quis sodales nulla rhoncus ac. Curabitur euismod, dolor a malesuada viverra, dui lectus consectetur quam, sit amet tempus mi ex eu lectus. Donec sapien quam, gravida eu massa vel, maximus ornare nisi. Maecenas in ligula scelerisque, viverra mauris vel, gravida nisl. Nunc rhoncus efficitur tellus a posuere</p>');
-          $('ul.details li#name').html('<span>Name</span><a>Ash Dreamer</a>');
-          $('ul.details li#birthday').html('<span>Birthday</span><a>1983-10-10</a>');
-          $('ul.details li#address').html('<span>Address</span><a>Creative Avenue,</a><a>Mauritius</a>');
-          $('ul.details li#postalcode').html('<span>Postalcode</span><a>9005 MH</a>');
-          $('ul.details li#city').html('<span>City</span><a>Wergea</a>');
-          $('ul.details li#country').html('<span>Country</span><a>Netherlands</a>');
-          $('ul.details li#email').html('<span>Email</span><a href="mailto:contact@simplesphere.com" oldtitle="Get in touch">contact@contact.com</a>');
-          $('ul.details li#phone').html('<span>Phone</span><a>+00 230 790-1171');
-          $('ul.details li#website').html('<span>Website</span><a href="http://www.simplesphere.net" oldtitle="Simplesphere">www.simplesphere.net</a>');
+          $('#profile-quote').html('<blockquote>'+quote+'</blockquote>');
+          $('#profile-info').html('<h3>Personal info</h3><p>'+info+'</p>');
+          $('ul.details li#name').html('<span>Name</span><a>'+name+'</a>');
+          $('ul.details li#birthday').html('<span>Birthday</span><a>'+birthday+'</a>');
+          $('ul.details li#address').html('<span>Address</span><a>'+address+'</a>');
+          $('ul.details li#postalcode').html('<span>Postalcode</span><a>'+postalcode+'</a>');
+          $('ul.details li#city').html('<span>City</span><a>'+city+'</a>');
+          $('ul.details li#country').html('<span>Country</span><a>'+country+'</a>');
+          $('ul.details li#email').html('<span>Email</span><a href="mailto:'+email+'">'+email+'</a>');
+          $('ul.details li#phone').html('<span>Phone</span><a>'+phone+'</a>');
+          $('ul.details li#website').html('<span>Website</span><a href="'+website+'">'+website+'</a>');
         }  
     });
 

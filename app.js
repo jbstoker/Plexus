@@ -15,7 +15,19 @@
 *       Proprietary and confidential
 */            
 //Node modules
-var fs = require('fs'),express = require('express'),path = require('path'),favicon = require('serve-favicon'),logger = require('morgan'),hbs = require('hbs'),cookieParser = require('cookie-parser'),bodyParser = require('body-parser'),mongo = require('mongoose'),passport = require('passport'),redis = require('redis'),i18n = require('i18n');                                                   
+var fs = require('fs'),
+express = require('express'),
+path = require('path'),
+favicon = require('serve-favicon'),
+logger = require('morgan'),
+hbs = require('hbs'),
+cookieParser = require('cookie-parser'),
+flash = require('connect-flash'),
+bodyParser = require('body-parser'),
+mongo = require('mongoose'),
+passport = require('passport'),
+redis = require('redis'),
+i18n = require('i18n');                                                   
 //Set Config
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
 //Include models
@@ -60,9 +72,12 @@ app.use(require('express-session')(config.secret));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(i18n.init);  
+app.use(flash());
 //Use language
 app.use(function (req, res, next){ 
-                                    res.locals.loggedin = req.isAuthenticated(); 
+                                    res.locals.loggedin = req.isAuthenticated();
+                                    res.locals.success = req.flash('success');
+                                    res.locals.errors = req.flash('error'); 
                                     res.locals.modules = config.modules; 
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);

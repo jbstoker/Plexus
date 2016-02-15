@@ -1,211 +1,41 @@
 <div class="container">
+    <form method="post" action="/update-user/{{user.id}}">
         <div class="row">
-            <button class="btn btn-sm btn-warning" id="saveChanges">{{{__ "Save Changes"}}}</button> <input type="checkbox" class="input-sm" data-height="30px" data-toggle="toggle" data-on="<svg style='height:20px' class='icon-edit-3'><use xlink:href='/fonts/icons.svg#icon-edit-3'></use></svg>" data-off="<svg style='height:20px' class='icon-preview-1'><use xlink:href='/fonts/icons.svg#icon-preview-1'></use></svg>" data-offstyle="primary" data-size="mini" data-style="pull-right icon-toggle" data-onstyle="warning" id="editProfile"/>
+            <button class="btn btn-sm btn-warning" id="saveChanges">{{{__ "Save Changes"}}}</button><input type="checkbox" class="input-sm" data-height="30px" data-toggle="toggle" data-on="<svg style='height:20px' class='icon-edit-3'><use xlink:href='/fonts/icons.svg#icon-edit-3'></use></svg>" data-off="<svg style='height:20px' class='icon-preview-1'><use xlink:href='/fonts/icons.svg#icon-preview-1'></use></svg>" data-offstyle="primary" data-size="mini" data-style="pull-right icon-toggle" data-onstyle="warning" id="editProfile"/>
         </div>
     <div class="row">     
       <div class="col-md-4">
       <div class="row" id="profile-image">
       <div id="kv-avatar-errors" class="center-block" style="width:100%;display:none"></div>
-        <form class="text-center" action="/avatar_change.js" method="post" enctype="multipart/form-data">
+        <form class="text-center" action="/avatar_update/{{user.id}}" method="post" enctype="multipart/form-data">
             <div class="kv-avatar center-block col-md-12">
-                <input id="avatar" name="avatar" type="file" class="file-loading">
+                <input id="avatar" type="file" class="file-loading">
             </div>
         </form>
       </div>
       <div class="row" id="profile-quote">
-        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</blockquote>
+        <blockquote>{{user.info.quote}}</blockquote>
       </div>
-      
       </div>
       <div class="col-md-8">
         <div class="row"  id="profile-info">
           <h3>{{{__ 'Personal info'}}}</h3>
-          <p>Hey there! I am Ipsum Lorem from Lorem island. Vivamus eu metus condimentum lectus ultrices aliquam eget in dui. Ut ultrices ante malesuada est consequat bibendum. Quisque sed metus lacinia mauris sollicitudin euismod nec ac sem. Aenean ac libero et purus sodales ornare fermentum porta lectus. Nam vel rhoncus lectus, ac mattis nunc. In posuere ante ut tempor tincidunt. Integer mattis vel lectus cursus aliquam. Morbi pretium sem massa, ac imperdiet massa elementum ac. Curabitur aliquet aliquam iaculis. Aliquam fermentum, diam id aliquam maximus, metus augue sodales justo, rutrum tincidunt ligula nunc nec ex. Vivamus cursus sodales magna, quis sodales nulla rhoncus ac. Curabitur euismod, dolor a malesuada viverra, dui lectus consectetur quam, sit amet tempus mi ex eu lectus. Donec sapien quam, gravida eu massa vel, maximus ornare nisi. Maecenas in ligula scelerisque, viverra mauris vel, gravida nisl. Nunc rhoncus efficitur tellus a posuere</p>
+          <p>{{user.info.personal_text}}</p>
         </div>
         <div class="row">
           <ul class="details">
-            <li id="name"><span>{{{__ 'Name'}}}</span><a>Ipsum Lorem</a></li>
-            <li id="birthday"><span>{{{__ 'Birthday'}}}</span><a>1983-10-10</a></li>
-            <li id="address"><span>{{{__ 'Address'}}}</span><a>Creative Avenue<a><a>11</a></li>
-            <li id="postalcode"><span>{{{__ 'Postalcode'}}}</span><a>9005 MH</a></li>
-            <li id="city"><span>{{{__ 'City'}}}</span><a>Wergea</a></li>
-            <li id="country"><span>{{{__ 'Country'}}}</span><a>Netherlands</a></li>
-            <li id="email"><span>{{{__ 'Email'}}}</span><a href="mailto:{{user.email}}" oldtitle="Get in touch">{{user.email}}</a></li>
-            <li id="phone"><span>{{{__ 'Phone'}}}</span><a>+00 230 790-1171</a></li>
-            <li id="website"><span>{{{__ 'Website'}}}</span> <a href="http://www.plexus.frl" oldtitle="plexus">www.plexus.frl</a></li>
+            <li id="name"><span>{{{__ 'Name'}}}</span><a>{{user.name}}</a></li>
+            <li id="birthday"><span>{{{__ 'Birthday'}}}</span><a>{{user.birthday}}</a></li>
+            <li id="address"><span>{{{__ 'Address'}}}</span><a>{{user.address.street}}<a><a>11</a></li>
+            <li id="postalcode"><span>{{{__ 'Postalcode'}}}</span><a>{{user.address.postalcode}}</a></li>
+            <li id="city"><span>{{{__ 'City'}}}</span><a>{{user.address.city}}</a></li>
+            <li id="country"><span>{{{__ 'Country'}}}</span><a>{{user.address.country}}</a></li>
+            <li id="email"><span>{{{__ 'Email'}}}</span><a href="mailto:{{user.email}}">{{user.email}}</a></li>
+            <li id="phone"><span>{{{__ 'Phone'}}}</span><a>{{user.phone}}</a></li>
+            <li id="website"><span>{{{__ 'Website'}}}</span> <a href="{{user.website}}">{{user.website}}</a></li>
         </ul>
         </div>
       </div>
+      </form>
       </div>
-        <div class="row" id="recentwork-carousel">
-          <h3>{{{__ 'Recent work'}}}</h3>  
-              <div class="carousel slide" id="recentWork" style="max-height:350px">
-                <div class="carousel-inner">
-                  <div class="item active">
-                    <ul class="thumbnails">
-                <li class="col-sm-3">
-                  <div class="fff">
-                    <div class="thumbnail">
-                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                    </div>
-                    <div class="caption">
-                      <h4>Praesent commodo</h4>
-                      <p>Nullam Condimentum Nibh Etiam Sem</p>
-                      <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-sm-3">
-                  <div class="fff">
-                    <div class="thumbnail">
-                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                    </div>
-                    <div class="caption">
-                      <h4>Praesent commodo</h4>
-                      <p>Nullam Condimentum Nibh Etiam Sem</p>
-                      <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-sm-3">
-                  <div class="fff">
-                    <div class="thumbnail">
-                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                    </div>
-                    <div class="caption">
-                      <h4>Praesent commodo</h4>
-                      <p>Nullam Condimentum Nibh Etiam Sem</p>
-                      <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                    </div>
-                  </div>
-                </li>
-                <li class="col-sm-3">
-                  <div class="fff">
-                    <div class="thumbnail">
-                      <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                    </div>
-                    <div class="caption">
-                      <h4>Praesent commodo</h4>
-                      <p>Nullam Condimentum Nibh Etiam Sem</p>
-                      <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                    </div>
-                  </div>
-                </li>
-                    </ul>
-                  </div><!-- /Slide1 -->
-                  <div class="item">
-                    <ul class="thumbnails">
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div><!-- /Slide2 --> 
-                  <div class="item">
-                    <ul class="thumbnails">
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="col-sm-3">
-                        <div class="fff">
-                          <div class="thumbnail">
-                            <a href="#"><img src="http://placehold.it/360x240" alt=""></a>
-                          </div>
-                          <div class="caption">
-                            <h4>Praesent commodo</h4>
-                            <p>Nullam Condimentum Nibh Etiam Sem</p>
-                            <a class="btn btn-mini" href="#">{{{__ 'Read More'}}}</a>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div><!-- /Slide3 --> 
-                </div>
-                <nav>
-                  <ul class="control-box pager">
-                    <li><a data-slide="prev" href="#recentWork" class=""><i class="glyphicon glyphicon-chevron-left"></i></a></li>
-                    <li><a data-slide="next" href="#recentWork" class=""><i class="glyphicon glyphicon-chevron-right"></i></li>
-                  </ul>
-                </nav>
-                <!-- /.control-box -->                          
-              </div><!-- /#recentWork -->
-         <!-- /Carousel column -->
-        </div>
     <!-- End Profile -->

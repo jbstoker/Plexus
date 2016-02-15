@@ -45,14 +45,11 @@ app.get('/faq', function(req, res, next) {
  *
  *
  *
- * ####################### ACL ROUTES ###################
+ * ####################### ADMIN ROUTES ###################
  *
  *
  *
  *
- */
-/**
- *  Management Routes
  */
 app.get('/manage_users', function(req, res, next) {
   if(req.isAuthenticated()){
@@ -69,7 +66,13 @@ app.get('/manage_users', function(req, res, next) {
   res.redirect('/login');
   }
 });
-app.get('/settings', function(req, res, next) {
+//Create user
+app.post('/create-user/:id',function(req,res){ 
+  
+    res.redirect('back');
+ });
+//Main Settings Page
+app.get('/settings', function(req, res, next){
   if(req.isAuthenticated()){
     
     res.render('admin/settings', { title: 'Settings!',
@@ -85,7 +88,16 @@ app.get('/settings', function(req, res, next) {
   }
 });
 
-/* User Routes */
+/**
+ *
+ *
+ *
+ * ####################### USER ROUTES ###################
+ *
+ *
+ *
+ *
+ */
 app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
     if(req.isAuthenticated()){
     
@@ -101,8 +113,14 @@ app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
   res.redirect('/login');
   }
 });
+//Update user profile
+app.post('/update-user/:id',function(req,res) { 
+  User.findUserAndUpdate(req.params.id,req.body.name,req.body.personal_quote,req.body.personal_info,req.body.birthday,req.body.address,req.body.postalcode,req.body.city,req.body.country,req.body.email,req.body.phone,req.body.website, function(err, user){ if(err) throw err; console.log(user);  });
 
-app.get('/user/settings',Auth.isAuthenticated, function(req, res, next) {
+    res.redirect('back');
+ });
+//User settings
+app.get('/user/settings',Auth.isAuthenticated, function(req, res, next){
     if(req.isAuthenticated()){
     
     res.render('user/settings', { title: 'Settings!',
@@ -117,17 +135,21 @@ app.get('/user/settings',Auth.isAuthenticated, function(req, res, next) {
   res.redirect('/login');
   }
 });
-
-
+//Change language
 app.get('/setlocale/:locale', function (req, res) {
    app.locals.locale =  req.params.locale;
     res.redirect("back");
 });
-
-
 /**
- * ACL Routes Register
+ *
+ *
+ *
+ * ACL Routes Register,Login,Lock,Logout
+ * 
+ * 
+ * 
  */
+//Register views 
 app.get('/register', function(req, res) {
     res.render('acl/login', { title: '',
                               subtitle: '',
@@ -135,12 +157,9 @@ app.get('/register', function(req, res) {
                               layout: 'layouts/default' 
                              });
 });
-
 app.post('/register', Auth.userExist, function(req, res, next) 
 {
-  User.signup(req.body.email, req.body.password, function(err, user){
-                                                                      if(err) throw err;
-                                                                      
+  User.signup(req.body.email, req.body.password, function(err, user){if(err) throw err;
                                                                       req.login(user, function(err)
                                                                       {
                                                                         if(err) return next(err);
@@ -148,9 +167,7 @@ app.post('/register', Auth.userExist, function(req, res, next)
                                                                       });
                                                                     });
 });
-/**
- * ACL Routes Login
- */
+//Login
 app.get('/login', function(req, res) {
     res.render('acl/login', { user : req.user,
                               title: '',
@@ -159,45 +176,20 @@ app.get('/login', function(req, res) {
                               layout: 'layouts/default' 
                             });
 });
-
 app.post("/login" ,passport.authenticate('local',{
                                                     successRedirect : "/user/profile",
+                                                    failureFlash: true,
+                                                    successFlash: 'Welcome!',
                                                     failureRedirect : "/login",
+                                                    failureFlash: 'Invalid username or password.'
                                                   })
 );
-// /**
-//  * Social Authentiction
-//  */
-// app.get("/auth/facebook", passport.authenticate("facebook",{ scope : "email"}));
-
-// app.get("/auth/facebook/callback", passport.authenticate("facebook",{ failureRedirect: '/login'}),
-//   function(req,res){
-//     res.render("profile", {user : req.user});
-//   }
-// );
-
-// app.get('/auth/google', passport.authenticate('google',{
-//                                                           scope: [
-//                                                           'https://www.googleapis.com/auth/userinfo.profile',
-//                                                           'https://www.googleapis.com/auth/userinfo.email'
-//                                                           ]
-//                                                         })
-//                                                       );
-
-// app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-//                                                                                                                       // Successful authentication, redirect home.
-//                                                                                                                       res.redirect('/');
-//                                                                                                                     });
-/**
- * ACL Routes Logout
- */
-  app.get('/logout', function(req, res){
+//Logout
+app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/login');
-  });
-/**
- * ACL Routes Lock User
- */
+});
+//Lock
 app.get('/acl/lock', function(req, res, next) {
   res.render('acl/lock', { title: '',
                         subtitle: '',

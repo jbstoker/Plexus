@@ -96,5 +96,10 @@
 	"Welcome": "Welkom",
 	"Write your email below, the mail wich is send will be optimized for spam filters": "Schrijf hieronder uw bericht, de mail die verzonden word is automatisch aangepast voor spam-filters",
 	"Write": "Schrijven",
-	"You can always check the": "Kijk anders eens in de "
+	"You can always check the": "Kijk anders eens in de ",
+	"Register": "Register",
+	"Full Name": "Full Name",
+	"Confirm Password": "Confirm Password",
+	"Agree": "Agree",
+	"Terms & Conditions": "Terms & Conditions"
 }

@@ -1,10 +1,6 @@
-
-// check out https://github.com/visionmedia/node-pwd
-
 /**
  * Module dependencies.
  */
-
 var crypto = require('crypto');
 
 /**

@@ -1,6 +1,6 @@
 #Website Plexus
 bin/www
-bower_components/*
+bower_components/
 data/*.0
 data/*.ns
 data/*.lock

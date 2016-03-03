@@ -1,5 +1,6 @@
 var express = require('express');
 var passport = require('passport');
+var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 var Auth = require('../config/env/acl/middlewares/authorization.js');
@@ -100,9 +101,11 @@ app.get('/settings', function(req, res, next){
  */
 app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
     if(req.isAuthenticated()){
-    
+
+
     res.render('user/profile', { title: 'Profile!',
                                user: req.user,
+                               birthday: moment(req.user.birthday).format('YYYY-MM-DD'),
                                subtitle: 'Welkom Jelmer Stoker',
                                showtitle: 'none',
                                layout: 'layouts/sidebar'
@@ -115,7 +118,7 @@ app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
 });
 //Update user profile
 app.post('/update-user/:id',function(req,res) { 
-  User.findUserAndUpdate(req.params.id,req.body.name,req.body.personal_quote,req.body.personal_info,req.body.birthday,req.body.address,req.body.postalcode,req.body.city,req.body.country,req.body.email,req.body.phone,req.body.website, function(err, user){ if(err) throw err; console.log(user);  });
+  User.findUserAndUpdate(req,req.params.id,req.body.name,req.body.personal_quote,req.body.personal_info,req.body.birthday,req.body.address,req.body.postalcode,req.body.city,req.body.country,req.body.email,req.body.phone,req.body.website, function(err, user){ if(err) throw err; console.log(user);  });
 
     res.redirect('back');
  });
@@ -159,7 +162,8 @@ app.get('/register', function(req, res) {
 });
 app.post('/register', Auth.userExist, function(req, res, next) 
 {
-  User.signup(req.body.email, req.body.password, function(err, user){if(err) throw err;
+  User.signup(req,req.body.fullname,req.body.email, req.body.password, function(err, user){
+    if(err) throw err;
                                                                       req.login(user, function(err)
                                                                       {
                                                                         if(err) return next(err);
@@ -178,10 +182,8 @@ app.get('/login', function(req, res) {
 });
 app.post("/login" ,passport.authenticate('local',{
                                                     successRedirect : "/user/profile",
-                                                    failureFlash: true,
-                                                    successFlash: 'Welcome!',
                                                     failureRedirect : "/login",
-                                                    failureFlash: 'Invalid username or password.'
+                                                    failureFlash: true
                                                   })
 );
 //Logout

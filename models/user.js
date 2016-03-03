@@ -15,6 +15,7 @@
 *				Proprietary and confidential
 */			 			 
 var mongo = require('mongoose');
+var moment = require('moment');
 var hash = require('../config/env/acl/middlewares/hash');
 
 var UserSchema = mongo.Schema({	name: String, 			//Normal name
@@ -53,44 +54,53 @@ var UserSchema = mongo.Schema({	name: String, 			//Normal name
 						    	}
 						  	});
 
-UserSchema.statics.signup = function(email, password, done){
-	var User = this;
-	hash(password, function(err, salt, hash){
-		if(err) throw err;
-		User.create({
-			email : email,
-			login : email,
-			salt : salt,
-			hash : hash
-		}, function(err, user)
-		{
+UserSchema.statics.signup = function(req,fullname,email, password, done)
+{
+
+		var User = this;
+		hash(password, function(err, salt, hash){
+
 			if(err) throw err;
-			done(null, user);
+			
+			User.create({
+				name : fullname,
+				email : email,
+				login : email,
+				salt : salt,
+				hash : hash
+			}, function(err, user)
+			{
+				if(err) throw err;
+				done(null, user);
+			});
 		});
-	});
+	
+	
 }
 
-UserSchema.statics.isValidUserPassword = function(email, password, done) {
+UserSchema.statics.isValidUserPassword = function(req, email, password, done) {
 	this.findOne({email : email}, function(err, user){
 		// if(err) throw err;
 		if(err) return done(err);
-		if(!user) return done(null, false, { message : 'Incorrect email.' });
-		hash(password, user.salt, function(err, hash){
+
+		if(!user) return done(null, false, req.flash('error','Incorrect Login.'));
+		
+		hash(password, user.salt, function(err, hash)
+		{
 			if(err) return done(err);
 			if(hash == user.hash) return done(null, user);
-			done(null, false, {
-				message : 'Incorrect password'
-			});
+			
+			done(null, false, req.flash('error','Incorrect password'));
 		});
 	});
 };
 
-UserSchema.statics.findUserAndUpdate = function(id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
+UserSchema.statics.findUserAndUpdate = function(req,id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
 {
 	var User = this;
 	User.findOneAndUpdate(id,{name: name, email: email, phone: phone, address:{ street:address, postalcode:postalcode, city:city, country:country }, website: website, birthday: birthday, info:{ personal_text:personal_info, quote:personal_quote }},function(err, user){
 		if(err) throw err;
-		done(null, user);	
+		done(null, user, req.flash('success','Your profile has been updated!'));	
 	});
 };
 

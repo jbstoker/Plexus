@@ -27,7 +27,7 @@ bodyParser = require('body-parser'),
 mongo = require('mongoose'),
 passport = require('passport'),
 redis = require('redis'),
-i18n = require('i18n');                                                   
+i18n = require('i18n');                                                
 //Set Config
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
 //Include models
@@ -78,6 +78,8 @@ app.use(function (req, res, next){
                                     res.locals.loggedin = req.isAuthenticated();
                                     res.locals.success = req.flash('success');
                                     res.locals.errors = req.flash('error'); 
+                                    res.locals.warning = req.flash('warning'); 
+                                    res.locals.info = req.flash('info'); 
                                     res.locals.modules = config.modules; 
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);

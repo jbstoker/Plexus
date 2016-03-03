@@ -17,9 +17,10 @@ module.exports = function (passport, config) {
 
   	passport.use(new LocalStrategy({
 		usernameField: 'email',
-		passwordField: 'password'
+		passwordField: 'password',
+		passReqToCallback : true
     },
-    function(email, password, done) {
-    	User.isValidUserPassword(email, password, done);
+    function(req, email, password, done) {
+    	User.isValidUserPassword(req, email, password, done);
     }));
 }

@@ -2,12 +2,29 @@ var express = require('express');
 var passport = require('passport');
 var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('../models/user');
 var Auth = require('../config/env/acl/middlewares/authorization.js');
-
+var datatablesQuery = require('datatables-query');
+//Models
+var User = require('../models/user');
+var Role = require('../models/role');
 module.exports = function(app, passport,i18n)
 {
+//Storage of files and avatar
+var multer = require('multer');
+var storageDisk = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/uploads/avatar/');
+  },
+  filename: function (req, file, cb) {
+    var url = file.originalname;
+    var ext = (url = url.substr(1 + url.lastIndexOf("/")).split('?')[0]).substr(url.lastIndexOf("."));
+    cb(null, req.user.id+ext);
+  }
+})
 
+var storageMemory = multer.memoryStorage();
+
+var uploadAvatar = multer({ storage: storageMemory});
 /* To disable title in page set "showtitle" to none // extends display:*/
 /**
  *
@@ -55,12 +72,23 @@ app.get('/faq', function(req, res, next) {
 app.get('/manage_users', function(req, res, next) {
   if(req.isAuthenticated()){
     
-    res.render('admin/index', { title: 'Users!',
-                              subtitle: 'Management',
-                              showtitle: '',
-                              layout: 'layouts/sidebar',
-                              user: req.user
-                            });
+    Role.find({}, 'name id', function(err, roles){
+        if(err)
+        {
+          console.log(err);
+        } 
+        else
+        {
+        res.render('admin/index', { title: 'Users!',
+                                    subtitle: 'Management',
+                                    showtitle: '',
+                                    layout: 'layouts/sidebar',
+                                    user: req.user,
+                                    roles:roles
+                                });
+        }
+    });
+
   }
   else
   {
@@ -68,10 +96,60 @@ app.get('/manage_users', function(req, res, next) {
   }
 });
 //Create user
-app.post('/create-user/:id',function(req,res){ 
+app.post('/create-user',function(req,res){ 
   
     res.redirect('back');
  });
+//Get user for update
+app.post('/get-user/:id',function(req,res){ 
+  User.findOne({ _id : req.params.id },'name email role acl.status', function(error, user) {
+    if (error || !user) 
+    {
+      res.status(500).json(err);
+    } 
+    else 
+    { 
+      res.json(user);
+    }
+ });
+});
+
+ //Update user
+app.post('/update-user',function(req,res){ 
+  console.log(['request'],[req.body]);
+  //User.findACLUserAndUpdate(req,req.params.id,req.body.username,req.body.email, function(err, user){ if(err) throw err;  });
+    res.redirect('back');
+ });
+//Create Role
+app.post('/create-role',function(req,res){ 
+   Role.newRole(req,req.body.role_name,req.body.role_read,req.body.role_write,req.body.role_edit,req.body.role_del,req.body.role_publish, function(err, role){ if(err) throw err;  });
+   res.redirect('back');
+ });
+//Update Role
+app.post('/update-role/:id',function(req,res){ 
+   Role.findRoleAndUpdate(req,req.param.id,req.body.role_name,req.body.role_read,req.body.role_write,req.body.role_edit,req.body.role_del,req.body.role_publish, function(err, role){ if(err) throw err;  });
+   res.redirect('back');
+ });
+//Datatable getAllRoles
+app.post('/get_roles', function(req, res, next) {
+  var params = req.body;
+  var query = datatablesQuery(Role);
+  query.run(params).then(function(data){
+                                            res.json(data);
+                                        }, function (err) {
+                                            res.status(500).json(err);
+                                        });
+});
+//Datatable getAllUsers
+app.post('/get_users', function(req, res, next) {
+  var params = req.body;
+  var query = datatablesQuery(User);
+  query.run(params).then(function(data){
+                                            res.json(data);
+                                        }, function (err) {
+                                            res.status(500).json(err);
+                                        });
+});
 //Main Settings Page
 app.get('/settings', function(req, res, next){
   if(req.isAuthenticated()){
@@ -117,10 +195,17 @@ app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
   }
 });
 //Update user profile
-app.post('/update-user/:id',function(req,res) { 
-  User.findUserAndUpdate(req,req.params.id,req.body.name,req.body.personal_quote,req.body.personal_info,req.body.birthday,req.body.address,req.body.postalcode,req.body.city,req.body.country,req.body.email,req.body.phone,req.body.website, function(err, user){ if(err) throw err; console.log(user);  });
-
+app.post('/update-profile/:id',function(req,res) { 
+  User.findUserAndUpdate(req,req.params.id,req.body.name,req.body.personal_quote,req.body.personal_info,req.body.birthday,req.body.address,req.body.postalcode,req.body.city,req.body.country,req.body.email,req.body.phone,req.body.website, function(err, user){ if(err) throw err;  });
     res.redirect('back');
+ });
+//Update avatar user
+app.post('/update-avatar/:id',uploadAvatar.single('avatar'),function(req,res) {
+
+    var newfilename = req.params.id+'-' + moment().format('X') + '.jpg';
+
+    User.findAvatarAndUpdate(req.file,req.body, req.params.id, newfilename, function(err, file){ if(err) throw err; });
+    res.json(newfilename).status(204).end();
  });
 //User settings
 app.get('/user/settings',Auth.isAuthenticated, function(req, res, next){
@@ -195,6 +280,7 @@ app.get('/logout', function(req, res){
 app.get('/acl/lock', function(req, res, next) {
   res.render('acl/lock', { title: '',
                         subtitle: '',
+                        user: req.user,
                         showtitle: 'none',
                         layout: 'layouts/default'
                       });

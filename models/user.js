@@ -13,12 +13,14 @@
 * @Copyright:	Copyright (C) Probo - All Rights Reserved 
 *				Unauthorized copying, or using code of this file, trough any medium is strictly prohibited
 *				Proprietary and confidential
-*/			 			 
+*/		 			 
+var gm = require('gm');
 var mongo = require('mongoose');
 var moment = require('moment');
 var hash = require('../config/env/acl/middlewares/hash');
+var Schema = mongo.Schema;
 
-var UserSchema = mongo.Schema({	name: String, 			//Normal name
+var UserSchema = Schema({	name: String, 			//Normal name
     					    	email: String, 			//Contact email
     					    	phone: String, 			//phonnumber
     					    	address:{ 				//Address
@@ -39,7 +41,11 @@ var UserSchema = mongo.Schema({	name: String, 			//Normal name
     					    	login: 		String,		//Login Name
     					    	salt:   	String,		//Salt Pass
 						    	hash:   	String,		//Hashed Pass
-						    	pin:        String,  	//Hashed Pincode
+						    	pin:        String,
+						    	acl:{//Acces and Controll Data
+						    	     "status":String,
+						    	     "role":String,
+						    	     },  	
     					    	apikey: 	String,		//Apikey if needed
     					    	apisecret: 	String,		//ApiSecret
 						    	facebook:{				//Facebook login
@@ -51,21 +57,25 @@ var UserSchema = mongo.Schema({	name: String, 			//Normal name
 						    		id:       String,
 						    		email:    String,
 						    		name:     String
-						    	}
+						    	},
+						    	role : [{ type: Schema.Types.ObjectId, ref: 'Role' }]//Population Role records for acl
 						  	});
+
 
 UserSchema.statics.signup = function(req,fullname,email, password, done)
 {
-
 		var User = this;
-		hash(password, function(err, salt, hash){
-
+		hash(password, function(err, salt, hash)
+		{
 			if(err) throw err;
-			
 			User.create({
 				name : fullname,
 				email : email,
 				login : email,
+				acl:{ 
+						status: "unvalidated",
+						code: Math.random().toString(36).substring(7)
+					}
 				salt : salt,
 				hash : hash
 			}, function(err, user)
@@ -74,11 +84,9 @@ UserSchema.statics.signup = function(req,fullname,email, password, done)
 				done(null, user);
 			});
 		});
-	
-	
 }
 
-UserSchema.statics.isValidUserPassword = function(req, email, password, done) {
+UserSchema.statics.isValidUserPassword = function(req, email, password, done){
 	this.findOne({email : email}, function(err, user){
 		// if(err) throw err;
 		if(err) return done(err);
@@ -101,6 +109,29 @@ UserSchema.statics.findUserAndUpdate = function(req,id,name,personal_quote,perso
 	User.findOneAndUpdate(id,{name: name, email: email, phone: phone, address:{ street:address, postalcode:postalcode, city:city, country:country }, website: website, birthday: birthday, info:{ personal_text:personal_info, quote:personal_quote }},function(err, user){
 		if(err) throw err;
 		done(null, user, req.flash('success','Your profile has been updated!'));	
+	});
+};
+
+UserSchema.statics.findACLUserAndUpdate = function(req,id,name,email,role,status,done)
+{
+	var User = this;
+	User.findOneAndUpdate(id,{name: name, email: email, acl:{ status:status}},function(err, user){
+		if(err) throw err;
+		done(null, user, req.flash('success','The user has been updated!'));	
+	});
+};
+
+UserSchema.statics.findAvatarAndUpdate = function(file,extra,id,newfilename){	
+	var User = this;
+
+	gm(file.buffer,newfilename).crop(extra.width, extra.height, extra.x, extra.y).resize(200,200).write('public/uploads/avatar/'+newfilename, function (err){
+	  if (err){
+	  			console.log(['err'], [err]);
+	  		  }
+	  		  else
+	  		  {
+					User.findOneAndUpdate(id,{avatar:newfilename},function(err, user){ if(err) throw err; });		
+	  		  } 
 	});
 };
 

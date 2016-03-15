@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-02-08
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-02-08
+* @Last Modified time: 2016-03-07 13:49:19
 */
 .lock-block{
   max-width:450px;
@@ -38,7 +38,8 @@
 }
 
 .lock-block .lock-user-pic img{
-  width:100px;
+  height:100%;
+  width:auto;
   border-radius:100px;
   border:3px solid #fff;
   background:#6B8A9C;

@@ -1,4 +1,13 @@
-module.exports = function(i18n){
+module.exports = function(i18n,req,res){
+
+var username; 
+var avatar = 'http://lorempixel.com/50/50/people';
+
+    if(res != undefined && res.locals.loggedin === true)
+    {
+        username = req.user.name;
+        avatar = req.user.avatar;
+    }
 
     //Main menu top and sidebar has one sub possible
    var data =  {
@@ -26,7 +35,8 @@ module.exports = function(i18n){
                     {
                         liClass: "account",
                         url: "#",
-                        title: i18n.__('Welcome'),
+                        title: i18n.__('Welcome') + ' ' + username,
+                        avatar: avatar,
                         smOnlyIcon: false,
                         icon: "",
                         notify: false,

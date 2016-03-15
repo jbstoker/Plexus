@@ -9,7 +9,7 @@
 						{{{__ "LOCKED"}}}
 					</div>
 					<div class="lock-user-pic">
-						<a href="#"><img src="/images/avatar.png" alt="" class="img-responsive" /></a>
+						<a href="#"><img src="/uploads/avatar/{{user.avatar}}" height="100%" alt="" class="img-responsive" /></a>
 					</div>
 					<div class="locked-time">
 						06:06:45
@@ -17,8 +17,9 @@
 				</div>
 				<div class="col-md-6">
 					<div class="unlock-form">
-						<h5>Jelmer Stoker</h5>
-						<p>Programmer A.F.K.</p>
+						<br/>
+						<h5>{{user.name}}</h5>
+						<p>A.F.K.</p>
 						<input type="password" class="form-control" placeholder="{{{__ 'password here...'}}}">
 					</div>
 				</div>

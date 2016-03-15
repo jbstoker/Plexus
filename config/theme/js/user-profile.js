@@ -23,8 +23,10 @@ $('#editProfile').change(function(){
         if($(this).prop('checked'))
         {
           //Fetch existig data
+           var avatar = $('#profile-image').attr('data-img');
+           var id = $('#profile-image').attr('data-user');
            var quote =  $('#profile-quote blockquote').html();
-           var info =  $('#profile-info p').html();
+           var info =  $('#profile-info .info-text').html();
            var name =  $('ul.details li#name').children(":not('span')").html();
            var birthday =  $('ul.details li#birthday').children(":not('span')").html();
            var address =  $('ul.details li#address').children(":not('span')").html();
@@ -37,7 +39,7 @@ $('#editProfile').change(function(){
            //Generate input fields for update profile
           $('#saveChanges').show();
           $('#profile-quote').html('<textarea data-old="'+quote+'" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
-          $('#profile-info').html('<h3>Personal info</h3><textarea data-old="'+info+'" id="personal_info" name="personal_info" class="summernote form-control col-md-12" rows="5">'+ info +'</textarea>');
+          $('#profile-info').html('<h3>Personal info</h3><textarea data-old="'+encodeURIComponent(info)+'" id="personal_info" name="personal_info" class="summernote form-control col-md-12" rows="5">'+info+'</textarea>');
           $('ul.details li#name').html('<span>Name</span><input type="text" value="'+ name +'" class="form-control" data-old="'+name+'" id="name" name="name" placeholder="Name">');
           $('ul.details li#birthday').html('<span>Birthday</span><input type="date" value="'+ birthday +'" class="form-control" data-old="'+birthday+'" id="birthday" name="birthday" placeholder="Birthday">');
           $('ul.details li#address').html('<span>Address</span><input type="text" value="'+ address +'" class="form-control" data-old="'+address+'" id="address" name="address" placeholder="Address">');
@@ -47,15 +49,72 @@ $('#editProfile').change(function(){
           $('ul.details li#email').html('<span>Email</span><input type="email" value="'+ email +'" class="form-control" data-old="'+email+'" id="email" name="email" placeholder="Email">');
           $('ul.details li#phone').html('<span>Phone</span><input type="tel" value="'+ phone +'" class="form-control" data-old="'+phone+'" id="phone" name="phone" placeholder="Phone">');
           $('ul.details li#website').html('<span>Website</span><input type="url" value="'+ website +'" class="form-control" data-old="'+website+'" id="website" name="website" placeholder="Website">');
-        
+          $('#profile-image').html('<div id="kv-avatar-errors" style="width:100%; display:none"></div><form class="text-center" method="post" enctype="multipart/form-data"><div class="kv-avatar center-block"><input id="avatar" data-old="'+avatar+'" name="avatar" type="file" class="file-loading" data-upload-url="/update-avatar/'+id+'"></div></form>');
+
           //Set summernote variables
           $('.summernote').summernote({toolbar: [['style', ['bold', 'italic', 'underline', 'clear']],['font', ['strikethrough', 'superscript', 'subscript']],['fontsize', ['fontsize']],['insert', ['hr','table']],['color', ['color']],['para', ['ul', 'ol', 'paragraph']],['height', ['height']],['misc', ['fullscreen']]],height:300});
+          
+          $("#avatar").fileinput({initialPreview: ["<img src='/uploads/avatar/" + avatar + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>"],
+                                  overwriteInitial: true,
+                                  autoReplace: true,
+                                  initialPreviewShowDelete:false,
+                                  maxFileSize: 1500,
+                                  showClose: false,
+                                  showCaption: false,
+                                  browseLabel: '',
+                                  removeLabel: '',
+                                  uploadLabel: '',
+                                  browseIcon: '<svg class="icon-photos-1"><use xlink:href="/fonts/icons.svg#icon-photos-1"></use></svg>',
+                                  removeIcon: '<svg class="icon-cross"><use xlink:href="/fonts/icons.svg#icon-cross"></use></svg>',
+                                  uploadIcon: '<svg class="icon-upload-5"><use xlink:href="/fonts/icons.svg#icon-upload-5"></use></svg>',
+                                  removeTitle: 'Cancel or reset changes',
+                                  elErrorContainer: '#kv-avatar-errors',
+                                  msgErrorClass: 'alert alert-block alert-danger',
+                                  defaultPreviewContent: '<svg class="icon-id-8" style="height:100%; width:100%;"><use xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>',
+                                  layoutTemplates: {
+                                                    main2: '{preview} ' + ' {remove} {browse} {upload}',  
+                                                    footer: '<div class="file-thumbnail-footer">\n' +
+                                                            '    {progress}\n\n' +
+                                                            '</div>',  
+                                                    btnDefault: '<button type="{type}" tabindex="500" title="{title}" class="{css} btn btn-sm btn-danger"{status}>{icon}{label}</button>',
+                                                    btnLink: '<a href="{href}" tabindex="500" title="{title}" class="{css}  btn btn-sm btn-warning"{status}>{icon}{label}</a>'
+                                                   },
+                                  allowedFileExtensions: ["jpg", "png", "gif"],
+                                  uploadExtraData: function(){
+                                                        return {  x: document.getElementById('profile-image').getAttribute('data-x'), 
+                                                                  y: document.getElementById('profile-image').getAttribute('data-y'),
+                                                                  width: document.getElementById('profile-image').getAttribute('data-width'),
+                                                                  height: document.getElementById('profile-image').getAttribute('data-height'),
+                                                                  user: document.getElementById('profile-image').getAttribute('data-user')
+                                                                };
+                                                              }                   
+                              }).on('fileloaded', function(event, file, previewId, index, reader) 
+                              {
+                                var image = $('.file-preview-image').cropper({
+                                  aspectRatio: 200 / 200,
+                                  crop: function(data) 
+                                  {
+                                    document.getElementById('profile-image').setAttribute('data-x',data.x);
+                                    document.getElementById('profile-image').setAttribute('data-y',data.y);
+                                    document.getElementById('profile-image').setAttribute('data-width',data.width);
+                                    document.getElementById('profile-image').setAttribute('data-height',data.height);  
+                                  }
+                                });
+                              }).on('fileuploaded',function(event, data, previewId, index){
+                                  var url  = data.response;
+                                  $('#profile-image').attr('data-img',url);
+                                  $('#menu-avatar').attr('src', '/uploads/avatar/'+url);
+                                  $('#avatar').attr('data-old', url);
+                                  $('#avatar').fileinput('clear').fileinput('refresh',{initialPreview: ["<img src='/uploads/avatar/" + url + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>"], overwriteInitial: true}).fileinput('enable');
+
+                              }); 
         }
         else
         {
           //Fetch old data if not saved; Reset
+           var avatar = $('#avatar').attr('data-old'); 
            var quote =  $('#personal_quote').attr('data-old');
-           var info =  $('#personal_info').attr('data-old');
+           var info =  decodeURIComponent($('#personal_info').attr('data-old'));
            var name =  $('input#name').attr('data-old');
            var birthday =  $('input#birthday').attr('data-old');
            var address =  $('input#address').attr('data-old');
@@ -67,8 +126,9 @@ $('#editProfile').change(function(){
            var website =  $('input#website').attr('data-old');
 
           $('#saveChanges').hide();
+          $('#profile-image').html('<img src="/uploads/avatar/'+avatar+'"  width="100%" class="img-responsive img-thumbnail"/>');
           $('#profile-quote').html('<blockquote>'+quote+'</blockquote>');
-          $('#profile-info').html('<h3>Personal info</h3><p>'+info+'</p>');
+          $('#profile-info').html('<h3>Personal info</h3><div class="info-text">'+info+'</div>');
           $('ul.details li#name').html('<span>Name</span><a>'+name+'</a>');
           $('ul.details li#birthday').html('<span>Birthday</span><a>'+birthday+'</a>');
           $('ul.details li#address').html('<span>Address</span><a>'+address+'</a>');
@@ -82,21 +142,7 @@ $('#editProfile').change(function(){
     });
 
 
-$("#avatar").fileinput({
-    overwriteInitial: true,
-    maxFileSize: 1500,
-    showClose: false,
-    showCaption: false,
-    browseLabel: '',
-    removeLabel: '',
-    browseIcon: '<svg class="icon-photos-1"><use xlink:href="/fonts/icons.svg#icon-photos-1"></use></svg>',
-    removeIcon: '<svg class="icon-cross"><use xlink:href="/fonts/icons.svg#icon-cross"></use></svg>',
-    removeTitle: 'Cancel or reset changes',
-    elErrorContainer: '#kv-avatar-errors',
-    msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<svg class="icon-id-8" style="height:100%; width:100%;"><use xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>',
-    layoutTemplates: {main2: '{preview} ' + ' {remove} {browse}'},
-    allowedFileExtensions: ["jpg", "png", "gif"]
-});
+
+
 
 })		

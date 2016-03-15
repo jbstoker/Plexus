@@ -27,8 +27,10 @@ bodyParser = require('body-parser'),
 mongo = require('mongoose'),
 passport = require('passport'),
 redis = require('redis'),
+compression = require('compression'),
 i18n = require('i18n');                                                
 //Set Config
+var oneDay = 86400000; //One day in time
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
 //Include models
 var models_dir = __dirname + '/models';
@@ -52,7 +54,8 @@ require('./config/env/navigation/helpers')(hbs);
 require('./config/env/i18n/helpers')(hbs,app);
 //favicon Uri
 app.use(favicon(path.join(__dirname, 'public/images/favicons/', 'favicon.ico')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: oneDay }));
 //Set Partials hbs
 hbs.registerPartials(__dirname + '/views/layouts/partials');
 // set default locale for hbs fix
@@ -64,7 +67,7 @@ hbs.registerHelper('__n', function(){ return i18n.__n.apply(app.locals, argument
 app.use(logger('dev'));
 //Body parser middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 //Session middleware
 app.use(cookieParser());
 app.use(require('express-session')(config.secret));
@@ -83,7 +86,7 @@ app.use(function (req, res, next){
                                     res.locals.modules = config.modules; 
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);
-                                    app.locals.nav = require('./config/env/navigation/navigation')(i18n);
+                                    app.locals.nav = require('./config/env/navigation/navigation')(i18n,req,res);
                                     next(); 
                                   });
 

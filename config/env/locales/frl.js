@@ -101,5 +101,10 @@
 	"Full Name": "Full Name",
 	"Confirm Password": "Confirm Password",
 	"Agree": "Agree",
-	"Terms & Conditions": "Terms & Conditions"
+	"Terms & Conditions": "Terms & Conditions",
+	"Can Publish": "Can Publish",
+	"No Publishing": "No Publishing",
+	"Delete": "Delete",
+	"Publish": "Publish",
+	"Answer": "Answer"
 }

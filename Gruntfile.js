@@ -26,6 +26,7 @@ module.exports = function(grunt) {
                     './bower_components/jquery-touchswipe/jquery.touchSwipe.min.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js',
                     './bower_components/bootstrap-fileinput/js/fileinput.js',
+                    './bower_components/cropper/dist/cropper.js',
                     './bower_components/bootstrap-toggle/js/bootstrap-toggle.js',
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
@@ -74,6 +75,8 @@ module.exports = function(grunt) {
                     files: [
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./bower_components/bootstrap-fileinput/img/*'], dest: './public/images/', filter: 'isFile'},
+                            {expand: true,flatten: true, src: ['./bower_components/bootstrap-fileinput/img/*'], dest: './public/images/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true, cwd:'./config/dev-fonts/fonts/', src: ['**'], dest: './public/fonts/'},
                             {expand: true,flatten: true, src: ['./config/theme/img/*'], dest: './public/images/', filter: 'isFile'},

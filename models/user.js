@@ -75,7 +75,7 @@ UserSchema.statics.signup = function(req,fullname,email, password, done)
 				acl:{ 
 						status: "unvalidated",
 						code: Math.random().toString(36).substring(7)
-					}
+					},
 				salt : salt,
 				hash : hash
 			}, function(err, user)

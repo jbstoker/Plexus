@@ -15,53 +15,69 @@
 *				Proprietary and confidential
 */		 			 
 var gm = require('gm');
-var mongo = require('mongoose');
 var moment = require('moment');
 var hash = require('../config/env/acl/middlewares/hash');
-var Schema = mongo.Schema;
+var ottoman = require('ottoman');
 
-var UserSchema = Schema({	name: String, 			//Normal name
-    					    	email: String, 			//Contact email
-    					    	phone: String, 			//phonnumber
-    					    	address:{ 				//Address
-    					    		street:String,
-    					    		postalcode:String,
-    					    		city:String,
-    					    		country:String,
+var UserModel = ottman.model('User',{	
+								uuid: {type:'string', auto:'uuid', readonly:true},
+								name: {type:'string'}, 				//Normal name
+    					    	email: {type:'string'}, 			//Contact email
+    					    	phone: {type:'string'}, 			//phonnumber
+    					    	address:{ 							//Address
+    					    		street:{type:'string'},
+    					    		postalcode:{type:'string'},
+    					    		city:{type:'string'},
+    					    		country:{type:'string'},
     					    	},
-    					    	website: String,		//Website
-    					    	birthday: Date,			//Date of birth
-    					    	avatar: String,			//Avatar link
-    					    	info:{					//peronal info and quote
-    					    		personal_text:String,
-    					    		quote:String,
+    					    	website: {type:'string'},			//Website
+    					    	birthday: {type: "Date", default: Date.now},//Date of birth
+    					    	avatar: {type:'string'},			//Avatar link
+    					    	info:{								//peronal info and quote
+    					    		personal_text:{type:'string'},
+    					    		quote:{type:'string'},
     					    	},
-    					    	locale: 	String, 	//User prefered language
-    					    	login: 		String,		//Login Name
-    					    	salt:   	String,		//Salt Pass
-						    	hash:   	String,		//Hashed Pass
-						    	pin:        String,
-						    	acl:{//Acces and Controll Data
-						    	     status: String,
-						    	     code: String,
+    					    	locale: 	{type:'string'}, 		//User prefered language
+    					    	login: 		{type:'string'},		//Login Name
+    					    	salt:   	{type:'string'},		//Salt Pass
+						    	hash:   	{type:'string'},		//Hashed Pass
+						    	pin:        {type:'string'},
+						    	acl:{								//Acces and Controll Data
+						    	     status: {type:'string'},
+						    	     code: {type:'string'},
 						    	     },  	
-    					    	apikey: 	String,		//Apikey if needed
-    					    	apisecret: 	String,		//ApiSecret
-						    	facebook:{				//Facebook login
-						    		id:       String,
-						    		email:    String,
-						    		name:     String
+    					    	apikey: 	{type:'string'},		//Apikey if needed
+    					    	apisecret: 	{type:'string'},		//ApiSecret
+						    	facebook:{							//Facebook login
+						    		id:       {type:'string'},
+						    		email:    {type:'string'},
+						    		name:     {type:'string'}
 						    	},
-						    	google:{				//Google login
-						    		id:       String,
-						    		email:    String,
-						    		name:     String
+						    	google:{							//Google login
+						    		id:       {type:'string'},
+						    		email:    {type:'string'},
+						    		name:     {type:'string'}
 						    	},
-						    	role : [{ type: Schema.Types.ObjectId, ref: 'Role' }]//Population Role records for acl
+    					    	created_at: {type: "Date", default: Date.now},//Date of birth
+						    	role : {ref:'Role'},
+						    	{
+    							 index: {	
+    							     findByID:{				// ← refdoc index
+    							         by:'uuid',
+    							         type:'refdoc'
+    							     },
+    							     findByEmail: {					// ← refdoc index
+    							         by: 'email',
+    							         type: 'refdoc'
+    							     },
+    							     findByFirstName: {				// ← secondary index
+    							         by: 'name.first'
+    							    }
+    							}				//Population Role records for acl
 						  	});
 
 
-UserSchema.statics.signup = function(req,fullname,email, password, done)
+UserModel.statics.signup = function(req,fullname,email, password, done)
 {
 		var User = this;
 		hash(password, function(err, salt, hash)
@@ -84,7 +100,10 @@ UserSchema.statics.signup = function(req,fullname,email, password, done)
 		});
 }
 
-UserSchema.statics.isValidUserPassword = function(req, email, password, done){
+
+
+
+UserModel.statics.isValidUserPassword = function(req, email, password, done){
 	this.findOne({login : email}, function(err, user){
 		// if(err) throw err;
 		if(err) return done(err);
@@ -101,7 +120,7 @@ UserSchema.statics.isValidUserPassword = function(req, email, password, done){
 	});
 };
 
-UserSchema.statics.findUserAndUpdate = function(req,id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
+UserModel.statics.findUserAndUpdate = function(req,id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
 {
 	var User = this;
 	User.findOneAndUpdate(id,{name: name, email: email, phone: phone, address:{ street:address, postalcode:postalcode, city:city, country:country }, website: website, birthday: birthday, info:{ personal_text:personal_info, quote:personal_quote }},function(err, user){
@@ -110,7 +129,7 @@ UserSchema.statics.findUserAndUpdate = function(req,id,name,personal_quote,perso
 	});
 };
 
-UserSchema.statics.findACLUserAndUpdate = function(req,id,name,email,role,status,done)
+UserModel.statics.findACLUserAndUpdate = function(req,id,name,email,role,status,done)
 {
 	var User = this;
 
@@ -123,7 +142,7 @@ UserSchema.statics.findACLUserAndUpdate = function(req,id,name,email,role,status
 	});
 };
 
-UserSchema.statics.createACLUser = function(req,name,email,role,status,done)
+UserModel.statics.createACLUser = function(req,name,email,role,status,done)
 {
 	var User = this;
 	if(status === undefined){ status = '0'};
@@ -135,7 +154,7 @@ UserSchema.statics.createACLUser = function(req,name,email,role,status,done)
 	});
 };
 
-UserSchema.statics.findAvatarAndUpdate = function(file,extra,id,newfilename){	
+UserModel.statics.findAvatarAndUpdate = function(file,extra,id,newfilename){	
 	var User = this;
 
 	gm(file.buffer,newfilename).crop(extra.width, extra.height, extra.x, extra.y).resize(200,200).write('public/uploads/avatar/'+newfilename, function (err){
@@ -149,8 +168,7 @@ UserSchema.statics.findAvatarAndUpdate = function(file,extra,id,newfilename){
 	});
 };
 
-var User = mongo.model("User", UserSchema);
-module.exports = User;
+module.exports = UserModel;
 
 
 

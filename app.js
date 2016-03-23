@@ -24,9 +24,9 @@ hbs = require('hbs'),
 cookieParser = require('cookie-parser'),
 flash = require('connect-flash'),
 bodyParser = require('body-parser'),
-mongo = require('mongoose'),
+couchbase = require('couchbase'),
+ottoman = require('ottoman'),
 passport = require('passport'),
-redis = require('redis'),
 compression = require('compression'),
 i18n = require('i18n');                                                
 //Set Config
@@ -40,9 +40,8 @@ require('./config/env/acl/passport')(passport, config)
 // Set languages
 i18n.configure(config.i18n);
 //Databases and Caching
-mongo.connect(config.db, function(err){ if (err){ console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!'); }});
-var client = redis.createClient();
-client.on("error", function (err){ console.log("Error " + err); });
+var cluster = new couchbase.Cluster('couchbase://127.0.0.1');
+ottoman.bucket = cluster.openBucket('plexus');
 //Init express
 var app = express();
 //View engine hbs

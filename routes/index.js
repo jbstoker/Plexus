@@ -95,11 +95,6 @@ app.get('/manage_users', function(req, res, next) {
   res.redirect('/login');
   }
 });
-//Create user
-app.post('/create-user',function(req,res){ 
-  
-    res.redirect('back');
- });
 //Get user for update
 app.post('/get-user/:id',function(req,res){ 
   User.findOne({ _id : req.params.id },'name email role acl.status', function(error, user) {
@@ -114,10 +109,14 @@ app.post('/get-user/:id',function(req,res){
  });
 });
 
+//Create user
+app.post('/create-user',function(req,res){ 
+    User.createACLUser(req,req.body.user_name,req.body.user_email,req.body.user_role,req.body.user_status, function(err, user){ if(err) throw err;  });
+    res.redirect('back');
+ });
  //Update user
-app.post('/update-user',function(req,res){ 
-  console.log(['request'],[req.body]);
-  //User.findACLUserAndUpdate(req,req.params.id,req.body.username,req.body.email, function(err, user){ if(err) throw err;  });
+app.post('/update-user/:id',function(req,res){ 
+    User.findACLUserAndUpdate(req,req.params.id,req.body.user_name,req.body.user_email,req.body.user_role,req.body.user_status, function(err, user){ if(err) throw err;  });
     res.redirect('back');
  });
 //Create Role

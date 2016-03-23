@@ -37,14 +37,13 @@ var UserSchema = Schema({	name: String, 			//Normal name
     					    		quote:String,
     					    	},
     					    	locale: 	String, 	//User prefered language
-    					    	role: 		String,		//User acces role
     					    	login: 		String,		//Login Name
     					    	salt:   	String,		//Salt Pass
 						    	hash:   	String,		//Hashed Pass
 						    	pin:        String,
 						    	acl:{//Acces and Controll Data
-						    	     "status":String,
-						    	     "role":String,
+						    	     status: String,
+						    	     code: String,
 						    	     },  	
     					    	apikey: 	String,		//Apikey if needed
     					    	apisecret: 	String,		//ApiSecret
@@ -67,15 +66,14 @@ UserSchema.statics.signup = function(req,fullname,email, password, done)
 		var User = this;
 		hash(password, function(err, salt, hash)
 		{
+			var code = Math.random().toString(36).substring(7);
+
 			if(err) throw err;
 			User.create({
 				name : fullname,
 				email : email,
 				login : email,
-				acl:{ 
-						status: "unvalidated",
-						code: Math.random().toString(36).substring(7)
-					},
+				acl:{ status: '0', code: code},
 				salt : salt,
 				hash : hash
 			}, function(err, user)
@@ -87,7 +85,7 @@ UserSchema.statics.signup = function(req,fullname,email, password, done)
 }
 
 UserSchema.statics.isValidUserPassword = function(req, email, password, done){
-	this.findOne({email : email}, function(err, user){
+	this.findOne({login : email}, function(err, user){
 		// if(err) throw err;
 		if(err) return done(err);
 
@@ -115,9 +113,25 @@ UserSchema.statics.findUserAndUpdate = function(req,id,name,personal_quote,perso
 UserSchema.statics.findACLUserAndUpdate = function(req,id,name,email,role,status,done)
 {
 	var User = this;
-	User.findOneAndUpdate(id,{name: name, email: email, acl:{ status:status}},function(err, user){
+
+	if(status === undefined){ status = '0'};
+	if(role === undefined){ role = ''};
+
+	User.findOneAndUpdate(id,{name: name, email: email, acl:{ status:status},role:role},function(err, user){
 		if(err) throw err;
 		done(null, user, req.flash('success','The user has been updated!'));	
+	});
+};
+
+UserSchema.statics.createACLUser = function(req,name,email,role,status,done)
+{
+	var User = this;
+	if(status === undefined){ status = '0'};
+	if(role === undefined){ role = ''};
+
+	User.create({name: name, email: email, acl:{ status:status},role:role},function(err, user){
+		if(err) throw err;
+		done(null, user, req.flash('success','The user has been created!'));	
 	});
 };
 
@@ -126,7 +140,7 @@ UserSchema.statics.findAvatarAndUpdate = function(file,extra,id,newfilename){
 
 	gm(file.buffer,newfilename).crop(extra.width, extra.height, extra.x, extra.y).resize(200,200).write('public/uploads/avatar/'+newfilename, function (err){
 	  if (err){
-	  			console.log(['err'], [err]);
+	  			throw err;
 	  		  }
 	  		  else
 	  		  {

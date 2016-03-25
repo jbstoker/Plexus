@@ -23,7 +23,10 @@ module.exports = {
 			resave: false,
 			saveUninitialized: false
 			},
-		db: 'mongodb://localhost:27017/plexus',
+		db: {
+			server: 'localhost:8091',
+			bucket: 'default'
+		},
 		facebook: {
 			clientID: "{{PLACEHOLDER}}",
 			clientSecret: "{{PLACEHOLDER}}",
@@ -59,7 +62,10 @@ module.exports = {
 			resave: false,
 			saveUninitialized: false
 			},
-    	db: 'mongodb://localhost:27017/plexus',
+		db: {
+			server: 'localhost:8091',
+			bucket: 'default'
+		},
 		facebook: {
 			clientID: "",
 			clientSecret: "",

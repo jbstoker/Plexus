@@ -15,142 +15,153 @@
 *				Proprietary and confidential
 */		 			 
 var gm = require('gm');
-var mongo = require('mongoose');
-var moment = require('moment');
+// var Role = require('./role.js');
 var hash = require('../config/env/acl/middlewares/hash');
-var Schema = mongo.Schema;
+var moment = require('moment');
+var db = require('../config/env/db.js');
+var ottoman = require('ottoman');
 
-var UserSchema = Schema({	name: String, 			//Normal name
-    					    	email: String, 			//Contact email
-    					    	phone: String, 			//phonnumber
-    					    	address:{ 				//Address
-    					    		street:String,
-    					    		postalcode:String,
-    					    		city:String,
-    					    		country:String,
+var UserModel = ottoman.model('User',{	
+								userID: {type:'string', auto:'uuid', readonly:true},
+								name: 	'string', 				//Normal name
+    					    	email: 	'string', 			//Contact email
+    					    	phone: 	'string', 			//phonnumber
+    					    	address:{ 							//Address
+    					    		street:'string',
+    					    		postalcode:'string',
+    					    		city:'string',
+    					    		country:'string',
     					    	},
-    					    	website: String,		//Website
-    					    	birthday: Date,			//Date of birth
-    					    	avatar: String,			//Avatar link
-    					    	info:{					//peronal info and quote
-    					    		personal_text:String,
-    					    		quote:String,
+    					    	website: 	'string',			//Website
+    					    	birthday: 	{type: 'Date', default:function(){ return new Date() }},//Date of birth
+    					    	avatar: 	'string',			//Avatar link
+    					    	info:{								//peronal info and quote
+    					    		personal_text: 	'string',
+    					    		quote: 			'string',
     					    	},
-    					    	locale: 	String, 	//User prefered language
-    					    	login: 		String,		//Login Name
-    					    	salt:   	String,		//Salt Pass
-						    	hash:   	String,		//Hashed Pass
-						    	pin:        String,
-						    	acl:{//Acces and Controll Data
-						    	     status: String,
-						    	     code: String,
+    					    	locale: 	{type:'string', default: 'nl'},//User prefered language
+    					    	login: 		'string',		//Login Name
+    					    	salt:   	'string',		//Salt Pass
+						    	hash:   	'string',		//Hashed Pass
+						    	pin:        'string',
+						    	acl:{								//Acces and Controll Data
+						    	     status: 	{type:'boolean', default: false},
+						    	     code: 		{type:'string', default:function(){return Math.random().toString(36).substring(7) }},
 						    	     },  	
-    					    	apikey: 	String,		//Apikey if needed
-    					    	apisecret: 	String,		//ApiSecret
-						    	facebook:{				//Facebook login
-						    		id:       String,
-						    		email:    String,
-						    		name:     String
+    					    	apikey: 	'string',		//Apikey if needed
+    					    	apisecret: 	'string',		//ApiSecret
+						    	facebook:{							//Facebook login
+						    		socialID:     'string',
+						    		email:    'string',
+						    		name:     'string'
 						    	},
-						    	google:{				//Google login
-						    		id:       String,
-						    		email:    String,
-						    		name:     String
+						    	google:{							//Google login
+						    		socialID:     'string',
+						    		email:    'string',
+						    		name:     'string'
 						    	},
-						    	role : [{ type: Schema.Types.ObjectId, ref: 'Role' }]//Population Role records for acl
-						  	});
+    					    	createdOn: {type: 'Date', default:function(){ return new Date() }},//Date of birth
+						    	role : 		{ref:'Role'}
+						    	},{
+    							 index: {
+    							 		findByID:{by: 'userID' },
+    							     	findByEmail: {by: 'email'},
+    							     	findByName: {by: 'name'}}
+							  	});
+
+console.log(UserModel);
+// UserModel.signup = function(req,fullname,email, password, done)
+// {
+// console.log('signingup');
+// 		var User = this;
+
+// 		console.log(User);
+// 		hash(password, function(err, salt, hash)
+// 		{
+// 			if(err) throw err;
+// 			User.create({
+// 				name : fullname,
+// 				email : email,
+// 				login : email,
+// 				salt : salt,
+// 				hash : hash
+// 			}, function(err, user)
+// 			{
+// 				if(err) throw err;
+// 				done(null, user);
+// 			});
+// 		});
+// }
 
 
-UserSchema.statics.signup = function(req,fullname,email, password, done)
-{
-		var User = this;
-		hash(password, function(err, salt, hash)
-		{
-			var code = Math.random().toString(36).substring(7);
 
-			if(err) throw err;
-			User.create({
-				name : fullname,
-				email : email,
-				login : email,
-				acl:{ status: '0', code: code},
-				salt : salt,
-				hash : hash
-			}, function(err, user)
-			{
-				if(err) throw err;
-				done(null, user);
-			});
-		});
-}
 
-UserSchema.statics.isValidUserPassword = function(req, email, password, done){
-	this.findOne({login : email}, function(err, user){
-		// if(err) throw err;
-		if(err) return done(err);
+// UserModel.isValidUserPassword = function(req, email, password, done){
+// 	this.findOne({login : email}, function(err, user){
+// 		// if(err) throw err;
+// 		if(err) return done(err);
 
-		if(!user) return done(null, false, req.flash('error','Incorrect Login.'));
+// 		if(!user) return done(null, false, req.flash('error','Incorrect Login.'));
 		
-		hash(password, user.salt, function(err, hash)
-		{
-			if(err) return done(err);
-			if(hash == user.hash) return done(null, user);
+// 		hash(password, user.salt, function(err, hash)
+// 		{
+// 			if(err) return done(err);
+// 			if(hash == user.hash) return done(null, user);
 			
-			done(null, false, req.flash('error','Incorrect password'));
-		});
-	});
-};
+// 			done(null, false, req.flash('error','Incorrect password'));
+// 		});
+// 	});
+// };
 
-UserSchema.statics.findUserAndUpdate = function(req,id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
-{
-	var User = this;
-	User.findOneAndUpdate(id,{name: name, email: email, phone: phone, address:{ street:address, postalcode:postalcode, city:city, country:country }, website: website, birthday: birthday, info:{ personal_text:personal_info, quote:personal_quote }},function(err, user){
-		if(err) throw err;
-		done(null, user, req.flash('success','Your profile has been updated!'));	
-	});
-};
+// UserModel.findUserAndUpdate = function(req,id,name,personal_quote,personal_info,birthday,address,postalcode,city,country,email,phone,website,done)
+// {
+// 	var User = this;
+// 	User.findOneAndUpdate(id,{name: name, email: email, phone: phone, address:{ street:address, postalcode:postalcode, city:city, country:country }, website: website, birthday: birthday, info:{ personal_text:personal_info, quote:personal_quote }},function(err, user){
+// 		if(err) throw err;
+// 		done(null, user, req.flash('success','Your profile has been updated!'));	
+// 	});
+// };
 
-UserSchema.statics.findACLUserAndUpdate = function(req,id,name,email,role,status,done)
-{
-	var User = this;
+// UserModel.findACLUserAndUpdate = function(req,id,name,email,role,status,done)
+// {
+// 	var User = this;
 
-	if(status === undefined){ status = '0'};
-	if(role === undefined){ role = ''};
+// 	if(status === undefined){ status = '0'};
+// 	if(role === undefined){ role = ''};
 
-	User.findOneAndUpdate(id,{name: name, email: email, acl:{ status:status},role:role},function(err, user){
-		if(err) throw err;
-		done(null, user, req.flash('success','The user has been updated!'));	
-	});
-};
+// 	User.findOneAndUpdate(id,{name: name, email: email, acl:{ status:status},role:role},function(err, user){
+// 		if(err) throw err;
+// 		done(null, user, req.flash('success','The user has been updated!'));	
+// 	});
+// };
 
-UserSchema.statics.createACLUser = function(req,name,email,role,status,done)
-{
-	var User = this;
-	if(status === undefined){ status = '0'};
-	if(role === undefined){ role = ''};
+// UserModel.createACLUser = function(req,name,email,role,status,done)
+// {
+// 	var User = this;
+// 	if(status === undefined){ status = '0'};
+// 	if(role === undefined){ role = ''};
 
-	User.create({name: name, email: email, acl:{ status:status},role:role},function(err, user){
-		if(err) throw err;
-		done(null, user, req.flash('success','The user has been created!'));	
-	});
-};
+// 	User.create({name: name, email: email, acl:{ status:status},role:role},function(err, user){
+// 		if(err) throw err;
+// 		done(null, user, req.flash('success','The user has been created!'));	
+// 	});
+// };
 
-UserSchema.statics.findAvatarAndUpdate = function(file,extra,id,newfilename){	
-	var User = this;
+// UserModel.findAvatarAndUpdate = function(file,extra,id,newfilename){	
+// 	var User = this;
 
-	gm(file.buffer,newfilename).crop(extra.width, extra.height, extra.x, extra.y).resize(200,200).write('public/uploads/avatar/'+newfilename, function (err){
-	  if (err){
-	  			throw err;
-	  		  }
-	  		  else
-	  		  {
-					User.findOneAndUpdate(id,{avatar:newfilename},function(err, user){ if(err) throw err; });		
-	  		  } 
-	});
-};
+// 	gm(file.buffer,newfilename).crop(extra.width, extra.height, extra.x, extra.y).resize(200,200).write('public/uploads/avatar/'+newfilename, function (err){
+// 	  if (err){
+// 	  			throw err;
+// 	  		  }
+// 	  		  else
+// 	  		  {
+// 					User.findOneAndUpdate(id,{avatar:newfilename},function(err, user){ if(err) throw err; });		
+// 	  		  } 
+// 	});
+// };
 
-var User = mongo.model("User", UserSchema);
-module.exports = User;
+module.exports = UserModel;
 
 
 

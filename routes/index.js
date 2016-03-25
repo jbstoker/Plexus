@@ -4,10 +4,10 @@ var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
 var Auth = require('../config/env/acl/middlewares/authorization.js');
 var datatablesQuery = require('datatables-query');
-//Models
-var User = require('../models/user');
-var Role = require('../models/role');
-module.exports = function(app, passport,i18n)
+var User = require("../models/user");
+
+
+module.exports = function(app, passport, i18n)
 {
 //Storage of files and avatar
 var multer = require('multer');
@@ -244,6 +244,7 @@ app.get('/register', function(req, res) {
                               layout: 'layouts/default' 
                              });
 });
+
 app.post('/register', Auth.userExist, function(req, res, next) 
 {
   User.signup(req,req.body.fullname,req.body.email, req.body.password, function(err, user){

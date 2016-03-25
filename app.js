@@ -24,25 +24,16 @@ hbs = require('hbs'),
 cookieParser = require('cookie-parser'),
 flash = require('connect-flash'),
 bodyParser = require('body-parser'),
-mongo = require('mongoose'),
 passport = require('passport'),
-redis = require('redis'),
 compression = require('compression'),
 i18n = require('i18n');                                                
 //Set Config
 var oneDay = 86400000; //One day in time
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
-//Include models
-var models_dir = __dirname + '/models';
-fs.readdirSync(models_dir).forEach(function(file){ if(file[0] === '.') return; require(models_dir+'/'+ file); });
 //passport config
 require('./config/env/acl/passport')(passport, config)
 // Set languages
 i18n.configure(config.i18n);
-//Databases and Caching
-mongo.connect(config.db, function(err){ if (err){ console.log('Could not connect to mongodb on localhost. Ensure that you have mongodb running on localhost and mongodb accepts connections on standard ports!'); }});
-var client = redis.createClient();
-client.on("error", function (err){ console.log("Error " + err); });
 //Init express
 var app = express();
 //View engine hbs
@@ -67,7 +58,7 @@ hbs.registerHelper('__n', function(){ return i18n.__n.apply(app.locals, argument
 app.use(logger('dev'));
 //Body parser middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 //Session middleware
 app.use(cookieParser());
 app.use(require('express-session')(config.secret));

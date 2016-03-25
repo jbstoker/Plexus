@@ -9,13 +9,17 @@ exports.isAuthenticated = function (req, res, next){
 }
 
 exports.userExist = function(req, res, next) {
-    User.count({
-        email: req.body.email
-    }, function (err, count) {
-        if (count === 0) {
-            next();
-        } else {
-            res.redirect("/register");
-        }
-    });
+User.findByEmail(req.body.email, function(err, email){
+if(err){ throw err; }
+            
+            if(email.length > 0) {
+                res.redirect("/register");
+               
+            } else {
+                next();
+            }
+        });
+
+
 }
+

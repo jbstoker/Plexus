@@ -22,11 +22,11 @@ module.exports = function(hbs,app){
 	  
 	  if(app.locals.locale == code)
 	  {
-	  var element = '<li class="col-xs-6 col-sm-6 col-md-4 col-lg-4 active"><a href="/setlocale/'+code+'" id="flag_'+code+'">'+code+'</a></li>';
+	  var element = '<li class="col-xs-12 col-sm-6 col-md-6 col-lg-6 active"><a href="/setlocale/'+code+'"><span class="flag-icon flag-icon-'+code+'"></span></a></li>';
 	  }
 	  else
 	  {
-	  var element = '<li class="col-xs-6 col-sm-6 col-md-4 col-lg-4"><a href="/setlocale/'+code+'" id="flag_'+code+'">'+code+'</a></li>';
+	  var element = '<li class="col-xs-12 col-sm-6 col-md-6 col-lg-6"><a href="/setlocale/'+code+'"><span class="flag-icon flag-icon-'+code+'"></span></a></li>';
 	  }	
 
 	  return new hbs.SafeString(element);

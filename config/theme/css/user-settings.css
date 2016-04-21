@@ -2,48 +2,54 @@
 * @Author: JB Stoker
 * @Date:   2016-02-11
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-02-11
+* @Last Modified time: 2016-04-21 09:30:18
 */
 /* Language selection and Flags */
 #setlang li{
 	display:block;
-	height: 125px;
-  width: 175px;
-	padding:10px;
+	padding:5px;
 }
 
 #setlang li.active{
-	border: 3px dotted #384b5f;
+	border: 1px solid #384b5f;
 }
 
-
-#flag_en{
-    display: block;
-    line-height: 100px;
-    text-indent: -9999px;
-    width: 150px;
-    height: 100px;
-    background: url(/images/flags/en.svg);
-    background-size: cover;
-    background-position: -25px 100px;
+.flag-icon-background {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+.flag-icon {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  line-height: 5em;
+}
+.flag-icon:before {
+  content: "\00a0";
 }
 
-#flag_nl{
-	display: block;
-	line-height:100px;
-  text-indent: -9999px;
-  width: 150px;
-  height: 100px;
-  background: url(/images/flags/nl.svg);
-  background-size:cover;
+.flag-icon-be {
+  background-image: url(/images/flags/be.svg);
 }
-
-#flag_frl{
-	display: block;
-	line-height:100px;
-  text-indent: -9999px;
-  width: 150px;
-  height: 100px;
-  background: url(/images/flags/frl.svg);
-  background-size:cover;
+.flag-icon-de {
+  background-image: url(/images/flags/de.svg);
+}
+.flag-icon-fr {
+  background-image: url(/images/flags/fr.svg);
+}
+.flag-icon-frl {
+  background-image: url(/images/flags/frl.svg);
+}
+.flag-icon-gb {
+  background-image: url(/images/flags/gb.svg);
+}
+.flag-icon-nl {
+  background-image: url(/images/flags/nl.svg);
+}
+.flag-icon-us {
+  background-image: url(/images/flags/us.svg);
 }

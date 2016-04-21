@@ -7,13 +7,13 @@ module.exports = {
 			register: true,
 			contact: {
 						active:true,
-						contact_address:'jelmer@probomail.nl'
+						contact_address:'jelmerstoker@gmail.com'
 					 }
 		},
 		i18n:{
-            locales:['en','nl','frl'],
+            locales:['be','de','gb','fr','frl','nl','us'],
             directory:__dirname + "/locales/",
-            defaultLocale:'en',
+            defaultLocale:'gb',
             cookie:'locale',
             updateFiles: true,
             extension: '.js',
@@ -24,7 +24,7 @@ module.exports = {
 			saveUninitialized: false
 			},
 		db: {
-			server: 'localhost:8091',
+			server: 'couchbase://127.0.0.1',
 			bucket: 'default'
 		},
 		facebook: {
@@ -46,13 +46,13 @@ module.exports = {
 			register: true,
 			contact: {
 						active:true,
-						contact_address:'jelmer@probomail.nl'
+						contact_address:'jelmerstoker@gmail.com'
 					 }
 		},
 		i18n:{
-            locales:['en','nl','frl'],
+            locales:['be','de','gb','fr','frl','nl','us'],
             directory:__dirname + "/locales/",
-            defaultLocale:'en',
+            defaultLocale:'gb',
             cookie:'locale',
             updateFiles: false,
             extension: '.js',
@@ -63,7 +63,7 @@ module.exports = {
 			saveUninitialized: false
 			},
 		db: {
-			server: 'localhost:8091',
+			server: 'couchbase://127.0.0.1',
 			bucket: 'default'
 		},
 		facebook: {

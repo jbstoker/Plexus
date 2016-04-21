@@ -18,7 +18,5 @@
     "bootstrap-fileinput": "~4.3.0",
     "cropper": "~2.3.0",
     "image-clipper": "~0.4.3"
-  },
-  "devDependencies": {
   }
 }

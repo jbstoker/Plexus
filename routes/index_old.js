@@ -3,9 +3,8 @@ var passport = require('passport');
 var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
 var Auth = require('../config/env/acl/middlewares/authorization.js');
-var datatablesQuery = require('../config/env/datatables/query');
+var datatablesQuery = require('datatables-query');
 var User = require("../models/user");
-var Role = require("../models/role");
 
 
 module.exports = function(app, passport, i18n)
@@ -70,18 +69,34 @@ app.get('/faq', function(req, res, next) {
  *
  *
  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/manage_users', function(req, res, next) {
   if(req.isAuthenticated()){
     
-    Role.getAllRoles(function(err, roles){
+    Role.find({}, 'name id', function(err, roles){
         if(err)
         {
           console.log(err);
         } 
         else
         {
-
-         console.log(['roles'], [roles]); 
         res.render('admin/index', { title: 'Users!',
                                     subtitle: 'Management',
                                     showtitle: '',
@@ -99,8 +114,8 @@ app.get('/manage_users', function(req, res, next) {
   }
 });
 //Get user for update
-app.post('/get-user/:id',function(req,res){
-  User.getByDocumentId(req.params.id,function(err, user){
+app.post('/get-user/:id',function(req,res){ 
+  User.findOne({ _id : req.params.id },'name email role acl.status', function(error, user) {
     if (error || !user) 
     {
       res.status(500).json(err);
@@ -109,71 +124,66 @@ app.post('/get-user/:id',function(req,res){
     { 
       res.json(user);
     }
-  });
+ });
 });
 
 //Create user
-app.post('/create-user',function(req,res)
-{ 
-  User.createACLUser(req.body, function(err, user){
-    if(err) throw err;
-  });
+app.post('/create-user',function(req,res){ 
+    User.createACLUser(req,req.body.user_name,req.body.user_email,req.body.user_role,req.body.user_status, function(err, user){ if(err) throw err;  });
     res.redirect('back');
-});
+ });
  //Update user
 app.post('/update-user/:id',function(req,res){ 
-    User.findACLUserAndUpdate(req.params.id,req.body, function(err, user){ if(err) throw err;  });
+    User.findACLUserAndUpdate(req,req.params.id,req.body.user_name,req.body.user_email,req.body.user_role,req.body.user_status, function(err, user){ if(err) throw err;  });
     res.redirect('back');
-});
-
+ });
 //Create Role
-app.post('/create-role',function(req,res)
-{ 
-   Role.newRole(null,req.body, function(err, role){ if(err) throw err;  });
-   res.redirect('back');
-});
-//Update Role
-app.post('/update-role/:id',function(req,res){ 
-   Role.newRole(req.params.id,req.body, function(err, role){ if(err) throw err;  });
+app.post('/create-role',function(req,res){ 
+   Role.newRole(req,req.body.role_name,req.body.role_read,req.body.role_write,req.body.role_edit,req.body.role_del,req.body.role_publish, function(err, role){ if(err) throw err;  });
    res.redirect('back');
  });
-// //Datatable getAllRoles
-// app.post('/get_roles', function(req, res, next) {
-//   var params = req.body;
-//   var query = datatablesQuery(Role);
-//   query.run(params).then(function(data){
-//                                             res.json(data);
-//                                         }, function (err) {
-//                                             res.status(500).json(err);
-//                                         });
-// });
-// //Datatable getAllUsers
-// app.post('/get_users', function(req, res, next) {
-//   var params = req.body;
-//   var query = datatablesQuery(User);
-//   query.run(params).then(function(data){
-//                                             res.json(data);
-//                                         }, function (err) {
-//                                             res.status(500).json(err);
-//                                         });
-// });
-//Main Settings Page
-app.get('/settings', function(req, res, next)
-{
-  	if(req.isAuthenticated())
-  	{  
-  	  res.render('admin/settings', { title: 'Settings!',
-  	                            subtitle: '',
-  	                            showtitle: '',
-  	                            layout: 'layouts/sidebar',
-  	                            user: req.user
-  	                          });
-  	}
-  	else
-  	{
-  	res.redirect('/login');
-  	}
+//Update Role
+app.post('/update-role/:id',function(req,res){ 
+   Role.findRoleAndUpdate(req,req.param.id,req.body.role_name,req.body.role_read,req.body.role_write,req.body.role_edit,req.body.role_del,req.body.role_publish, function(err, role){ if(err) throw err;  });
+   res.redirect('back');
+ });
+//Datatable getAllRoles
+app.post('/get_roles', function(req, res, next) {
+  var params = req.body;
+  var query = datatablesQuery(Role);
+  query.run(params).then(function(data){
+                                            res.json(data);
+                                        }, function (err) {
+                                            res.status(500).json(err);
+                                        });
 });
+//Datatable getAllUsers
+app.post('/get_users', function(req, res, next) {
+  var params = req.body;
+  var query = datatablesQuery(User);
+  query.run(params).then(function(data){
+                                            res.json(data);
+                                        }, function (err) {
+                                            res.status(500).json(err);
+                                        });
+});
+//Main Settings Page
+app.get('/settings', function(req, res, next){
+  if(req.isAuthenticated()){
+    
+    res.render('admin/settings', { title: 'Settings!',
+                              subtitle: '',
+                              showtitle: '',
+                              layout: 'layouts/sidebar',
+                              user: req.user
+                            });
+  }
+  else
+  {
+  res.redirect('/login');
+  }
+});
+
 /**
  *
  *
@@ -186,6 +196,8 @@ app.get('/settings', function(req, res, next)
  */
 app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
     if(req.isAuthenticated()){
+
+
     res.render('user/profile', { title: 'Profile!',
                                user: req.user,
                                birthday: moment(req.user.birthday).format('YYYY-MM-DD'),
@@ -201,7 +213,7 @@ app.get('/user/profile',Auth.isAuthenticated, function(req, res, next) {
 });
 //Update user profile
 app.post('/update-profile/:id',function(req,res) { 
-  User.findUserAndUpdate(req.params.id,req.body, function(err, user){ if(err) throw err;  });
+  User.findUserAndUpdate(req,req.params.id,req.body.name,req.body.personal_quote,req.body.personal_info,req.body.birthday,req.body.address,req.body.postalcode,req.body.city,req.body.country,req.body.email,req.body.phone,req.body.website, function(err, user){ if(err) throw err;  });
     res.redirect('back');
  });
 //Update avatar user
@@ -253,18 +265,18 @@ app.get('/register', function(req, res) {
 
 app.post('/register', Auth.userExist, function(req, res, next) 
 {
-  User.createOrUpdate(null,req.body, function(err, user){
-    										if(err) throw err;
-                                          	  req.login(user, function(err)
-                                          	  {
-                                          	    if(err) return next(err);
-                                          	    return res.redirect('user/profile');
-                                          	  });
-                                          	});
+  User.signup(req,req.body.fullname,req.body.email, req.body.password, function(err, user){
+    if(err) throw err;
+                                                                      req.login(user, function(err)
+                                                                      {
+                                                                        if(err) return next(err);
+                                                                        return res.redirect('user/profile');
+                                                                      });
+                                                                    });
 });
 //Login
 app.get('/login', function(req, res) {
-    res.render('acl/login', { user : '',
+    res.render('acl/login', { user : req.user,
                               title: '',
                               subtitle: '',
                               showtitle: '',
@@ -277,7 +289,7 @@ app.post("/login" ,passport.authenticate('local',{
                                                     failureFlash: true
                                                   })
 );
- //Logout
+//Logout
 app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/login');
@@ -294,3 +306,4 @@ app.get('/acl/lock', function(req, res, next) {
 
 
 }
+

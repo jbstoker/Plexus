@@ -1,58 +1,99 @@
 /*
 * @Author: JB Stoker
-* @Date:   2016-03-07 12:38:35
+* @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-03-25 15:08:12
+* @Last Modified time: 2016-04-21 07:16:48
 */
-var moment = require('moment');
-var db = require('../config/env/db.js');
-var ottoman = require('ottoman');
-
-var RoleModel = ottoman.model("Role",{roleID: {type:'string', auto:'uuid', readonly:true},
-									name: "string", 			//Normal name
-    					       		read: {type:"boolean",default: true},
-    					       		write:{type:"boolean",default: false},
-    					       		edit:{type:"boolean",default: false},
-    					       		delete:{type:"boolean",default: false},
-    					       		publish:{type:"boolean",default: false}		
-						  			},{
-    							 		index: {	
-    							 		    	findByID:{ by:"roleID"},
-    							 		    	findByName: {by: "name"}
-    											}
-							  	      });
+var uuid = require("uuid"),
+db = require("../app").bucket,
+moment = require('moment'),
+N1qlQuery = require('couchbase').N1qlQuery,
+ViewQuery = require('couchbase').ViewQuery;
 
 
+var env = process.env.NODE_ENV || 'development', config = require('../config/env/config')[env];
 
-// function OnOrOff(data){
-// 	if(data === 'on')
-// 	{
-// 		return 1;
-// 	}
-// 	else
-// 	{
-// 		return 0;
-// 	}	
+function OnOrOff(data)
+{
+	if(data === 'on')
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}	
+}
 
-// }
+function RoleModel(){};
 
-// RoleModel.newRole = function(req,name,read,write,edit,del,publish, done)
-// {
-// 	var Role = this;
-// 	Role.create({name:name,read:OnOrOff(read),write:OnOrOff(write),edit:OnOrOff(edit),delete:OnOrOff(del),publish:OnOrOff(publish)}, function(err, role)
-// 	{
-// 		if(err) throw err;
-// 		done(null, role);
-// 	});
-// };
+RoleModel.newRole = function(uid, data, callback) 
+{
+	var documentId = uid ? uid : uuid.v4();
 
-// RoleModel.findRoleAndUpdate = function(req,id,name,read,write,edit,del,publish,done)
-// {
-// 	var Role = this;
-// 	Role.findOneAndUpdate(id,{name:name,read:OnOrOff(read),write:OnOrOff(write),edit:OnOrOff(edit),delete:OnOrOff(del),publish:OnOrOff(publish)},function(err, role){
-// 		if(err) throw err;
-// 		done(null, role, req.flash('success','Your role has been updated!'));	
-// 	});
-// };
+    		var roleObject = {uid:documentId,
+                              type:'role',
+                              name:data.role_name,
+							  read:OnOrOff(data.role_read),
+							  write:OnOrOff(data.role_write),
+							  edit:OnOrOff(data.role_edit),
+							  delete:OnOrOff(data.role_del),
+							  publish:OnOrOff(data.role_publish)
+							  };
+
+			db.upsert(documentId, roleObject, function(error, result) 
+			{
+			    if(error){
+			    		    callback(error, null);
+			    		    return;
+			    		  }
+			    callback(null, {message: "success", data: result});
+			});							 
+};
+//End RoleModel Signup
+//RoleModel GetByDocumentId
+RoleModel.getByDocumentId = function(documentId, callback) 
+{
+    var query = ViewQuery.from('dev_roles', 'roles');
+
+    db.query(query, [documentId], function(error, result) 
+    {
+        if(error)
+        {
+            return callback(error, null);
+        }
+        callback(null, result);
+    });
+};
+//End RoleModel GetByDocumentId
+//RoleModel DeleteRole
+RoleModel.DeleteRole = function(documentId, callback) 
+{
+    db.remove(documentId, function(error, result) 
+    {
+        if(error) 
+        {
+            callback(error, null);
+            return;
+        }
+        callback(null, {message: "success", data: result});
+    });
+};
+//End RoleModel DeleteRole
+//RoleModel getAllRoles
+RoleModel.getAllRoles = function(callback) 
+{
+    var query = ViewQuery.from('dev_roles', 'roles');
+    
+    db.query(query, function(error, result) 
+    {
+        if(error) 
+        {
+            return callback(error, null);
+        }
+        callback(null, result);
+    });
+};
+//End RoleModel getAllRoles
 
 module.exports = RoleModel;

@@ -1,11 +1,11 @@
 <div class="container">
-    <form method="post" action="/update-profile/{{user.id}}">
+    <form method="post" action="/update-profile/{{user.uid}}">
         <div class="row">
             <button class="btn btn-sm btn-warning" id="saveChanges">{{{__ "Save Changes"}}}</button><input type="checkbox" class="input-sm" data-height="30px" data-toggle="toggle" data-on="<svg style='height:20px' class='icon-edit-3'><use xlink:href='/fonts/icons.svg#icon-edit-3'></use></svg>" data-off="<svg style='height:20px' class='icon-preview-1'><use xlink:href='/fonts/icons.svg#icon-preview-1'></use></svg>" data-offstyle="primary" data-size="mini" data-style="pull-right icon-toggle" data-onstyle="warning" id="editProfile"/>
         </div>
     <div class="row">     
       <div class="col-md-4">
-      <div class="row" id="profile-image" data-img="{{user.avatar}}" data-x="" data-y="" data-width="" data-height="" data-user="{{user.id}}">
+      <div class="row" id="profile-image" data-img="{{user.avatar}}" data-x="" data-y="" data-width="" data-height="" data-user="{{user.uid}}">
       <img src="/uploads/avatar/{{user.avatar}}"  width="100%" class="img-responsive img-thumbnail"/>
       </div>
       <div class="row" id="profile-quote">
@@ -21,7 +21,7 @@
           <ul class="details">
             <li id="name"><span>{{{__ 'Name'}}}</span><a>{{user.name}}</a></li>
             <li id="birthday"><span>{{{__ 'Birthday'}}}</span><a>{{birthday}}</a></li>
-            <li id="address"><span>{{{__ 'Address'}}}</span><a>{{user.address.street}}<a><a>11</a></li>
+            <li id="address"><span>{{{__ 'Address'}}}</span><a>{{user.address.street}}<a></li>
             <li id="postalcode"><span>{{{__ 'Postalcode'}}}</span><a>{{user.address.postalcode}}</a></li>
             <li id="city"><span>{{{__ 'City'}}}</span><a>{{user.address.city}}</a></li>
             <li id="country"><span>{{{__ 'Country'}}}</span><a>{{user.address.country}}</a></li>

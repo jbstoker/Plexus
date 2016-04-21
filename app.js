@@ -26,10 +26,12 @@ flash = require('connect-flash'),
 bodyParser = require('body-parser'),
 passport = require('passport'),
 compression = require('compression'),
+couchbase = require('couchbase');
 i18n = require('i18n');                                                
 //Set Config
 var oneDay = 86400000; //One day in time
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
+module.exports.bucket = (new couchbase.Cluster(config.db.server)).openBucket(config.db.bucket);
 //passport config
 require('./config/env/acl/passport')(passport, config)
 // Set languages

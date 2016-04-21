@@ -1,6 +1,94 @@
 <div class="container">
     <div class="row">
 <!-- Centered tabs -->
+
+<style type="text/css">
+  /* ============================================================
+  SWITCH SHOW/HIDE checkboxS - YES NO
+============================================================ */
+.checkbox-toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+.checkbox-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+input.checkbox-toggle-yes-no + label {
+  padding: 2px;
+  width: 100%;
+  height: 40px;
+}
+input.checkbox-toggle-yes-no + label:before, input.checkbox-toggle-yes-no + label:after {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  color: #fff;
+  font-size: 15px !important;
+  padding: 10px !important;
+  text-align: center;
+  line-height: 18px;
+}
+input.checkbox-toggle-yes-no + label:before {
+  background-color: #cccccc !important;
+  content: attr(data-off);
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  -o-transition: -o-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+input.checkbox-toggle-yes-no + label:after {
+  background-color: #8ce196;
+  content: attr(data-on);
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  -o-transition: -o-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+input.checkbox-toggle-yes-no:checked + label:before {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+}
+input.checkbox-toggle-yes-no:checked + label:after {
+  -webkit-transform: rotateY(0);
+  -moz-transform: rotateY(0);
+  -ms-transform: rotateY(0);
+  -o-transform: rotateY(0);
+  transform: rotateY(0);
+}
+
+</style>
+
 <div class="cd-tabs">
     <nav>
         <ul class="cd-tabs-navigation">
@@ -30,14 +118,17 @@
             <label class="sr-only" for="user-role">{{{__ "Role"}}}</label>
                 <select class="form-control" id="user-role" name="user_role">
                    {{#each roles}}
-                      <option value="{{this.id}}">{{this.name}}</option>                      
+                      <option value="{{this.id}}">{{this.key.name}}</option>                      
                     {{/each}}
                 </select>
         </div>
           </div>
           <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2"> 
          <div class="form-group">
-                <input type="checkbox" data-size="mini" checked class="form-control" data-width="100%" data-height="38px" data-toggle="toggle" data-on="{{{__ 'Accepted'}}}" data-off="{{{__ 'Blocked'}}}" data-offstyle="danger" data-onstyle="success" id="user-accepted" name="user_accepted"/>   
+          <div class="switch">
+            <input id="checkbox-toggle" name="user_accepted" class="checkbox-toggle checkbox-toggle-yes-no" type="checkbox">
+            <label  id="togglecheckboxs" for="checkbox-toggle"  data-on="{{{__ 'Accepted'}}}" data-off="{{{__ 'Blocked'}}}"></label>
+          </div>
          </div>
           </div>
           <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
@@ -79,31 +170,47 @@
                     <input type="text" class="form-control" name="role_name" id="role-name" placeholder="{{{__ 'Rolename'}}}">
               </div>
               </div>
-              <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
-              <div class="form-group">
-                    <input type="checkbox" data-size="mini" class="form-control" checked data-width="100%" data-height="38px" data-toggle="toggle" data-on="{{{__ 'Can Read'}}}" data-off="{{{__ 'No Reading'}}}" data-offstyle="danger" data-onstyle="success" name="role_read" id="role-read"/>  
-             </div>
+
+                  
+
+
+
+                  
+
+
+
+
+
+<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
+                <div class="switch">
+                  <input name="role_read" id="role-read" class="checkbox-toggle checkbox-toggle-yes-no" type="checkbox">
+                  <label  id="togglecheckboxs" for="role-read" data-on="{{{__ 'Can Read'}}}" data-off="{{{__ 'No Reading'}}}" ></label>
+                </div>
               </div>
-             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
-              <div class="form-group">
-                    <input type="checkbox" data-size="mini" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Write'}}}" data-off="{{{__ 'No Writing'}}}" data-offstyle="danger" data-onstyle="success" name="role_write" id="role-write"/>   
+<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
+                <div class="switch">
+                  <input name="role_write" id="role-write" class="checkbox-toggle checkbox-toggle-yes-no" type="checkbox">
+                  <label  id="togglecheckboxs" for="role-write" data-on="{{{__ 'Can Write'}}}" data-off="{{{__ 'No Writing'}}}" ></label>
+                </div>
               </div>
-             </div>
-             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
-              <div class="form-group">
-                    <input type="checkbox" data-size="mini" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Edit'}}}" data-off="{{{__ 'No Editing'}}}" data-offstyle="danger" data-onstyle="success" name="role_edit" id="role-edit"/>
+<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
+                <div class="switch">
+                  <input name="role_edit" id="role-edit" class="checkbox-toggle checkbox-toggle-yes-no" type="checkbox">
+                  <label  id="togglecheckboxs" for="role-edit" data-on="{{{__ 'Can Edit'}}}" data-off="{{{__ 'No Editing'}}}" ></label>
+                </div>
               </div>
-             </div>
-             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
-              <div class="form-group">
-                    <input type="checkbox" data-size="mini" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Publish'}}}" data-off="{{{__ 'No Publishing'}}}" data-offstyle="danger" data-onstyle="success" name="role_publish" id="role-publish"/>   
+<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
+                <div class="switch">
+                  <input name="role_publish" id="role-publish" class="checkbox-toggle checkbox-toggle-yes-no" type="checkbox">
+                  <label  id="togglecheckboxs" for="role-publish" data-on="{{{__ 'Can Publish'}}}" data-off="{{{__ 'No Publishing'}}}" ></label>
+                </div>
               </div>
-             </div>
-             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
-              <div class="form-group">
-                    <input type="checkbox" data-size="mini" class="form-control" data-width="100%" data-height="38px" data-toggle="toggle"  data-on="{{{__ 'Can Delete'}}}" data-off="{{{__ 'No Deleting'}}}" data-offstyle="danger" data-onstyle="success" name="role_del" id="role-delete"/>   
+<div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
+                <div class="switch">
+                  <input name="role_del" id="role-delete" class="checkbox-toggle checkbox-toggle-yes-no" type="checkbox">
+                  <label  id="togglecheckboxs" for="role-delete" data-on="{{{__ 'Can Delete'}}}" data-off="{{{__ 'No Deleting'}}}" ></label>
+                </div>
               </div>
-             </div>
               <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1">
               <div class="form-group">
                     <button type="submit" class="col-md-12 btn btn-primary">{{{__ "Save Role"}}}</button>

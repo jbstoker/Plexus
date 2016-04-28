@@ -71,17 +71,15 @@ app.get('/faq', function(req, res, next) {
  *
  */
 app.get('/manage_users', function(req, res, next) {
-  if(req.isAuthenticated()){
-    
+  if(req.isAuthenticated())
+  {
     Role.getAllRoles(function(err, roles){
         if(err)
         {
           console.log(err);
         } 
         else
-        {
-
-         console.log(['roles'], [roles]); 
+        { 
         res.render('admin/index', { title: 'Users!',
                                     subtitle: 'Management',
                                     showtitle: '',
@@ -101,7 +99,7 @@ app.get('/manage_users', function(req, res, next) {
 //Get user for update
 app.post('/get-user/:id',function(req,res){
   User.getByDocumentId(req.params.id,function(err, user){
-    if (error || !user) 
+    if (err || !user) 
     {
       res.status(500).json(err);
     } 
@@ -125,7 +123,6 @@ app.post('/update-user/:id',function(req,res){
     User.findACLUserAndUpdate(req.params.id,req.body, function(err, user){ if(err) throw err;  });
     res.redirect('back');
 });
-
 //Create Role
 app.post('/create-role',function(req,res)
 { 
@@ -137,26 +134,25 @@ app.post('/update-role/:id',function(req,res){
    Role.newRole(req.params.id,req.body, function(err, role){ if(err) throw err;  });
    res.redirect('back');
  });
-// //Datatable getAllRoles
-// app.post('/get_roles', function(req, res, next) {
-//   var params = req.body;
-//   var query = datatablesQuery(Role);
-//   query.run(params).then(function(data){
-//                                             res.json(data);
-//                                         }, function (err) {
-//                                             res.status(500).json(err);
-//                                         });
-// });
+app.post('/get_roles', function(req, res, next) {
+datatablesQuery.fetchData(req.body,'roles','role','rolesTable',true, function(err,data){
+  if(err)
+    {
+      res.json(err);
+     }  
+    res.json(data);
+    });
+});
 // //Datatable getAllUsers
-// app.post('/get_users', function(req, res, next) {
-//   var params = req.body;
-//   var query = datatablesQuery(User);
-//   query.run(params).then(function(data){
-//                                             res.json(data);
-//                                         }, function (err) {
-//                                             res.status(500).json(err);
-//                                         });
-// });
+app.post('/get_users', function(req, res, next) {
+datatablesQuery.fetchData(req.body,'users','user','usersTable',true, function(err,data){
+  if(err)
+    {
+      res.json(err);
+     }  
+    res.json(data);
+    });
+});
 //Main Settings Page
 app.get('/settings', function(req, res, next)
 {

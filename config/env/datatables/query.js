@@ -1,242 +1,348 @@
-'use strict';
-
 var async = require('async'),
+couchbase = require('couchbase'),
+db = require("../../../app").bucket,
+ViewQuery = couchbase.ViewQuery,
+dbManager = db.manager();
+function Query(){};
+ /**
+  * Get the search fields.
+  * Returns an array of fieldNames based on DataTable Params object
+  * All columns in Params.columns that have .searchable == true field will have the .data param returned in an String
+  * 
+  * @method     getSearchFields
+  * @param      {Array}  Datatable object  
+  * @return     {Array}  All searchable fields
+  */
+function getSearchFields(Params) 
+{
+    return Params.columns.filter(function(column) 
+                                    {
+                                        return JSON.parse(column.searchable);
+                                    }).map(function(column) 
+                                            {
+                                                return column.data;
+                                            });
+};
+/**
+ * Determine if any value is NAN nor undefined.
+ *
+ * @method     isNaNorUndefined
+ * @return     {boolean}
+ */
+function isNaNorUndefined() 
+{
+    var args = Array.prototype.slice.call(arguments);
+    return args.some(function(arg)
+    {
+        return isNaN(arg) || (!arg && arg !== 0);
+    });
+};
+/**
+ * { function_description }
+ *
+ * @method     buildFindParameters
+ * @param      {<type>}  Params  { description }
+ * @return     {<type>}  { description_of_the_return_value }
+ */
+function buildFindParameters(Params) 
+{
+    if(!Params || !Params.columns || !Params.search_value && Params.search_value !== '')
+    {
+        return null;
+    }
 
-    /**
-     * Method getSearchableFields
-     * Returns an array of fieldNames based on DataTable params object
-     * All columns in params.columns that have .searchable == true field will have the .data param returned in an String
-     * array. The .data property is used because in angular frontend DTColumnBuilder.newColumn('str') puts 'str' in the
-     * data field, instead of the name field.
-     * @param params
-     * @returns {Array}
-     */
-    getSearchableFields = function (params) {
-        return params.columns.filter(function (column) {
-            return JSON.parse(column.searchable);
-        }).map(function (column) {
-            return column.data;
-        });
-    },
-
-    /**
-     * Method isNaNorUndefined
-     * Checks if any of the passed params is NaN or undefined.
-     * Used to check DataTable's properties draw, start and length
-     * @returns {boolean}
-     */
-    isNaNorUndefined = function () {
-        var args = Array.prototype.slice.call(arguments);
-        return args.some(function (arg) {
-            return isNaN(arg) || (!arg && arg !== 0);
-        });
-    },
-
-    /**
-     * Methdd buildFindParameters
-     * Builds a MongoDB find expression based on DataTables param object
-     * - If no search text if provided (in params.search.value) an empty object is returned, meaning all data in DB will
-     * be returned.
-     * - If only one column is searchable (that means, only one params.columns[i].searchable equals true) a normal one
-     * field regex MongoDB query is returned, that is {`fieldName`: new Regex(params.search.value, 'i'}
-     * - If multiple columns are searchable, an $or MongoDB is returned, that is:
-     * ```
-     * {
-     *     $or: [
-     *         {`searchableField1`: new Regex(params.search.value, 'i')},
-     *         {`searchableField2`: new Regex(params.search.value, 'i')}
-     *     ]
-     * }
-     * ```
-     * and so on.<br>
-     * All search are by regex so the field param.search.regex is ignored.
-     * @param params DataTable params object
-     * @returns {*}
-     */
-    buildFindParameters = function (params) {
-        if (!params || !params.columns || !params.search || (!params.search.value && params.search.value !== '')) {
-            return null;
-        }
-        var searchText = params.search.value,
-            findParameters = {},
-            searchRegex,
-            searchOrArray = [];
-
-        if (searchText === '') {
-            return findParameters;
-        }
-
-        searchRegex = new RegExp(searchText, 'i');
-
-        var searchableFields = getSearchableFields(params);
-
-        if (searchableFields.length === 1) {
-            findParameters[searchableFields[0]] = searchRegex;
-            return findParameters;
-        }
-
-        searchableFields.forEach(function (field) {
-            var orCondition = {};
-            orCondition[field] = searchRegex;
-            searchOrArray.push(orCondition);
-        });
-
-        findParameters.$or = searchOrArray;
+    var searchText = Params.search_value,
+        findParameters = {},
+        searchRegex,
+        searchOrArray = [];
+    
+    if(searchText === '') 
+    {
         return findParameters;
-console.log(['Find Parameters'],[findParameters]);
-    },
+    }
 
-    /**
-     * Method buildSortParameters
-     * Based on DataTable parameters, this method returns a MongoDB ordering parameter for the appropriate field
-     * The params object must contain the following properties:
-     * order: Array containing a single object
-     * order[0].column: A string parseable to an Integer, that references the column index of the reference field
-     * order[0].dir: A string that can be either 'asc' for ascending order or 'desc' for descending order
-     * columns: Array of column's description object
-     * columns[i].data: The name of the field in MongoDB. If the index i is equal to order[0].column, and
-     * the column is orderable, then this will be the returned search param
-     * columns[i].orderable: A string (either 'true' or 'false') that denotes if the given column is orderable
-     * @param params
-     * @returns {*}
-     */
-    buildSortParameters = function (params) {
-    	
-        if (!params || !Array.isArray(params.order) || params.order.length === 0) {
-            return null;
+    searchRegex = new RegExp(searchText, 'i');
+    var searchableFields = getSearchFields(Params);
+    
+    if(searchableFields.length === 1)
+    {
+        findParameters[searchableFields[0]] = searchRegex;
+        return findParameters;
+    }
+
+    searchableFields.forEach(function(field)
+    {
+        var column =  field.replace('key.','');
+        var orCondition = {};
+        orCondition[column] = searchRegex;
+        searchOrArray.push(orCondition);
+    });
+    
+    findParameters = searchOrArray;
+    
+    return findParameters;
+};
+/**
+ * { function_description }
+ *
+ * @method     buildSortParameters
+ * @param      {<type>}  Params  { description }
+ * @return     {string}  { description_of_the_return_value }
+ */
+function buildSortParameters(Params) 
+{
+    if(!Params || Params.order_dir.length === 0)
+    {
+        return null;
+    }
+
+    var sortColumn = Number(Params.order_column),
+        sortOrder = Params.order_dir,
+        sortField;
+    
+    if(isNaNorUndefined(sortColumn) || !Array.isArray(Params.columns) || sortColumn >= Params.columns.length)
+    {
+        return null;
+    }
+
+    if(Params.columns[sortColumn].orderable === 'false')
+    {
+        return null;
+    }
+
+    sortField = Params.columns[sortColumn].data.replace('key.','');
+    
+    if(!sortField)
+    {
+        return null;
+    }
+    
+    if(sortOrder === 'asc')
+    {
+        return sortField;
+    }
+
+    return '-' + sortField;
+};
+function findOrCreateViewCouchbase(Model, Viewname){};
+function queryDataFromCouchBase(){};
+/**
+ * DataTable call rendering for couchbase
+ *
+ * @method     datatablesQuery
+ * @param      {<type>}  Params  { description }
+ * @param      {<type>}  Model   { description }
+ * @param      {<type>}  Full    { description }
+ * @return     {Object}  { description_of_the_return_value }
+ */
+Query.fetchData = function(Params,Model,Type,Viewname,Full,callback) 
+{    
+    var data = [{'draw':'','columns':[],'tablenames':[],'order_column':'','order_dir':'','start':'','length':'','search_value':'','search_regex':'','full':Full,'model':Model,'view':Viewname,'type':Type}];
+    
+    async.forEachOf(Params, function(value, key, cb)
+    {
+        try {
+            if(key.endsWith('draw')){
+                data[0]['draw'] = Number(Params[key]);
+            }
+            if(key.endsWith('][data]')){
+                // data
+                var rownum = parseInt(key.match(/[0-9]+/)[0], 10);
+                data[0]['columns'][rownum] = [];
+                data[0]['columns'][rownum]['data'] = Params[key];
+                
+                if(data[0]['tablenames'].indexOf(Params[key]) === -1)
+                {
+                    data[0]['tablenames'].push(Params[key]);
+                } 
+            }
+            if(key.endsWith('][name]')){
+                // name
+                var rownum = parseInt(key.match(/[0-9]+/)[0], 10);
+                data[0]['columns'][rownum]['name'] = Params[key];
+            }
+            if(key.endsWith('][searchable]')){
+                // searchable
+                var rownum = parseInt(key.match(/[0-9]+/)[0], 10);
+                data[0]['columns'][rownum]['searchable'] = Params[key];
+            }
+            if(key.endsWith('][orderable]')){
+                // orderable
+                var rownum = parseInt(key.match(/[0-9]+/)[0], 10);
+                data[0]['columns'][rownum]['orderable'] = Params[key];
+            }
+            if(key.endsWith('][search][value]')){
+                // search
+                var rownum = parseInt(key.match(/[0-9]+/)[0], 10);
+                data[0]['columns'][rownum]['searchval'] = Params[key];
+            }
+            if(key.endsWith('][search][regex]')){
+                // search
+                var rownum = parseInt(key.match(/[0-9]+/)[0], 10);
+                data[0]['columns'][rownum]['searchreg'] = Params[key];
+            }
+            if(key.endsWith('][column]')){
+                data[0]['order_column'] = Number(Params[key]);
+            }
+            if(key.endsWith('][dir]')){
+                data[0]['order_dir'] = Params[key];
+            }
+            if(key.endsWith('start')){
+                data[0]['start'] = Number(Params[key]);
+            }
+            if(key.endsWith('length')){
+               data[0]['length'] = Number(Params[key]);
+            }
+            if(key.endsWith('search[value]')){
+                data[0]['search_value'] = Params[key];
+            }
+            if(key.endsWith('search[regex]')){
+                data[0]['search_regex'] = Params[key];
+            }  
+        } 
+        catch(e) 
+        {
+            return cb(e);
         }
+     cb();   
+    },function(err)
+    {
+    if (err) console.log(err);
 
-        var sortColumn = Number(params.order[0].column),
-            sortOrder = params.order[0].dir,
-            sortField;
-
-        if (isNaNorUndefined(sortColumn) || !Array.isArray(params.columns) || sortColumn >= params.columns.length) {
-            return null;
-        }
-
-        if (params.columns[sortColumn].orderable === 'false') {
-            return null;
-        }
-
-        sortField = params.columns[sortColumn].data;
-
-        if (!sortField) {
-            return null;
-        }
-
-        if (sortOrder === 'asc') {
-            return sortField;
-        }
-
-        return '-' + sortField;
-    },
-
-    /**
-     * Run wrapper function
-     * Serves only to the Model parameter in the wrapped run function's scope
-     * @param {Object} Model Mongoose Model Object, target of the search
-     * @returns {Function} the actual run function with Model in its scope
-     */
-    run = function (Model) {
-
-        /**
-         * Method Run
-         * The actual run function
-         * Performs the query on the passed Model object, using the DataTable params argument
-         * @param {Object} params DataTable params object
-         */
-        return function (params) {
-            var draw = Number(params.draw),
-                start = Number(params.start),
-                length = Number(params.length),
-                findParameters = buildFindParameters(params),
-                sortParameters = buildSortParameters(params),
-                recordsTotal,
-                recordsFiltered;
+                    async.series({
+                                draw: function(cb){
+                                    var draw = Number(data[0].draw);
+                                        
+                                    if (isNaNorUndefined(draw))
+                                    {
+                                        return cb(new Error('Some parameters are missing or in a wrong state. ' +
+                                        'Could be any of draw, start or length'));
+                                    }
+                                    cb(null, draw);
+                                },
+                                data: function(cb)
+                                {
+                                    console.log(['Data object..............'],data);
+                                    var model = data[0].model,
+                                    viewname = data[0].view,
+                                    type = data[0].type,
+                                    tablenames = data[0].tablenames,
+                                    sortVal = buildSortParameters(data[0]),
+                                    findVal = buildFindParameters(data[0]); 
 
 
-            return new Promise(function (fullfill, reject) {
+                                    console.log(['sort/find'], [sortVal],[findVal]);
 
-                async.series([
-                    function checkParams (cb) {
-                        if (isNaNorUndefined(draw, start, length)) {
-                            return cb(new Error('Some parameters are missing or in a wrong state. ' +
-                            'Could be any of draw, start or length'));
-                        }
-                        if (!findParameters || !sortParameters) {
-                            return cb(new Error('Invalid findParameters or sortParameters'));
-                        }
-                        cb();
-                    },
-                    function fetchRecordsTotal (cb) {
-                    	
-                        Model.count({}, function (err, count) {
-                            if (err) {
-                                cb(err);
-                            }
-                            recordsTotal = count;
-                            cb();
-                        });
-                    },
-                    function fetchRecordsFiltered (cb) {
-                        Model.count(findParameters, function (err, count) {
-                            if (err) {
-                                cb(err);
-                            }
-                            recordsFiltered = count;
-                            cb();
-                        });
-                    },
-                    function runQuery (cb) {
-                    	
-                        Model
-                            .find(findParameters)
-                            .limit(length)
-                            .skip(start)
-                            .sort(sortParameters)
-                            .exec(function (err, results) {
-                                if (err) {
-                                    cb(err);
+                                    //Build doc.* parameters for design
+                                    tablenames.forEach(function(element, index) {
+                                        tablenames[index] = '"'+element+'":doc.'+element;
+                                    });
+                                    if(data[0].full == true)
+                                    {//Get all values 
+                                        var design =  {
+                                                         map : [ 'function(doc, meta) {',
+                                                                 'if (doc.type && doc.type == "'+type+'") { ',
+                                                                 'emit(doc, null); }',
+                                                                 '}'].join('\n')
+                                                     };
+                                    }
+                                    else
+                                    {
+                                         var design =  {
+                                                         map : [ 'function(doc, meta){',
+                                                                 'if(doc.type && doc.type == "'+type+'"){',
+                                                                 'emit({'+tablenames.join(',')+'}, null); }',
+                                                                 '}'].join('\n')
+                                                        };
+                                    }    
+
+                                    dbManager.getDesignDocument(model,function(err, designdoc, meta )
+                                    {
+                                        if(designdoc === null)
+                                        {
+                                            designdoc = {views:{}};
+                                            designdoc['views'][viewname] = design;
+
+                                            dbManager.upsertDesignDocument(model, designdoc, function(err, res) 
+                                            {
+                                                if(err) 
+                                                {
+                                                    console.log( 'ERROR' + err );
+                                                } 
+                                                else if(res.ok) 
+                                                {   
+                                                    var query = ViewQuery.from(model, viewname).skip(data[0].start).limit(data[0].length);
+                                                    db.query(query, function(err, results)
+                                                    {
+                                                        cb(null,results);
+                                                    });
+                                                }
+
+                                            });    
+                                        } 
+                                        else if(!(viewname in designdoc['views']))
+                                        {
+                                            designdoc['views'][viewname] = design;
+
+                                            dbManager.upsertDesignDocument(model, designdoc, function(err, res) 
+                                            {
+                                                if(err) 
+                                                {
+                                                    console.log( 'ERROR' + err );
+                                                } 
+                                                else if(res.ok) 
+                                                {
+                                                    var query = ViewQuery.from(model, viewname).skip(data[0].start).limit(data[0].length);
+                                                    db.query(query, function(err, results)
+                                                    {
+                                                        cb(null,results);
+                                                    });
+                                                }
+
+                                            });  
+                                        }
+                                        else    
+                                        {
+                                                var query = ViewQuery.from(data[0].model, data[0].view).skip(data[0].start).limit(data[0].length);
+                                                        db.query(query, function(err, results)
+                                                        {
+                                                            cb(null,results);
+                                                        });
+                                        }
+                                    });
+                                },
+                                recordsTotal: function(cb){
+                                    var query = ViewQuery.from(data[0].model, data[0].view);
+                                                        db.query(query, function(err, results)
+                                                        {        
+                                                            cb(null,results.length);
+                                                        });
+                                },
+                                recordsFiltered: function(cb)
+                                {
+                                    var query = ViewQuery.from(data[0].model, data[0].view).skip(data[0].start).limit(data[0].length);
+                                                        db.query(query, function(err, results)
+                                                        {        
+                                                            cb(null,results.length);
+                                                        });
                                 }
-                                cb(null, {
-                                    draw: draw,
-                                    recordsTotal: recordsTotal,
-                                    recordsFiltered: recordsFiltered,
-                                    data: results
-                                });
+                            }, 
+                            function(err, results)
+                            {
+                                if(err)
+                                {
+                                    return callback(null, {message: "Error", data: err});
+                                }
+                                else
+                                {
+                                    console.log(['Total result'],results);
+                                    return callback(null, results);
+                                }
                             });
+    });                                             
+};
 
-                    }
-                ], function resolve (err, results) {
-                    if (err) {
-                        reject({
-                            error: err
-                        });
-                    } else {
-                        var answer = results[results.length - 1];
-                        fullfill(answer);
-                    }
-                });
-            });
-        };
-    },
 
-    /**
-     * Module datatablesQuery
+module.exports = Query;
 
-     * Performs queries in the given Mongoose Model object, following DataTables conventions for search and
-     * pagination.
-     * The only interesting exported function is `run`. The others are exported only to allow unit testing.
-     * @param Model
-     * @returns {{run: Function, isNaNorUndefined: Function, buildFindParameters: Function, buildSortParameters:
-     *     Function}}
-     */
-    datatablesQuery = function (Model) {
-        return {
-            run: run(Model),
-            isNaNorUndefined: isNaNorUndefined,
-            buildFindParameters: buildFindParameters,
-            buildSortParameters: buildSortParameters
-        }
-    };
-module.exports = datatablesQuery;
+

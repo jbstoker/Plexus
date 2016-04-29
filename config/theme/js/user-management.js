@@ -132,11 +132,11 @@ $(document).on('click','.editUser',function(e){
         $('#user-form').attr('action', '/update-user/'+data.uid);
         if(data.acl.status === undefined || data.acl.status === '0')
         {
-            $('#user-accepted').bootstrapToggle('off');
+            $('[name=user-accepted]').prop('checked',false);
         }
         else
         {
-            $('#user-accepted').bootstrapToggle('on');
+            $('[name=user-accepted]').prop('checked',true);
         }    
         $('#user-id').val(data.uid);
         $('#btn-saveUser').removeClass('btn-primary').addClass('btn-warning').html('Update');
@@ -159,11 +159,11 @@ $(document).on('click','.editRole',function(e){
         $('#role-form').attr('action', '/update-role/'+data.uid);
         if(data.acl.status === undefined || data.acl.status === '0')
         {
-            $('#user-accepted').bootstrapToggle('off');
+            $('[name=user-accepted]').prop('checked',false);
         }
         else
         {
-            $('#user-accepted').bootstrapToggle('on');
+            $('[name=user-accepted]').prop('checked',true);
         }    
         
     }).fail(function() {

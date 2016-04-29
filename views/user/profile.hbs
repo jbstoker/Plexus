@@ -1,7 +1,11 @@
 <div class="container">
     <form method="post" action="/update-profile/{{user.uid}}">
         <div class="row">
-            <button class="btn btn-sm btn-warning" id="saveChanges">{{{__ "Save Changes"}}}</button><input type="checkbox" class="input-sm" data-height="30px" data-toggle="toggle" data-on="<svg style='height:20px' class='icon-edit-3'><use xlink:href='/fonts/icons.svg#icon-edit-3'></use></svg>" data-off="<svg style='height:20px' class='icon-preview-1'><use xlink:href='/fonts/icons.svg#icon-preview-1'></use></svg>" data-offstyle="primary" data-size="mini" data-style="pull-right icon-toggle" data-onstyle="warning" id="editProfile"/>
+            <button class="btn btn-sm btn-warning" id="saveChanges">{{{__ "Save Changes"}}}</button>
+            <div class="switch col-xs-2 col-sm-1 col-md-1 col-lg-1 pull-right">
+            <input id="checkbox-toggle" class="checkbox-toggle checkbox-toggle-yes-no show-edit editProfile" type="checkbox">
+            <label  id="togglecheckboxs" for="checkbox-toggle"></label>
+          </div>
         </div>
     <div class="row">     
       <div class="col-md-4">

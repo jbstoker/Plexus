@@ -23,11 +23,9 @@ module.exports = function(grunt) {
             js_frontend: {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
-                    './bower_components/jquery-touchswipe/jquery.touchSwipe.min.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js',
                     './bower_components/bootstrap-fileinput/js/fileinput.js',
                     './bower_components/cropper/dist/cropper.js',
-                    './bower_components/bootstrap-toggle/js/bootstrap-toggle.js',
                     './bower_components/summernote/dist/summernote.js',
                     './bower_components/datatables/media/js/jquery.dataTables.js',
                     './bower_components/datatables/media/js/dataTables.bootstrap.js',
@@ -76,8 +74,8 @@ module.exports = function(grunt) {
                             {expand: true,flatten: true, src: ['./bower_components/font-awesome/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap/fonts/*'], dest: './public/fonts/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./bower_components/bootstrap-fileinput/img/*'], dest: './public/images/', filter: 'isFile'},
-                            {expand: true,flatten: true, src: ['./config/dev-fonts/svg-icons/*'], dest: './public/fonts/', filter: 'isFile'},
-                            {expand: true, cwd:'./config/dev-fonts/fonts/', src: ['**'], dest: './public/fonts/'},
+                            {expand: true, cwd:'./config/theme/fonts/fonts/', src: ['**'], dest: './public/fonts/'},
+                            {expand: true, cwd:'./config/theme/fonts/svg-icons/', src: ['**'], dest: './public/fonts/'},
                             {expand: true,flatten: true, src: ['./config/theme/img/*'], dest: './public/images/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./config/env/i18n/flags/*'], dest: './public/images/flags/', filter: 'isFile'},
                             {expand: true,flatten: true, src: ['./config/theme/favicons/*'], dest: './public/images/favicons/', filter: 'isFile'},

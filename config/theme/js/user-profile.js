@@ -17,8 +17,9 @@
 		
 jQuery(document).ready(function($) {
 //Edit Profile toggle
-$('#editProfile').change(function(){
-	
+
+
+$('.editProfile').click(function(event) {
         //Check if swicth is selected  
         if($(this).prop('checked'))
         {
@@ -139,9 +140,7 @@ $('#editProfile').change(function(){
           $('ul.details li#phone').html('<span>Phone</span><a>'+phone+'</a>');
           $('ul.details li#website').html('<span>Website</span><a href="'+website+'">'+website+'</a>');
         }  
-    });
-
-
+});
 
 
 

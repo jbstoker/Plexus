@@ -42,8 +42,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 //navigation urls + custom hbs helpers
-app.locals.nav = require('./config/env/navigation/navigation')(i18n);
-require('./config/env/navigation/helpers')(hbs);
+app.locals.nav = require('./middlewares/navigation/navigation')(i18n);
+require('./middlewares/navigation/helpers')(hbs);
 require('./config/env/i18n/helpers')(hbs,app);
 //favicon Uri
 app.use(favicon(path.join(__dirname, 'public/images/favicons/', 'favicon.ico')));
@@ -79,7 +79,7 @@ app.use(function (req, res, next){
                                     res.locals.modules = config.modules; 
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);
-                                    app.locals.nav = require('./config/env/navigation/navigation')(i18n,req,res);
+                                    app.locals.nav = require('./middlewares/navigation/navigation')(i18n,req,res);
                                     next(); 
                                   });
 

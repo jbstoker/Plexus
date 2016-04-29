@@ -1,6 +1,6 @@
 var async = require('async'),
 couchbase = require('couchbase'),
-db = require("../../../app").bucket,
+db = require("../../app").bucket,
 ViewQuery = couchbase.ViewQuery,
 dbManager = db.manager();
 function Query(){};

@@ -3,7 +3,7 @@ var passport = require('passport');
 var moment = require('moment');
 var LocalStrategy = require('passport-local').Strategy;
 var Auth = require('../config/env/acl/middlewares/authorization.js');
-var datatablesQuery = require('../config/env/datatables/query');
+var datatablesQuery = require('../middlewares/datatables/query');
 var User = require("../models/user");
 var Role = require("../models/role");
 

@@ -28,28 +28,141 @@ $('.editProfile').click(function(event) {
            var id = $('#profile-image').attr('data-user');
            var quote =  $('#profile-quote blockquote').html();
            var info =  $('#profile-info .info-text').html();
-           var name =  $('ul.details li#name').children(":not('span')").html();
-           var birthday =  $('ul.details li#birthday').children(":not('span')").html();
-           var address =  $('ul.details li#address').children(":not('span')").html();
-           var postalcode =  $('ul.details li#postalcode').children(":not('span')").html();
-           var city =  $('ul.details li#city').children(":not('span')").html();
-           var country =  $('ul.details li#country').children(":not('span')").html();
-           var email =  $('ul.details li#email').children(":not('span')").html();
-           var phone =  $('ul.details li#phone').children(":not('span')").html();
-           var website =  $('ul.details li#website').children(":not('span')").html();
+
+          var title = $('[name=title]').html(); 
+          var titleelem = '<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">'+
+                          '<div class="input-group input-group-sm"><span class="input-group-addon profile" style="min-width:100px;" id="title">Title</span>'+
+                          '<select class="form-control" placeholder="title" aria-describedby="title" name="title" data-old="'+title+'">'+  
+                          '<option value="Ms">Ms</option><option value="Miss">Miss</option>'+
+                          '<option value="Mrs">Mrs</option>'+
+                          '<option value="Mr">Mr</option>'+
+                          '<option value="Master">Master</option>'+
+                          '<option value="Rev">Rev (Reverend)</option>'+
+                          '<option value="Fr">Fr (Father)</option>'+
+                          '<option value="Dr">Dr (Doctor)</option>'+
+                          '<option value="Atty">Atty (Attorney)</option>'+
+                          '<option value="Prof">Prof (Professor)</option>'+
+                          '<option value="Hon">Hon (Honorable)</option>'+
+                          '<option value="Pres">Pres (President)</option>'+
+                          '<option value="Gov">Gov (Governor)</option>'+
+                          '<option value="Coach">Coach</option>'+
+                          '<option value="Ofc">Ofc (Officer)</option>'+
+                          '</select></div></div>';
+
+          var surname = $('[name=surname]').html();
+          var middlename= $('[name=middlename]').html();
+          var lastname = $('[name=lastname]').html();
+          var maidenname = $('[name=maidenname]').html();
+
+          var nameelem =  '<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">'+
+                          '<div class="input-group input-group-sm"><span class="input-group-addon profile" style="min-width:100px;" id="surname">Fullname</span>'+
+                          '<input type="text" class="form-control" placeholder="Surname" aria-describedby="surname" name="surname" data-old="'+surname+'" value="'+surname+'">'+
+                          '</div></div><div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class=" input-group-sm">'+
+                          '<input type="text" class="form-control" placeholder="Middlename" aria-describedby="middlename" name="middlename" data-old="'+middlename+'" value="'+middlename+'">'+
+                          '</div></div><div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="input-group-sm">'+
+                          '<input type="text" class="form-control" placeholder="Lastname" aria-describedby="lastname" name="lastname" data-old="'+lastname+'" value="'+lastname+'">'+
+                          '</div></div><div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="input-group-sm">'+
+                          '<input type="text" class="form-control" placeholder="Maidenname" aria-describedby="maidenname" name="maidenname" data-old="'+maidenname+'" value="'+maidenname+'"></div></div>';
+
+          var gender = $('#genderrow').attr('data-text');
+
+          var genderelem = '<div class="btn-group input-group-sm" style="width:100%" id="gendergroup" data-old="'+gender+'">'+
+                         '<label class="btn btn-sm btn-default" style="width:33.3333%;"> <input type="radio" id="isMale" name="gender" value="Male"/> Male </label>'+
+                         '<label class="btn btn-sm btn-default" style="width:33.3333%;"> <input type="radio" id="isFemale" name="gender" value="Female"/> Female </label>'+
+                         '<label class="btn btn-sm btn-default" style="width:33.3333%;"> <input type="radio" id="isInter" name="gender" value="Intersex"/> Intersex </label>'+
+                         '</div>';
+
+           var birthday =  $('[name=birthday]').val();
+           var email =  $('[name=email]').val();
+           var phone =  $('[name=phone]').val();
+           var mobile =  $('[name=mobile]').val();
+           var website =  $('[name=website]').val();
+
+           var address =  $('[name=address]').val();
+           var number = $('[name=number]').val();
+
+           var postalcode =  $('[name=postalcode]').val();
+           var city =  $('[name=city]').val();
+           var country =  $('[name=country]').val();
+
+
            //Generate input fields for update profile
           $('#saveChanges').show();
-          $('#profile-quote').html('<textarea data-old="'+quote+'" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
+          $('#profile-quote').html('<textarea data-old="'+encodeURIComponent(quote)+'" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">'+quote+'</textarea>');
           $('#profile-info').html('<h3>Personal info</h3><textarea data-old="'+encodeURIComponent(info)+'" id="personal_info" name="personal_info" class="summernote form-control col-md-12" rows="5">'+info+'</textarea>');
-          $('ul.details li#name').html('<span>Name</span><input type="text" value="'+ name +'" class="form-control" data-old="'+name+'" id="name" name="name" placeholder="Name">');
-          $('ul.details li#birthday').html('<span>Birthday</span><input type="date" value="'+ birthday +'" class="form-control" data-old="'+birthday+'" id="birthday" name="birthday" placeholder="Birthday">');
-          $('ul.details li#address').html('<span>Address</span><input type="text" value="'+ address +'" class="form-control" data-old="'+address+'" id="address" name="address" placeholder="Address">');
-          $('ul.details li#postalcode').html('<span>Postalcode</span><input type="text" value="'+ postalcode +'" class="form-control" data-old="'+postalcode+'" id="postalcode" name="postalcode" placeholder="Postalcode">');
-          $('ul.details li#city').html('<span>City</span><input type="text" value="'+ city +'" class="form-control" data-old="'+city+'" id="city" name="city" placeholder="City">');
-          $('ul.details li#country').html('<span>Country</span><input type="text" value="'+ country +'" class="form-control" data-old="'+country+'" id="country" name="country" placeholder="Country">');
-          $('ul.details li#email').html('<span>Email</span><input type="email" value="'+ email +'" class="form-control" data-old="'+email+'" id="email" name="email" placeholder="Email">');
-          $('ul.details li#phone').html('<span>Phone</span><input type="tel" value="'+ phone +'" class="form-control" data-old="'+phone+'" id="phone" name="phone" placeholder="Phone">');
-          $('ul.details li#website').html('<span>Website</span><input type="url" value="'+ website +'" class="form-control" data-old="'+website+'" id="website" name="website" placeholder="Website">');
+
+          
+          $('#titlerow').html(titleelem);
+          $('#namerow').html(nameelem);
+          $('#genderrow').html(genderelem);
+
+
+          $('[name=gender][value='+gender+']').attr('checked', true);
+
+
+
+          $('[name=birthday]').attr('data-old', birthday).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=email]').attr('data-old', email).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=phone]').attr('data-old', phone).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=mobile]').attr('data-old', mobile).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=website]').attr('data-old', website).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=address]').attr('data-old', address).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=number]').attr('data-old', number).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=postalcode]').attr('data-old', postalcode).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=city]').attr('data-old', city).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+          $('[name=country]').attr('data-old', country).css({
+              'pointer-events': 'auto',
+              border: '1px solid #cccccc',
+              '-webkit-box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)',
+              'box-shadow': 'inset 0 1px 1px rgba(0,0,0,0.075)'
+          });
+
+
           $('#profile-image').html('<div id="kv-avatar-errors" style="width:100%; display:none"></div><form class="text-center" method="post" enctype="multipart/form-data"><div class="kv-avatar center-block"><input id="avatar" data-old="'+avatar+'" name="avatar" type="file" class="file-loading" data-upload-url="/update-avatar/'+id+'"></div></form>');
 
           //Set summernote variables
@@ -114,31 +227,135 @@ $('.editProfile').click(function(event) {
         {
           //Fetch old data if not saved; Reset
            var avatar = $('#avatar').attr('data-old'); 
-           var quote =  $('#personal_quote').attr('data-old');
-           var info =  decodeURIComponent($('#personal_info').attr('data-old'));
-           var name =  $('input#name').attr('data-old');
-           var birthday =  $('input#birthday').attr('data-old');
-           var address =  $('input#address').attr('data-old');
-           var postalcode =  $('input#postalcode').attr('data-old');
-           var city =  $('input#city').attr('data-old');
-           var country =  $('input#country').attr('data-old');
-           var email =  $('input#email').attr('data-old');
-           var phone =  $('input#phone').attr('data-old');
-           var website =  $('input#website').attr('data-old');
+           var quote = decodeURIComponent($('#personal_quote').attr('data-old'));
+           var info = decodeURIComponent($('#personal_info').attr('data-old'));
+
+           var title = $('[name=title]').attr('data-old');              
+           var surname = $('[name=surname]').attr('data-old'); 
+           var middlename= $('[name=middlename]').attr('data-old');
+           var lastname = $('[name=lastname]').attr('data-old');
+           var maidenname = $('[name=maidenname]').attr('data-old');
+
+           $('#titlerow').html('');
+           var nameelem = '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><span name="title">'+title+'</span><span name="surname">'+surname+'</span><span name="middlename">'+middlename+'</span><span name="lastname">'+lastname+'</span><span name="maidenname">'+maidenname+'</span></div>';
+           $('#namerow').html(nameelem);
+
+           var gender = $('[name=gender]').attr('data-old');
+
+           var birthday =  $('[name=birthday]').attr('data-old');
+           var email =  $('[name=email]').attr('data-old');
+           var phone =  $('[name=phone]').attr('data-old');
+           var mobile =  $('[name=mobile]').attr('data-old');
+           var website =  $('[name=website]').attr('data-old');
+
+           var address =  $('[name=address]').attr('data-old');
+           var number = $('[name=number]').attr('data-old');
+
+           var postalcode =  $('[name=postalcode]').attr('data-old');
+           var city =  $('[name=city]').attr('data-old');
+           var country =  $('[name=country]').attr('data-old');
 
           $('#saveChanges').hide();
           $('#profile-image').html('<img src="/uploads/avatar/'+avatar+'"  width="100%" class="img-responsive img-thumbnail"/>');
           $('#profile-quote').html('<blockquote>'+quote+'</blockquote>');
           $('#profile-info').html('<h3>Personal info</h3><div class="info-text">'+info+'</div>');
-          $('ul.details li#name').html('<span>Name</span><a>'+name+'</a>');
-          $('ul.details li#birthday').html('<span>Birthday</span><a>'+birthday+'</a>');
-          $('ul.details li#address').html('<span>Address</span><a>'+address+'</a>');
-          $('ul.details li#postalcode').html('<span>Postalcode</span><a>'+postalcode+'</a>');
-          $('ul.details li#city').html('<span>City</span><a>'+city+'</a>');
-          $('ul.details li#country').html('<span>Country</span><a>'+country+'</a>');
-          $('ul.details li#email').html('<span>Email</span><a href="mailto:'+email+'">'+email+'</a>');
-          $('ul.details li#phone').html('<span>Phone</span><a>'+phone+'</a>');
-          $('ul.details li#website').html('<span>Website</span><a href="'+website+'">'+website+'</a>');
+
+          $('[name=title]').attr('data-old', title).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=surname]').attr('data-old', surname).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=middlename]').attr('data-old', middlename).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=lastname]').attr('data-old', lastname).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=maidenname]').attr('data-old', maidenname).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=gender]').attr('data-old', gender).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=birthday]').attr('data-old', birthday).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=email]').attr('data-old', email).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=phone]').attr('data-old', phone).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=mobile]').attr('data-old', mobile).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=website]').attr('data-old', website).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=address]').attr('data-old', address).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=number]').attr('data-old', number).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=postalcode]').attr('data-old', postalcode).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=city]').attr('data-old', city).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
+          $('[name=country]').attr('data-old', country).css({
+              'pointer-events': 'none',
+              border: 'none',
+              '-webkit-box-shadow': 'none',
+              'box-shadow': 'none'
+          });
         }  
 });
 

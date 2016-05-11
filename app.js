@@ -27,8 +27,10 @@ bodyParser = require('body-parser'),
 passport = require('passport'),
 compression = require('compression'),
 couchbase = require('couchbase');
-i18n = require('i18n');                                                
+i18n = require('i18n'),
+pkg = require('load-pkg').sync(process.cwd());                                             
 //Set Config
+var version = pkg.version || (new Date().getTime());
 var oneDay = 86400000; //One day in time
 var env = process.env.NODE_ENV || 'development', config = require('./config/env/config')[env];
 module.exports.bucket = (new couchbase.Cluster(config.db.server)).openBucket(config.db.bucket);
@@ -71,6 +73,7 @@ app.use(i18n.init);
 app.use(flash());
 //Use language
 app.use(function (req, res, next){ 
+                                    res.locals.version = version;
                                     res.locals.loggedin = req.isAuthenticated();
                                     res.locals.success = req.flash('success');
                                     res.locals.errors = req.flash('error'); 

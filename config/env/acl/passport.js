@@ -11,7 +11,7 @@ passport.serializeUser(function(user, done) {
  
 passport.deserializeUser(function(userId, done) {
     User.getByDocumentId(userId,function(err, user)
-    {
+    {   
         done(null, user[0].users);
     });
 });

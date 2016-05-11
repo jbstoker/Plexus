@@ -1,6 +1,6 @@
 <div class="container">
     <form method="post" action="/update-profile/{{user.uid}}">
-        <div class="row">
+        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <button class="btn btn-sm btn-warning" id="saveChanges">{{{__ "Save Changes"}}}</button>
             <div class="switch col-xs-2 col-sm-1 col-md-1 col-lg-1 pull-right">
             <input id="checkbox-toggle" class="checkbox-toggle checkbox-toggle-yes-no show-edit editProfile" type="checkbox">
@@ -17,24 +17,107 @@
       </div>
       </div>
       <div class="col-md-8">
-        <div class="row"  id="profile-info">
+        <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="profile-info">
           <h3>{{{__ 'Personal info'}}}</h3>
           <div class="info-text">{{{user.info.personal_text}}}</div>
         </div>
-        <div class="row">
-          <ul class="details">
-            <li id="name"><span>{{{__ 'Name'}}}</span><a>{{user.name}}</a></li>
-            <li id="birthday"><span>{{{__ 'Birthday'}}}</span><a>{{birthday}}</a></li>
-            <li id="address"><span>{{{__ 'Address'}}}</span><a>{{user.address.street}}<a></li>
-            <li id="postalcode"><span>{{{__ 'Postalcode'}}}</span><a>{{user.address.postalcode}}</a></li>
-            <li id="city"><span>{{{__ 'City'}}}</span><a>{{user.address.city}}</a></li>
-            <li id="country"><span>{{{__ 'Country'}}}</span><a>{{user.address.country}}</a></li>
-            <li id="email"><span>{{{__ 'Email'}}}</span><a href="mailto:{{user.email}}">{{user.email}}</a></li>
-            <li id="phone"><span>{{{__ 'Phone'}}}</span><a>{{user.phone}}</a></li>
-            <li id="website"><span>{{{__ 'Website'}}}</span> <a href="{{user.website}}">{{user.website}}</a></li>
-        </ul>
-        </div>
+{{!-- Full Name --}}
+<div class="row" id="titlerow"></div>
+<div class="row" id="namerow">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <span name="title">{{user.title}}</span>
+    <span name="surname">{{user.surname}}</span>
+    <span name="middlename">{{user.middlename}}</span>
+    <span name="lastname">{{user.lastname}}</span>
+    <span name="maidenname">{{user.maidenname}}</span>
+  </div> 
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <hr></hr>
+</div>
+<div class="row">
+  <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="birthday">Birthday</span>
+        <input type="date" class="form-control" placeholder="Birthday" aria-describedby="birthday" name="birthday" value="{{birthday}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6" id="genderrow" data-text"{{user.gender}}">
+
+
+        <svg class="icon-gender-female"><use xlink:href="/fonts/icons.svg#icon-gender-female"></use></svg>
+        <svg class="icon-gender-male"><use xlink:href="/fonts/icons.svg#icon-gender-male"></use></svg>
+        <svg class="icon-genders"><use xlink:href="/fonts/icons.svg#icon-genders"></use></svg>
+
+
+  </div>
+</div>
+<div class="row">
+{{!-- Contact info --}}
+    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="phone">Phone</span>
+        <input type="tel" class="form-control" placeholder="+31 515552255" aria-describedby="phone" name="phone" value="{{user.phone}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="mobile">Mobile</span>
+        <input type="tel" class="form-control" placeholder="+31 615552255" aria-describedby="mobile" name="mobile" value="{{user.mobile}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="email">Email</span>
+        <input type="email" class="form-control" placeholder="Email" aria-describedby="email" name="email" value="{{user.email}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="website">Website</span>
+        <input type="url" class="form-control" placeholder="http://www.website.com" aria-describedby="website" name="website" value="{{user.website}}">
+      </div>
+    </div>
+</div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <hr></hr>
+</div>
+<div class="row">
+{{!-- Address --}}
+    <div class="form-group col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="address">Address</span>
+        <input type="text" class="form-control" style="width:150%" placeholder="Address" aria-describedby="address" name="address" value="{{user.address.street}}">
+        <span class="input-group-btn" style="width:0px;"></span>
+        <input type="text" class="form-control" style="width:50%; float:right" placeholder="Nr" aria-describedby="number" name="number" value="{{user.address.number}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="postalcode">Postalcode</span>
+        <input type="text" class="form-control" placeholder="Postalcode" aria-describedby="postalcode" name="postalcode" value="{{user.address.postalcode}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="city">City</span>
+        <input type="text" class="form-control" placeholder="City" aria-describedby="city" name="city" value="{{user.address.city}}">
+      </div>
+    </div>
+    <div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon profile" style="min-width:100px;" id="country">Country</span>
+        <input type="text" class="form-control" placeholder="Country" aria-describedby="country" name="country" value="{{user.address.country}}">
+      </div>
+    </div>
+
+</div>
+
       </div>
       </form>
+</div>
+
+
+
       </div>
     <!-- End Profile -->

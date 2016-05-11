@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-29 14:53:00
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-04-29 16:13:49
+* @Last Modified time: 2016-04-29 16:26:56
 */
 /* ============================================================
   SWITCH SHOW/HIDE checkboxS - YES NO
@@ -73,10 +73,10 @@ input.checkbox-toggle-yes-no + label:after {
 }
 input.checkbox-toggle-yes-no.show-edit + label:before {
   background-color: #f04124 !important;
-  content: '\f06e';
+  content: '\f044';
   font-family: FontAwesome;
   font-size: 20px!important;
-  width:36px!important;
+  width:38.5px !important;
   -webkit-transition: -webkit-transform 0.5s;
   -moz-transition: -moz-transform 0.5s;
   -o-transition: -o-transform 0.5s;
@@ -89,10 +89,10 @@ input.checkbox-toggle-yes-no.show-edit + label:before {
 }
 input.checkbox-toggle-yes-no.show-edit + label:after {
   background-color: #43ac6a;
-  content: '\f044';
+  content: '\f06e';
   font-family: FontAwesome;
   font-size: 20px!important;
-  width:36px!important;
+  width:38.5px !important;
   -webkit-transition: -webkit-transform 0.5s;
   -moz-transition: -moz-transform 0.5s;
   -o-transition: -o-transform 0.5s;

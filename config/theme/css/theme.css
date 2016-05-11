@@ -52,6 +52,13 @@ input[type='search']::-webkit-search-results-decoration
     width: 100%;
     margin-bottom: 0;
 }
+.input-group-addon.profile{
+    border-width: 0px 3px 0px 0px;
+    border-right: 3px solid;
+    border-color: #6BBFE0;
+    font-weight: 300;
+}
+
 /* .ie fix datetime line-height */
 @media screen and (-webkit-min-device-pixel-ratio:0){
     input[type='date'].form-control, input[type='time'].form-control, input[type='datetime-local'].form-control, input[type='month'].form-control{
@@ -66,7 +73,7 @@ input[type='search']::-webkit-search-results-decoration
   -o-transition: none !important;
 }
 .container {
-    width: 100%;
+    width: 100%!important;
 }
 .row {
     margin-left: 0px !important;
@@ -76,10 +83,15 @@ input[type='search']::-webkit-search-results-decoration
 footer{
 
     background-color: #384b5f;
-    padding:5px;
+    padding: 5px;
     font-size: 12px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
     text-align: center;
+    left: 0;
     color: #ffffff;
+    z-index:3;
 }
 
 footer a{

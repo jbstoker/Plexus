@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-04-20 19:53:53
+* @Last Modified time: 2016-05-13 09:57:05
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
@@ -23,11 +23,18 @@ UserModel.createOrUpdate = function(uid,data, callback)
 		{
     		var userObject = {  type: 'user',
 								uid: documentId,
-								name: data.fullname, 				
-    					    	email: data.email, 			
-    					    	phone: '', 			
+                                gender: '',                
+                                title: '',                
+                                surname: data.fullname,                
+                                middlename: '',                
+                                lastname: '',                
+								maidenname: '', 				
+    					    	email: '', 			
+                                phone: '',          
+    					    	mobile: '', 			
     					    	address:{ 							
-    					    				street:'',
+                                            street:'',
+    					    				number:'',
     					    				postalcode:'',
     					    				city:'',
     					    				country:'',
@@ -175,11 +182,17 @@ UserModel.findUserAndUpdate = function(userId, profile, callback)
             return callback(error, null);
         }
         var userDocument = result.value;
-
-        userDocument.name = profile.name;
+        userDocument.gender = profile.gender;
+        userDocument.title = profile.title;
+        userDocument.surname = profile.surname;
+        userDocument.middlename = profile.middlename;
+        userDocument.lastname = profile.lastname;
+        userDocument.maidenname = profile.maidenname;
         userDocument.email = profile.email;
         userDocument.phone = profile.phone;
+        userDocument.mobile = profile.mobile;
         userDocument.address.street = profile.address;
+        userDocument.address.number = profile.number;
         userDocument.address.postalcode = profile.postalcode;
         userDocument.address.city = profile.city;
         userDocument.address.country = profile.country;
@@ -240,10 +253,14 @@ UserModel.findACLUserAndUpdate = function(userId,params, callback)
 			        }
 
 			        var userDocument = result.value;
-			        userDocument.name = params.name;
-			        userDocument.email = params.email;
-			        userDocument.acl.status = params.status;
-			        userDocument.role = params.role;
+                    userDocument.title = params.user_title;
+                    userDocument.surname = params.user_surname;
+                    userDocument.middlename = params.user_middlename;
+                    userDocument.lastname = params.user_lastname;
+			        userDocument.maidenname = params.user_maidenname;
+			        userDocument.email = params.user_email;
+			        userDocument.acl.status = params.user_status;
+			        userDocument.role = params.user_role;
 
 			        db.replace(userId, userDocument, function(error, result) 
 			        {
@@ -272,7 +289,11 @@ UserModel.createACLUser = function(params, callback)
             var userDocument = {
                 "type": "user",
                 "uid": uuid.v4(),
-                "name": params.user_name,
+                "title": params.user_title,
+                "surname": params.user_surname,
+                "middlename": params.user_middlename,
+                "lastname": params.user_lastname,
+                "maidenname": params.user_maidenname,
                 "email": params.user_email,
                 "acl": {
                 			"status":params.user_accepted

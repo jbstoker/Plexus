@@ -21,6 +21,7 @@ path = require('path'),
 favicon = require('serve-favicon'),
 logger = require('morgan'),
 hbs = require('hbs'),
+hbsOperator = require('./middlewares/hbs-operators'),
 cookieParser = require('cookie-parser'),
 flash = require('connect-flash'),
 bodyParser = require('body-parser'),
@@ -56,6 +57,7 @@ hbs.registerPartials(__dirname + '/views/layouts/partials');
 // set default locale for hbs fix
 app.locals.locale = i18n.getLocale();
 // register hbs helpers that still receive the current context as the `this`, but `i18n.__` will take `app.locals` as the `this`
+hbsOperator.use([ 'env', 'cond' ]);
 hbs.registerHelper('__', function(){ return i18n.__.apply(app.locals, arguments); });
 hbs.registerHelper('__n', function(){ return i18n.__n.apply(app.locals, arguments); });
 //Log init
@@ -75,14 +77,14 @@ app.use(flash());
 app.use(function (req, res, next){ 
                                     res.locals.version = version;
                                     res.locals.loggedin = req.isAuthenticated();
+                                    app.locals.nav = require('./middlewares/navigation/navigation')(i18n,req,res);
                                     res.locals.success = req.flash('success');
-                                    res.locals.errors = req.flash('error'); 
+                                    res.locals.error = req.flash('error'); 
                                     res.locals.warning = req.flash('warning'); 
                                     res.locals.info = req.flash('info'); 
                                     res.locals.modules = config.modules; 
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);
-                                    app.locals.nav = require('./middlewares/navigation/navigation')(i18n,req,res);
                                     next(); 
                                   });
 

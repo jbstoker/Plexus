@@ -222,7 +222,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                 },
                                 data: function(cb)
                                 {
-                                    console.log(['Data object..............'],data);
+                                    
                                     var model = data[0].model,
                                     viewname = data[0].view,
                                     type = data[0].type,
@@ -231,7 +231,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                     findVal = buildFindParameters(data[0]); 
 
 
-                                    console.log(['sort/find'], [sortVal],[findVal]);
+                                    
 
                                     //Build doc.* parameters for design
                                     tablenames.forEach(function(element, index) {
@@ -267,7 +267,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                             {
                                                 if(err) 
                                                 {
-                                                    console.log( 'ERROR' + err );
+                                                    
                                                 } 
                                                 else if(res.ok) 
                                                 {   
@@ -288,7 +288,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                             {
                                                 if(err) 
                                                 {
-                                                    console.log( 'ERROR' + err );
+                                                    
                                                 } 
                                                 else if(res.ok) 
                                                 {
@@ -335,7 +335,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                 }
                                 else
                                 {
-                                    console.log(['Total result'],results);
+                                    
                                     return callback(null, results);
                                 }
                             });

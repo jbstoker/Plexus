@@ -57,7 +57,7 @@ hbs.registerHelper('topnav', function(){
                 //Check if link is of type account.
         if(liClass === 'account')
         {
-          var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown"><img src="/uploads/avatar/'+this.avatar+'" id="menu-avatar" alt="avatar">'+ icon + title + count +'</a><ul class="dropdown-menu">';
+          var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown">'+this.avatar+ icon + title + count +'</a><ul class="dropdown-menu">';
         }
         else
         { 
@@ -155,7 +155,7 @@ hbs.registerHelper('sidenav', function(){
         //Check if link is of type account.
         if(liClass === 'account')
         {
-          var element = '<li class="has-children account '+ notifyClass + ' ' + smOnlyIcon +'"><a href="#"><img src="/uploads/avatar/'+this.avatar+'" id="menu-avatar" alt="avatar">'+ icon + title + count +'</a><ul>';
+          var element = '<li class="has-children account '+ notifyClass + ' ' + smOnlyIcon +'"><a href="#">'+this.avatar+ icon + title + count +'</a><ul>';
         }
         else
         { 

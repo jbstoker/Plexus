@@ -57,6 +57,7 @@
     </nav>
   </header> <!-- .cd-main-header -->
   <main class="cd-main-content">
+    {{> alerts}}
     <nav class="cd-side-nav is-fixed">
         <ul>
         {{#each nav.main}}
@@ -70,7 +71,6 @@
       </ul>  
     </nav>
     <div class="content-wrapper">
-    {{> alerts}}
       {{{body}}}
     </div> <!-- .content-wrapper -->
   </main> <!-- .cd-main-content -->

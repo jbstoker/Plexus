@@ -106,5 +106,11 @@
 	"No Publishing": "No Publishing",
 	"Delete": "Delete",
 	"Publish": "Publish",
-	"Answer": "Answer"
+	"Answer": "Answer",
+	"Title": "Title",
+	"Surname": "Surname",
+	"Middlename": "Middlename",
+	"Lastname": "Lastname",
+	"Maidenname": "Maidenname",
+	"Save": "Save"
 }

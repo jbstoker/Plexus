@@ -1,12 +1,35 @@
 module.exports = function(i18n,req,res){
 
-var username; 
-var avatar = 'http://lorempixel.com/50/50/people';
+var title = '';
+var name = '';
+var lastname = '';
+var maidenname = ''; 
+var avatar = '';
+
+    function upChar(namestring) {
+        if (namestring === undefined) {
+            return "";
+        } else {
+            return namestring.charAt(0).toUpperCase() + ".";
+        }
+    }
 
     if(res != undefined && res.locals.loggedin === true)
     {
-        username = req.user.name;
-        avatar = req.user.avatar;
+        title = req.user.title;
+        name = upChar(req.user.surname) +''+ upChar(req.user.middlename); 
+        lastname = req.user.lastname;
+        maidenname = req.user.maidenname;
+
+        if(req.user.avatar === undefined || req.user.avatar === '')
+        {
+            avatar  = '<svg id="menu-avatar" class="icon-id-8" style="height:100%; width:100%;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>';
+        }
+        else
+        {
+            avatar = '<img src="/uploads/avatar/'+req.user.avatar+'" id="menu-avatar" alt="avatar">';
+        }    
+
     }
 
     //Main menu top and sidebar has one sub possible
@@ -35,7 +58,7 @@ var avatar = 'http://lorempixel.com/50/50/people';
                     {
                         liClass: "account",
                         url: "#",
-                        title: i18n.__('Welcome') + ' ' + username,
+                        title: i18n.__('Welcome') + ' ' + title +' '+name+' '+lastname+' '+maidenname,
                         avatar: avatar,
                         smOnlyIcon: false,
                         icon: "",

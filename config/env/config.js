@@ -20,8 +20,9 @@ module.exports = {
             },
 		secret:{
 			secret: 'top Secret',
-			resave: false,
-			saveUninitialized: false
+			resave: true,
+			saveUninitialized: false,
+  			cookie: { secure: false }
 			},
 		db: {
 			server: 'couchbase://127.0.0.1',
@@ -59,8 +60,9 @@ module.exports = {
             },  		
 		secret:{
 			secret: 'top Secret',
-			resave: false,
-			saveUninitialized: false
+			resave: true,
+			saveUninitialized: false,
+			cookie: { secure: false}
 			},
 		db: {
 			server: 'couchbase://127.0.0.1',

@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-04-21 07:16:48
+* @Last Modified time: 2016-05-13 11:31:07
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
@@ -54,7 +54,11 @@ RoleModel.newRole = function(uid, data, callback)
 //RoleModel GetByDocumentId
 RoleModel.getByDocumentId = function(documentId, callback) 
 {
-    var query = ViewQuery.from('dev_roles', 'roles');
+    var statement = "SELECT * " +
+                    "FROM `" + config.db.bucket + "` AS roles " +
+                    "WHERE META(roles).id = $1";
+
+    var query = N1qlQuery.fromString(statement);
 
     db.query(query, [documentId], function(error, result) 
     {

@@ -10,10 +10,18 @@ passport.serializeUser(function(user, done) {
 });
  
 passport.deserializeUser(function(userId, done) {
-    User.getByDocumentId(userId,function(err, user)
-    {   
-        done(null, user[0].users);
-    });
+        User.getByDocumentId(userId,function(err, user)
+        {   
+            if(err || user[0] === undefined)
+            {
+                    done(null, null);
+    
+            }
+            else
+            {
+                done(null, user[0].users);
+            }    
+        });
 });
 
 passport.use(new LocalStrategy({

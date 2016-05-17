@@ -13,15 +13,55 @@
         <form class="form-inline" id="user-form" method="POST" action="/create-user">
           <div class="col-xs-12 col-md-6 col-md-6 col-lg-3"> 
             <div class="form-group">
-              <label class="sr-only" for="user-name">{{{__ "Name"}}}</label>
-                  <input type="hidden" class="form-control" id="user-id" name="user_id">
-                  <input type="text" class="form-control" id="user-name" name="user_name" placeholder="{{{__ 'Jane Doe'}}}">
+              <label class="sr-only" for="user-title">{{{__ "Title"}}}</label>
+                <select class="form-control" placeholder="user-title" aria-describedby="user-title" name="user_title" id="user-title">
+                  <option value="Ms">Ms</option>
+                  <option value="Miss">Miss</option>
+                  <option value="Mrs">Mrs</option>
+                  <option value="Mr">Mr</option>
+                  <option value="Master">Master</option>
+                  <option value="Rev">Rev (Reverend)</option>
+                  <option value="Fr">Fr (Father)</option>
+                  <option value="Dr">Dr (Doctor)</option>
+                  <option value="Atty">Atty (Attorney)</option>
+                  <option value="Prof">Prof (Professor)</option>
+                  <option value="Hon">Hon (Honorable)</option>
+                  <option value="Pres">Pres (President)</option>
+                  <option value="Gov">Gov (Governor)</option>
+                  <option value="Coach">Coach</option>
+                  <option value="Ofc">Ofc (Officer)</option>
+                </select>
             </div>
           </div>
+          <div class="col-xs-12 col-md-6 col-md-6 col-lg-3"> 
+            <div class="form-group">
+              <label class="sr-only" for="user-surname">{{{__ "Surname"}}}</label>
+                  <input type="text" class="form-control" id="user-surname" name="user_surname" placeholder="{{{__ "Surname"}}}">
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 col-md-6 col-lg-3"> 
+            <div class="form-group">
+              <label class="sr-only" for="user-middlename">{{{__ "Middlename"}}}</label>
+                  <input type="text" class="form-control" id="user-middlename" name="user_middlename" placeholder="{{{__ "Middlename"}}}">
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 col-md-6 col-lg-3"> 
+            <div class="form-group">
+              <label class="sr-only" for="user-lastname">{{{__ "Lastname"}}}</label>
+                  <input type="text" class="form-control" id="user-lastname" name="user_lastname" placeholder="{{{__ "Lastname"}}}">
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 col-md-6 col-lg-3"> 
+            <div class="form-group">
+              <label class="sr-only" for="user-maidenname">{{{__ "Maidenname"}}}</label>
+                  <input type="text" class="form-control" id="user-maidenname" name="user_maidenname" placeholder="{{{__ "Maidenname"}}}">
+            </div>
+          </div>
+
           <div class="col-xs-12 col-md-6 col-md-6 col-lg-3">    
           <div class="form-group">
             <label class="sr-only" for="user-email">{{{__ "Email"}}}</label>
-                <input type="email" class="form-control" id="user-email" name="user_email" placeholder="{{{__ 'jane.doe@example.com'}}}">
+                <input type="email" class="form-control" id="user-email" name="user_email" placeholder="{{{__ 'Email'}}}">
          </div>
           </div>
           <div class="col-xs-8 col-sm-8 col-md-8 col-lg-2">   
@@ -44,7 +84,10 @@
           </div>
           <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
           <div class="form-group">
-                <button type="submit" id="btn-saveUser" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 btn btn-primary">{{{__ "Save User"}}}</button>
+                <div class="btn-group-sm btn-group" style="width:100%" role="group" aria-label="Save">
+                  <button type="reset" id="btn-resetUser" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 btn btn-primary">{{{__ "Reset"}}}</button>
+                  <button type="submit" id="btn-saveUser" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 btn btn-primary">{{{__ "Save"}}}</button>
+                </div>
             </div> 
           </div>
         </form>  
@@ -74,7 +117,7 @@
         </li>
         <li data-content="roles" class="row">
         <div class="col-md-12 horizontaltab-form well">
-            <form class="form-inline" action="/create-role" method="POST">
+            <form class="form-inline" action="/create-role" id="role-form" method="POST">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
               <div class="form-group">
                 <label class="sr-only" for="role-name">{{{__ "Rolename"}}}</label>
@@ -113,7 +156,10 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2">
               <div class="form-group">
-                    <button type="submit" class="col-md-12 btn btn-primary">{{{__ "Save Role"}}}</button>
+                <div class="btn-group-sm btn-group" style="width:100%" role="group" aria-label="Save">
+                  <button type="reset" id="btn-resetRole" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 btn btn-primary">{{{__ "Reset"}}}</button>
+                  <button type="submit" id="btn-saveRole" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 btn btn-primary">{{{__ "Save"}}}</button>
+                </div>
               </div>
                 </div> 
             </form> 

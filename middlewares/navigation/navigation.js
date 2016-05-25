@@ -23,7 +23,7 @@ var avatar = '';
 
         if(req.user.avatar === undefined || req.user.avatar === '')
         {
-            avatar  = '<svg id="menu-avatar" class="icon-id-8" style="height:100%; width:100%;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>';
+            avatar  = '<svg id="menu-avatar" class="icon-id-8" style="height:100%; width:100%; top:-5px; left:-15px;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>';
         }
         else
         {

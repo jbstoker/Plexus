@@ -24,6 +24,7 @@ hbs = require('hbs'),
 hbsOperator = require('./middlewares/hbs-operators'),
 cookieParser = require('cookie-parser'),
 flash = require('connect-flash'),
+session = require('express-session'),
 bodyParser = require('body-parser'),
 passport = require('passport'),
 compression = require('compression'),
@@ -63,18 +64,18 @@ hbs.registerHelper('__n', function(){ return i18n.__n.apply(app.locals, argument
 //Log init
 app.use(logger('dev'));
 //Body parser middleware
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //Session middleware
-app.use(cookieParser());
-app.use(require('express-session')(config.secret));
+app.use(session(config.secret));
 //Autentication
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(i18n.init);  
 app.use(flash());
 //Use language
-app.use(function (req, res, next){ 
+app.use(function (req, res, next){
                                     res.locals.version = version;
                                     res.locals.loggedin = req.isAuthenticated();
                                     app.locals.nav = require('./middlewares/navigation/navigation')(i18n,req,res);
@@ -82,7 +83,7 @@ app.use(function (req, res, next){
                                     res.locals.error = req.flash('error'); 
                                     res.locals.warning = req.flash('warning'); 
                                     res.locals.info = req.flash('info'); 
-                                    res.locals.modules = config.modules; 
+                                    res.locals.modules = config.modules;
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);
                                     next(); 

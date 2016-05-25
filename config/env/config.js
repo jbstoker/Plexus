@@ -28,6 +28,18 @@ module.exports = {
 			server: 'couchbase://127.0.0.1',
 			bucket: 'default'
 		},
+		email:{
+			service:'',
+			address:'jelmerstoker@gmail.com',
+			smtp:{ 	   
+					host: 'localhost',
+					port: 25,
+				 },
+			auth:{
+			   		user: 'jelmerstoker@gmail.com',
+			   		pass: ''
+				}
+		},
 		facebook: {
 			clientID: "{{PLACEHOLDER}}",
 			clientSecret: "{{PLACEHOLDER}}",

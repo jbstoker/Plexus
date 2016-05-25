@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-05-14 13:28:05
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-16 14:25:33
+* @Last Modified time: 2016-05-18 15:00:08
 */
 .alert-container{
     z-index: 99;
@@ -17,9 +17,10 @@
 .alert > [data-notify="title"] {
 	display: block;
 	font-weight: bold;
+	font-size: 125%;
 	margin-bottom: 5px;
 }
 .alert > [data-notify="message"] {
-	font-size: 80%;
+	font-size: 110%;
 	font-weight:300;
 }

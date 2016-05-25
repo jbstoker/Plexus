@@ -5,32 +5,56 @@ var LocalStrategy = require('passport-local').Strategy
 module.exports = function (passport, config) {
 
 
-passport.serializeUser(function(user, done) {
-    done(null, user[0].users.uid);
+passport.serializeUser(function(user, done) 
+{
+    if(user.data === undefined)
+    {
+        done(null, user[0].users.uid);
+    }
+    else
+    {
+        done(null, user.data.uid);
+    }    
 });
  
 passport.deserializeUser(function(userId, done) {
         User.getByDocumentId(userId,function(err, user)
         {   
-            if(err || user[0] === undefined)
+            if(err)
             {
-                    done(null, null);
-    
+                done(null,err);
             }
             else
             {
-                done(null, user[0].users);
-            }    
+                if(user[0] === undefined)
+                {
+                    //after register fetch by id
+                        done(null, user);
+                }
+                else
+                {
+                    //after login fetch by id
+                    done(null, user[0].users);
+                }    
+            }   
         });
 });
 
-passport.use(new LocalStrategy({
-		usernameField: 'email',
-		passwordField: 'password',
-		passReqToCallback : true
+
+
+
+
+passport.use('local', new LocalStrategy({
+        usernameField : 'email',
+        passwordField : 'password'
     },
-    function(req, email, password, done) 
+    function(email, password, done) 
     {
-    	User.isValidUserPassword(req, email, password, done);
+        User.isValidUserPassword(email, password, done);
     }));
+
+
 }
+
+
+

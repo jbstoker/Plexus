@@ -4,7 +4,7 @@ exports.isAuthenticated = function(req, res, next)
 {
         if (req.isAuthenticated())
         {
-            next();
+           return next();
         } 
         else 
         {
@@ -17,12 +17,11 @@ exports.userExist = function(req, res, next)
 {
     User.findByEmail(req.body.email, function(err, email)
     {
-    if(err){ throw err; }
-                
+    if(err){ throw err; }      
         if(email.length > 0)
         {
             req.flash('error',{title:'Error!',msg:'The email address already exists',target:'',url:'',target:'',bar:false});
-            res.redirect("/register");   
+            res.redirect("back");   
         }
         else 
         {

@@ -202,7 +202,8 @@
         <p>{{{__ "Write your email below, the mail wich is send will be optimized for spam filters"}}}</p>
         </div>
         <div class="row">
-            <input type="text" class="form-control" placeholder="{{{__ 'Subject'}}}">
+            <input type="hidden" id="userMailTo" class="form-control">
+            <input type="text" id="userMailSubject" class="form-control" placeholder="{{{__ 'Subject'}}}">
             <br>
         </div>
         <div class="row">
@@ -211,7 +212,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">{{{__ "Reset"}}}</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">{{{__ "Send"}}}</button>
+        <button type="button" id="sendMailToUser" class="btn btn-primary" data-dismiss="modal">{{{__ "Send"}}}</button>
       </div>
     </div>
 

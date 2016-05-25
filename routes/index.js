@@ -73,7 +73,7 @@ module.exports = function(app, passport, i18n) {
         if (req.isAuthenticated()) {
             Role.getAllRoles(function(err, roles) {
                 if (err) {
-                    console.log(err);
+                    return err;
                 } else {
                     res.render("admin/index", {
                         title: "Users!",
@@ -88,6 +88,18 @@ module.exports = function(app, passport, i18n) {
         } else {
             res.redirect("/login");
         }
+    });
+    //Get user for update
+    app.post("/sendmail", function(req, res) {
+        User.SendMail(req.body.to,req.body,function(err,user){
+            if (err){
+                        res.json({uid:user.id,message:{type:'danger',title:'<strong>Error!</strong>',msg:'Could not send the email!',target:'',url:'',target:'',bar:false}});
+                    } 
+                    else 
+                    {
+                        res.json({uid:user.id,message:{type:'success',title:'<strong>Succes!</strong>',msg:'Email is send!',target:'',url:'',target:'',bar:false}});
+                    }
+        });
     });
     //Get user for update
     app.post("/get-user/:id", function(req, res) {
@@ -127,13 +139,12 @@ module.exports = function(app, passport, i18n) {
     app.post("/update-user/:id", function(req, res) {
         User.findACLUserAndUpdate(req.params.id, req.body, function(err, user) {
             if (err){
-                        req.flash('error',{title:'Error!',msg:'Could not update the user!',target:'',url:'',target:'',bar:false});
+                        res.json({user:user,message:{type:'danger',title:'<strong>Error!</strong>',msg:'Could not update the user!',target:'',url:'',target:'',bar:false}});
                     } 
                     else 
                     {
-                        req.flash('success',{title:'Success!',msg:'User Updated!',target:'',url:'',target:'',bar:false});
+                        res.json({user:user,message:{type:'success',title:'<strong>Succes!</strong>',msg:'User is updated!',target:'',url:'',target:'',bar:false}});
                     }
-        res.redirect('/manage_users');
         });
     });
     //Get role for update
@@ -161,27 +172,25 @@ module.exports = function(app, passport, i18n) {
     //Create Role
     app.post("/create-role", function(req, res) {
         Role.newRole(null, req.body, function(err, role) {
-            if (err){
-                        req.flash('error',{title:'Error!',msg:'Could not create the role!',target:'',url:'',target:'',bar:false});
+             if (err){
+                        res.json({role:role,message:{type:'danger',title:'<strong>Error!</strong>',msg:'Could not create the role!',target:'',url:'',target:'',bar:false}});
                     } 
                     else 
                     {
-                        req.flash('success',{title:'Success!',msg:'Role is created!',target:'',url:'',target:'',bar:false});
+                        res.json({role:role,message:{type:'success',title:'<strong>Succes!</strong>',msg:'Role is created!',target:'',url:'',target:'',bar:false}});
                     }
-            res.redirect('/manage_users');
         });
     });
     //Update Role
     app.post("/update-role/:id", function(req, res) {
         Role.newRole(req.params.id, req.body, function(err, role) {
             if (err){
-                        req.flash('error',{title:'Error!',msg:'Could not update the role!',target:'',url:'',target:'',bar:false});
+                        res.json({role:role,message:{type:'danger',title:'<strong>Error!</strong>',msg:'Could not update the role!',target:'',url:'',target:'',bar:false}});
                     } 
                     else 
                     {
-                        req.flash('success',{title:'Success!',msg:'Role Updated!',target:'',url:'',target:'',bar:false});
+                        res.json({role:role,message:{type:'success',title:'<strong>Succes!</strong>',msg:'Role is updated!',target:'',url:'',target:'',bar:false}});
                     }
-        res.redirect('/manage_users');
         });
     });
     app.post("/get_roles", function(req, res, next) {
@@ -306,20 +315,26 @@ module.exports = function(app, passport, i18n) {
         });
     });
     app.post("/register", Auth.userExist, function(req, res, next) {
-        User.createOrUpdate(null, req.body, function(err, user){
+        User.createOrUpdate(null, req.body, function(err, user)
+        {
             if (err){
-                        req.flash('error',{title:'Error!',msg:'Could not update your profile!',target:'',url:'',target:'',bar:false});
+                        req.flash('error',{title:'Error!',msg:'Could not create your new account!',target:'',url:'',target:'',bar:false});
+                        res.redirect("back");
                     } 
                     else 
                     {
                         req.login(user, function(err) 
                         {
-                            if (err)
+                            if(err)
                             {
-                              next(err);  
+                              req.flash('error',{title:'Error!',msg:err,target:'',url:'',target:'',bar:false});  
+                              res.redirect("back");
                             } 
-                            req.flash('info',{title:'Welcome!',msg:'Please add the missing data to your profile!',target:'',url:'',target:'',bar:false});
-                            res.redirect("user/profile");
+                            else
+                            {
+                              req.flash('success',{title:'Welcome!',msg:'Please add the missing data to your profile!',target:'',url:'',target:'',bar:false});
+                              res.redirect("user/profile");
+                            }    
                         });
                     }
         });
@@ -334,12 +349,16 @@ module.exports = function(app, passport, i18n) {
             layout: "layouts/default"
         });
     });
-    app.post("/login", passport.authenticate("local", {
-        successRedirect: "/user/profile",
-        failureRedirect: "/login",
-        failureFlash: true
-    }));
-    //Logout
+
+
+app.post('/login', passport.authenticate('local', { 
+                                                    failureRedirect: '/login', 
+                                                    successRedirect: '/user/profile',  
+                                                    successFlash: true, 
+                                                    failureFlash: true, 
+                                                  }));
+
+      //Logout
     app.get("/logout", function(req, res) {
         req.logout();
         res.redirect("/login");

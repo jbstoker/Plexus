@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-13 11:31:07
+* @Last Modified time: 2016-05-18 15:03:27
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
@@ -31,23 +31,22 @@ RoleModel.newRole = function(uid, data, callback)
 {
 	var documentId = uid ? uid : uuid.v4();
 
-    		var roleObject = {uid:documentId,
-                              type:'role',
-                              name:data.role_name,
-							  read:OnOrOff(data.role_read),
-							  write:OnOrOff(data.role_write),
-							  edit:OnOrOff(data.role_edit),
-							  delete:OnOrOff(data.role_del),
-							  publish:OnOrOff(data.role_publish)
+    		var roleObject = {"uid":documentId,
+                              "type":"role",
+                              "name":data.role_name,
+							  "read":OnOrOff(data.role_read),
+							  "write":OnOrOff(data.role_write),
+							  "edit":OnOrOff(data.role_edit),
+							  "delete":OnOrOff(data.role_del),
+							  "publish":OnOrOff(data.role_publish)
 							  };
 
 			db.upsert(documentId, roleObject, function(error, result) 
 			{
 			    if(error){
-			    		    callback(error, null);
-			    		    return;
+			    		    return callback(error, null);
 			    		  }
-			    callback(null, {message: "success", data: result});
+			    return callback(null, roleObject);
 			});							 
 };
 //End RoleModel Signup
@@ -87,7 +86,7 @@ RoleModel.DeleteRole = function(documentId, callback)
 //RoleModel getAllRoles
 RoleModel.getAllRoles = function(callback) 
 {
-    var query = ViewQuery.from('dev_roles', 'roles');
+    var query = ViewQuery.from('dev_roles', 'roles').stale(1);
     
     db.query(query, function(error, result) 
     {

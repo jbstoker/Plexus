@@ -271,7 +271,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                                 } 
                                                 else if(res.ok) 
                                                 {   
-                                                    var query = ViewQuery.from(model, viewname).skip(data[0].start).limit(data[0].length);
+                                                    var query = ViewQuery.from(model, viewname).skip(data[0].start).limit(data[0].length).stale(1);
                                                     db.query(query, function(err, results)
                                                     {
                                                         cb(null,results);
@@ -292,7 +292,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                                 } 
                                                 else if(res.ok) 
                                                 {
-                                                    var query = ViewQuery.from(model, viewname).skip(data[0].start).limit(data[0].length);
+                                                    var query = ViewQuery.from(model, viewname).skip(data[0].start).limit(data[0].length).stale(1);
                                                     db.query(query, function(err, results)
                                                     {
                                                         cb(null,results);
@@ -303,7 +303,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                         }
                                         else    
                                         {
-                                                var query = ViewQuery.from(data[0].model, data[0].view).skip(data[0].start).limit(data[0].length);
+                                                var query = ViewQuery.from(data[0].model, data[0].view).skip(data[0].start).limit(data[0].length).stale(1);
                                                         db.query(query, function(err, results)
                                                         {
                                                             cb(null,results);
@@ -320,7 +320,7 @@ Query.fetchData = function(Params,Model,Type,Viewname,Full,callback)
                                 },
                                 recordsFiltered: function(cb)
                                 {
-                                    var query = ViewQuery.from(data[0].model, data[0].view).skip(data[0].start).limit(data[0].length);
+                                    var query = ViewQuery.from(data[0].model, data[0].view).skip(data[0].start).limit(data[0].length).stale(1);
                                                         db.query(query, function(err, results)
                                                         {        
                                                             cb(null,results.length);

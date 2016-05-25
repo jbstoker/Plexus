@@ -14,7 +14,6 @@
 *               Unauthorized copying, or using code of this file, trough any medium is strictly prohibited
 *               Proprietary and confidential
 */
-jQuery(document).ready(function($) {
     function isUndef(val) {
         if (val === undefined) {
             return "";
@@ -30,12 +29,16 @@ jQuery(document).ready(function($) {
         }
     }
     function isChecked(val) {
-        if (val === undefined || val === 0) {
-            return false;
-        } else {
+        if (val === 'on' || val == 1 || val == '1'){
             return true;
+        } else {
+            return false;
         }
     }
+    function setUid(e){
+       $('#userMailTo').val($(e).attr('data-uid'));
+    }
+jQuery(document).ready(function($) {
     // User management
     function format(d) {
         if (d.key.address === undefined) {
@@ -82,7 +85,7 @@ jQuery(document).ready(function($) {
         },
         columns: [ {
             className: "details-control",
-            data: "key.name",
+            data: "key.surname",
             render: function(data, type, full, meta) {
                 return "";
             }
@@ -103,7 +106,7 @@ jQuery(document).ready(function($) {
                 if (data === undefined) {
                     return "User";
                 } else {
-                    return data;
+                    return data.text;
                 }
             }
         }, {
@@ -120,7 +123,7 @@ jQuery(document).ready(function($) {
             orderable: false,
             searchable: false,
             render: function(data, type, full, meta) {
-                return '<button class="btn btn-mini btn-primary" data-toggle="modal" data-target="#mailUserModal"><svg class="icon-mail-2"><use xlink:href="fonts/icons.svg#icon-mail-2"></use></svg></button>';
+                return '<button class="btn btn-mini btn-primary" data-toggle="modal" onclick="setUid(this)" data-uid="'+data+'" data-target="#mailUserModal"><svg class="icon-mail-2"><use xlink:href="fonts/icons.svg#icon-mail-2"></use></svg></button>';
             }
         }, {
             data: "key.uid",
@@ -233,73 +236,81 @@ jQuery(document).ready(function($) {
         toolbar: [ [ "style", [ "bold", "italic", "underline", "clear" ] ], [ "font", [ "strikethrough", "superscript", "subscript" ] ], [ "fontsize", [ "fontsize" ] ], [ "insert", [ "hr", "table" ] ], [ "color", [ "color" ] ], [ "para", [ "ul", "ol", "paragraph" ] ], [ "height", [ "height" ] ], [ "misc", [ "fullscreen" ] ] ],
         height: 300
     });
-
-
-    $(document).on('click','#btn-saveUser', function(event) {
+    $(document).on("click", "#btn-saveUser", function(event) {
         event.preventDefault();
-        var data = $('#user-form').serialize();
-        var path = $('#user-form').attr('action');
+        var data = $("#user-form").serialize();
+        var path = $("#user-form").attr("action");
         $.ajax({
             url: path,
-            type: 'POST',
-            data: data,
-        }).done(function(data) 
-        {
-             if(data.message.type != 'danger' && data.message.type != 'warning')
-                                {
-                                    //var table = $('#users-management').DataTable();
-                                    //table.row(row).node().remove();
-                                }
-                                $.notify({title: data.message.title,
-                                         message: data.message.msg,
-                                         url: data.message.url,
-                                         target: data.message.target
-                                        },{
-                                         type: data.message.type  
-                                        });
-
-        })            
+            type: "POST",
+            data: data
+        }).done(function(data){
+            if (data.message.type != "danger" && data.message.type != "warning") {
+                var table = $("#users-management").DataTable();
+                table.row.add({
+                    key: {
+                        surname: data.user.surname,
+                        email: data.user.email,
+                        role: data.user.role,
+                        acl: data.user.acl,
+                        uid: data.user.uid,
+                        uid: data.user.uid,
+                        uid: data.user.uid
+                    }
+                }).draw();
+            }
+            $.notify({
+                title: data.message.title,
+                message: data.message.msg,
+                url: data.message.url,
+                target: data.message.target
+            }, {
+                type: data.message.type
+            });
+        });
     });
-
-
-    $(document).on('click','#btn-saveRole', function(event) {
+    $(document).on("click", "#btn-saveRole", function(event) {
         event.preventDefault();
-        var data = $('#user-form').serialize();
-        var path = $('#user-form').attr('action');
+        var data = $("#role-form").serialize();
+        var path = $("#role-form").attr("action");
         $.ajax({
             url: path,
-            type: 'POST',
-            data: data,
-        }).done(function(data) 
-        {
-            console.log(data);
-             if(data.message.type != 'danger' && data.message.type != 'warning')
-                                {
-                                    //var table = $('#users-management').DataTable();
-                                    //table.row(row).node().remove();
-                                }
-                                $.notify({title: data.message.title,
-                                         message: data.message.msg,
-                                         url: data.message.url,
-                                         target: data.message.target
-                                        },{
-                                         type: data.message.type  
-                                        });
-
-        })            
+            type: "POST",
+            data: data
+        }).done(function(data) {
+            if (data.message.type != "danger" && data.message.type != "warning") {
+                var table = $("#roles-management").DataTable();
+                table.row.add({
+                    key: {
+                        name: data.role.name,
+                        read: data.role.read,
+                        write: data.role.write,
+                        edit: data.role.edit,
+                        "delete": data.role.delete,
+                        publish: data.role.publish,
+                        uid: data.role.uid,
+                        uid: data.role.uid
+                    }
+                }).draw();
+                $("#user-role").append($("<option></option>").val(data.role.uid).html(data.role.name));
+            }
+            $.notify({
+                title: data.message.title,
+                message: data.message.msg,
+                url: data.message.url,
+                target: data.message.target
+            }, {
+                type: data.message.type
+            });
+        });
     });
-
-
-
-
     //Get User for editing
     $(document).on("click", ".editUser", function(e) {
         $.ajax({
             url: "/get-user/" + this.id,
             type: "POST",
             dataType: "JSON"
-        }).done(function(d) {
-            var data = d[0].users;
+        }).done(function(data) {
             $("#user-form").attr("action", "/update-user/" + data.uid);
             $("[name=user_accepted]").prop("checked", isChecked(data.acl.status));
             $("#user-id").val(data.uid);
@@ -310,99 +321,88 @@ jQuery(document).ready(function($) {
             $("#user-lastname").val(data.lastname);
             $("#user-maidenname").val(data.maidenname);
             $("#user-email").val(data.email);
-            $("#user-role").val(data.role);
+            $("#user-role").val(data.role.uid);
         }).fail(function() {
             console.log("error");
         });
     });
-    $(document).on("click", ".resetUser", function(e) {
-        e.preventDefault();
-        $("#user-form").attr("action", "/create-user/").reset();
+    $(document).on("click", "#btn-resetUser", function(e){
+        $("#user-form").attr("action", "/create-user/");
+        $("#btn-saveUser").removeClass("btn-warning").addClass("btn-primary").html("Save");
     });
-    $(document).on("click", ".resetRole", function(e) {
-        e.preventDefault();
-        $("#role-form").attr("action", "/create-role/").reset();
+    $(document).on("click", "#btn-resetRole", function(e){
+        $("#role-form").attr("action", "/create-role/");
+        $("#btn-saveRole").removeClass("btn-warning").addClass("btn-primary").html("Save");
     });
-
-
     $(document).on("click", ".dropUser", function(e) {
-        var text = $(this).attr('data-text');
-        var id = $(this).attr('id');
-        var row = $(this).parents('tr');
+        var text = $(this).attr("data-text");
+        var id = $(this).attr("id");
+        var row = $(this).parents("tr");
         bootbox.confirm(text, function(result) {
-                        if(result)
-                        {   
-                            $.ajax({
-                                url: '/delete-user/'+id,
-                                type: 'POST',
-                            }).done(function(data){
-
-                                if(data.message.type != 'danger' && data.message.type != 'warning')
-                                {
-                                    var table = $('#users-management').DataTable();
-                                    table.row(row).node().remove();
-                                }
-                                $.notify({title: data.message.title,
-                                         message: data.message.msg,
-                                         url: data.message.url,
-                                         target: data.message.target
-                                        },{
-                                         type: data.message.type  
-                                        });
-
-                            }).fail(function(data){
-
-                                $.notify({title: data.message.title,
-                                         message: data.message.msg,
-                                         url: data.message.url,
-                                         target: data.message.target
-                                        });
-                            });
-                        }
+            if (result) {
+                $.ajax({
+                    url: "/delete-user/" + id,
+                    type: "POST"
+                }).done(function(data) {
+                    if (data.message.type != "danger" && data.message.type != "warning") {
+                        var table = $("#users-management").DataTable();
+                        table.row(row).node().remove();
+                    }
+                    $.notify({
+                        title: data.message.title,
+                        message: data.message.msg,
+                        url: data.message.url,
+                        target: data.message.target
+                    }, {
+                        type: data.message.type
                     });
-                        
-                }); 
-
-
+                }).fail(function(data) {
+                    $.notify({
+                        title: data.message.title,
+                        message: data.message.msg,
+                        url: data.message.url,
+                        target: data.message.target
+                    });
+                });
+            }
+        });
+    });
     $(document).on("click", ".dropRole", function(e) {
-        var text = $(this).attr('data-text');
-        var id = $(this).attr('id');
-        var row = $(this).parents('tr');
+        var text = $(this).attr("data-text");
+        var id = $(this).attr("id");
+        var row = $(this).parents("tr");
         bootbox.confirm(text, function(result) {
-                        if(result)
-                        {
-                            $.ajax({
-                                url: '/delete-role/'+id,
-                                type: 'POST',
-                            }).done(function(data){
-
-                                if(data.message.type != 'danger' && data.message.type != 'warning')
-                                {
-                                    var table = $('#roles-management').DataTable();
-                                    table.row(row).node().remove();
-                                }
-                                $.notify({title: data.message.title,
-                                         message: data.message.msg,
-                                         url: data.message.url,
-                                         target: data.message.target
-                                        },{
-                                         type: data.message.type  
-                                        });
-                            }).fail(function(data){
-
-                                $.notify({title: data.message.title,
-                                         message: data.message.msg,
-                                         url: data.message.url,
-                                         target: data.message.target
-                                        },{
-                                            type: data.message.type
-                                        });
-                            });
-                        } 
+            if (result) {
+                $.ajax({
+                    url: "/delete-role/" + id,
+                    type: "POST"
+                }).done(function(data) {
+                    if (data.message.type != "danger" && data.message.type != "warning") {
+                        var table = $("#roles-management").DataTable();
+                        table.row(row).node().remove();
+                        $("#user-role option[value='"+id+"']").remove();
+                    }
+                    $.notify({
+                        title: data.message.title,
+                        message: data.message.msg,
+                        url: data.message.url,
+                        target: data.message.target
+                    }, {
+                        type: data.message.type
                     });
-                        
-                }); 
-    
+                }).fail(function(data) {
+                    $.notify({
+                        title: data.message.title,
+                        message: data.message.msg,
+                        url: data.message.url,
+                        target: data.message.target
+                    }, {
+                        type: data.message.type
+                    });
+                });
+            }
+        });
+    });
     //Get User for editing
     $(document).on("click", ".editRole", function(e) {
         $.ajax({
@@ -418,9 +418,41 @@ jQuery(document).ready(function($) {
             $("[name=role_write]").prop("checked", isChecked(data.write));
             $("[name=role_edit]").prop("checked", isChecked(data.edit));
             $("[name=role_publish]").prop("checked", isChecked(data.publish));
-            $("[name=role_del]").prop("checked", isChecked(data.del));
+            $("[name=role_del]").prop("checked", isChecked(data.delete));
         }).fail(function() {
             console.log("error");
+        });
+    });
+    $(document).on('click', '#sendMailToUser', function(event) {
+        event.preventDefault();
+        var body = encodeURIComponent($('#userMailText').val());
+        var to = $('#userMailTo').val();
+        var subject = $('#userMailSubject').val();
+
+        $.ajax({
+            url: '/sendmail',
+            type: 'POST',
+            data: {'to':to,'subject':subject,'body':body}
+        })
+        .done(function(data) {
+            $.notify({
+                        title: data.message.title,
+                        message: data.message.msg,
+                        url: data.message.url,
+                        target: data.message.target
+                    }, {
+                        type: data.message.type
+                    });
+        })
+        .fail(function(data) {
+                $.notify({
+                    title: data.message.title,
+                    message: data.message.msg,
+                    url: data.message.url,
+                    target: data.message.target
+                }, {
+                    type: data.message.type
+                });
         });
     });
 });

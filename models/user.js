@@ -2,15 +2,18 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-13 09:57:05
+* @Last Modified time: 2016-05-25 11:24:49
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
 N1qlQuery = require('couchbase').N1qlQuery,
 gm = require('gm'),
 hash = require('../config/env/acl/middlewares/hash'),
-moment = require('moment');
-var env = process.env.NODE_ENV || 'development', config = require('../config/env/config')[env];
+mailer = require('../middlewares/mailer/mailer'),
+moment = require('moment'),
+sanitizeHtml = require('sanitize-html'),
+env = process.env.NODE_ENV || 'development', 
+config = require('../config/env/config')[env];
 
 function UserModel(){};
 
@@ -21,6 +24,7 @@ UserModel.createOrUpdate = function(uid,data, callback)
 	{
 		if(err) throw err;
 		{
+            var code = Math.random().toString(36).substring(7);
     		var userObject = {  type: 'user',
 								uid: documentId,
                                 gender: '',                
@@ -52,8 +56,8 @@ UserModel.createOrUpdate = function(uid,data, callback)
 						    	hash: hash,		
 						    	pin:  '',
 						    	acl:{								
-						    	     	status: '',
-						    	     	code: Math.random().toString(36).substring(7),
+						    	     	status: '0',
+						    	     	code: code,
 						    	     },  	
     					    	apikey: '',		
     					    	apisecret: '',		
@@ -68,7 +72,11 @@ UserModel.createOrUpdate = function(uid,data, callback)
 						    				name: ''
 						    			},
     					    	createdOn: new Date(),
-						    	role :''};
+						    	role :{
+                                        uid:'',
+                                        text:''
+
+                                }};
 
 			db.upsert(documentId, userObject, function(error, result) 
 			{
@@ -76,12 +84,37 @@ UserModel.createOrUpdate = function(uid,data, callback)
     			    		return  callback(error, null);
 
 			    		  }
-			    return callback(null, {message: "success", data: result});
-			});					 
+                    var subject = 'Welcome!';         
+                    var body = '<p>You just created an new account at '+ config.app.name +'.</p>'+
+                               '<a href="http://localhost:3000/activate?code='+code+'">Please Activate your account by visiting this link.</a>';
+
+                    mailer.sendmail(data.email, subject, body,'html');        
+          
+
+			    return callback(null, {message: "success", data: userObject});
+            });                  
 		}
 	});
 };
 //End UserModel Signup
+//End UserModel.sendmail
+UserModel.SendMail = function(userId,params, callback) 
+{
+                db.get(userId, function(error, result) 
+                {
+                    if(error) 
+                    {
+                        return callback(error, null);
+                    }
+                    var to = result.value.email;
+                    var subject = sanitizeHtml(params.subject);         
+                    var body = sanitizeHtml(decodeURIComponent(params.body));
+                    
+                    mailer.sendmail(to, subject, body, 'html');        
+
+                return callback(null, {message: "success", data: result});
+                });     
+};
 //Find user by email
 UserModel.findByEmail = function(email, callback) 
 {
@@ -96,25 +129,23 @@ UserModel.findByEmail = function(email, callback)
         {
             return callback(error, null);
         }
+        else
+        {
             return callback(null, result);
+        }    
     });
 };
 //Find user by email
 //UserModel GetByDocumentId
 UserModel.getByDocumentId = function(documentId, callback) 
 {
-    var statement = "SELECT * " +
-                    "FROM `" + config.db.bucket + "` AS users " +
-                    "WHERE META(users).id = $1";
-
-    var query = N1qlQuery.fromString(statement);
-    db.query(query, [documentId], function(error, result) 
+    db.get(documentId,{stale:1}, function(error, result) 
     {
         if(error)
         {
             return callback(error, null);
         }
-        return callback(null, result);
+        return callback(null, result.value);
     });
 };
 //End UserModel GetByDocumentId
@@ -131,46 +162,49 @@ UserModel.DeleteUser = function(documentId, callback)
     });
 };
 //End UserModel DeleteUser
-//UserModel getAllUsers
-UserModel.getAllUsers = function(callback) 
-{
-    var statement = "SELECT META(users).id, *" +
-                    "FROM `" + config.db.bucket + "` AS users";
-    var query = N1qlQuery.fromString(statement).consistency(N1qlQuery.Consistency.REQUEST_PLUS);
-    
-    db.query(query, function(error, result) 
-    {
-        if(error) 
-        {
-            return callback(error, null);
-        }
-        callback(null, result);
-    });
-};
 //End UserModel getAllUsers
-UserModel.isValidUserPassword = function(req, email, password, callback)
+UserModel.isValidUserPassword = function(email, password, done)
 {
  var statement = "SELECT * FROM `" + config.db.bucket + "` AS users WHERE login = $1";
  var query = N1qlQuery.fromString(statement);
 
     db.query(query, [email], function(error, result) 
     {
-        if(error){ return callback(error, null); }
-			
-			if(result.length != 0) 
-		 	{
-				hash(password, result[0].users.salt, function(err, hash)
-				{
-					if(err){ return callback(err); }
-					if(hash == result.hash){ return callback(null, result); }
-					 
-        			return callback(null, result);
-				});
-        	}
-        	else
-        	{
-        	  	return callback(null, result[0]);
+        if(error)
+        { 
+            return done(null, false,error);
+        }
+        else
+        {
+            if(result.length > 0) 
+            {
+                hash(password, result[0].users.salt, function(err, hash)
+                {   
+                    if(err)
+                    {
+                        console.log(['hash error'], [err]);
+                        return done(err); 
+                    }
+                    else
+                    {
+                        var dbHash = new Buffer(result[0].users.hash.data);
+                        if(hash.toString() == dbHash.toString())
+                        { 
+                            return done(null, result, 'Welcome!');
+                        }
+                        else
+                        {
+                            return done(null, false, 'Your password is not correct!');
+                        }
+                    }    
+                });
+            }
+            else
+            {
+                return done(null, false,'Your login does not exists within our system');
         	}	
+        }    
+            
     });    
 };
 //End UserModel.isValidUserPassword
@@ -219,7 +253,7 @@ UserModel.findAvatarAndUpdate = function(file,params,userId,newfilename, callbac
 	  		  }
 	  		  else
 	  		  {
-			    db.get(userId, function(error, result) {
+			    db.get(userId,{stale:1}, function(error, result) {
 			        if(error) 
 			        {
 			            return callback(error, null);
@@ -242,8 +276,8 @@ UserModel.findAvatarAndUpdate = function(file,params,userId,newfilename, callbac
 //End UserModel.findAvatarAndUpdate
 UserModel.findACLUserAndUpdate = function(userId,params, callback) 
 {
-	if(params.status === undefined){ params.status = '0'};
-	if(params.role === undefined){ params.role = ''};
+	if(params.user_accepted === undefined){ params.user_accepted = '0'};
+	if(params.user_role === undefined){ params.user_role = ''};
 
 			    db.get(userId, function(error, result) 
 			    {
@@ -259,17 +293,28 @@ UserModel.findACLUserAndUpdate = function(userId,params, callback)
                     userDocument.lastname = params.user_lastname;
 			        userDocument.maidenname = params.user_maidenname;
 			        userDocument.email = params.user_email;
-			        userDocument.acl.status = params.user_status;
-			        userDocument.role = params.user_role;
+			        userDocument.acl.status = params.user_accepted;
 
-			        db.replace(userId, userDocument, function(error, result) 
-			        {
-			            if(error) 
-			            {
-			                return callback(error, null);
-			            }
-			            return callback(null, userDocument);
-			        });
+                    db.get(params.user_role, function(error, result) 
+                    {
+                        if(error) 
+                        {
+                            return callback(error, null);
+                        }
+
+                    userDocument.role.uid = result.value.uid;
+			        userDocument.role.text = result.value.name;
+
+    			        db.replace(userId, userDocument, function(error, result) 
+    			        {
+    			            if(error) 
+    			            {
+    			                return callback(error, null);
+    			            }
+    			            return callback(null, userDocument);
+    			        });
+                    });   
+
 			    });    	
 };
 //End UserModel.findACLUserAndUpdate
@@ -286,27 +331,47 @@ UserModel.createACLUser = function(params, callback)
 
 		 if(result.length <= 0) 
 		 {
-            var userDocument = {
-                "type": "user",
-                "uid": uuid.v4(),
-                "title": params.user_title,
-                "surname": params.user_surname,
-                "middlename": params.user_middlename,
-                "lastname": params.user_lastname,
-                "maidenname": params.user_maidenname,
-                "email": params.user_email,
-                "acl": {
-                			"status":params.user_accepted
-                		},
-                "role": params.user_role};
+            db.get(params.user_role, function(error, result) 
+                    {
+                        if(error) 
+                        {
+                            return callback(error, null);
+                        }
 
-            db.insert(userDocument.uid, userDocument, function(error, result) 
-            {
-                if(error){
-                    		return callback(error);
-                		 }
-                return callback(null, userDocument);
-            });
+                        var code = Math.random().toString(36).substring(7);
+                        var userDocument = {
+                            "type": "user",
+                            "uid": uuid.v4(),
+                            "title": params.user_title,
+                            "surname": params.user_surname,
+                            "middlename": params.user_middlename,
+                            "lastname": params.user_lastname,
+                            "maidenname": params.user_maidenname,
+                            "email": params.user_email,
+                            "acl": {
+                                        "status":params.user_accepted,
+                                        "code":code,
+                                    },
+                            "role": {
+                                        "uid":params.user_role,
+                                        "text":result.value.name
+                                    }};
+
+                        db.insert(userDocument.uid, userDocument, function(error, result) 
+                        {
+                            if(error){
+                                        return callback(error);
+                                     }
+
+                            var subject = 'Er is een account voor u geregistreerd!';         
+                            var body = '<p>There has been an new account created for you at '+ config.app.name +'.</p>'+
+                                       '<a href="http://localhost:3000/activate?code='+code+'">Please Activate by visiting this link.</a>';
+
+                            mailer.sendmail(params.user_email, subject, body,'html');        
+
+                            return callback(null, userDocument);
+                        });
+                    });   
         } 
         else 
         {

@@ -58,7 +58,7 @@ var avatar = '';
                     {
                         liClass: "account",
                         url: "#",
-                        title: i18n.__('Welcome') + ' ' + title +' '+name+' '+lastname+' '+maidenname,
+                        title: title +' '+name+' '+lastname+' '+maidenname,
                         avatar: avatar,
                         smOnlyIcon: false,
                         icon: "",
@@ -85,7 +85,7 @@ var avatar = '';
                             count: ""
                         }, {
                             liClass: "",
-                            url: "/acl/lock",
+                            url: "/lock",
                             title: i18n.__('Lock'),
                             smOnlyIcon: false,
                             icon: "",

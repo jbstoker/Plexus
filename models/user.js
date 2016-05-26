@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-25 11:24:49
+* @Last Modified time: 2016-05-25 13:55:58
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
@@ -115,6 +115,15 @@ UserModel.SendMail = function(userId,params, callback)
                 return callback(null, {message: "success", data: result});
                 });     
 };
+UserModel.ContactMail = function(params, callback) 
+{                               
+                    var to = config.modules.contact.contact_address;
+                    var subject = 'From: '+params.name+' :: '+params.email;         
+                    var body = sanitizeHtml(decodeURIComponent(params.body));
+                    
+                    mailer.sendmail(to, subject, body, 'text');
+                    return callback(null);
+};
 //Find user by email
 UserModel.findByEmail = function(email, callback) 
 {
@@ -182,7 +191,6 @@ UserModel.isValidUserPassword = function(email, password, done)
                 {   
                     if(err)
                     {
-                        console.log(['hash error'], [err]);
                         return done(err); 
                     }
                     else
@@ -234,6 +242,26 @@ UserModel.findUserAndUpdate = function(userId, profile, callback)
         userDocument.birthday = profile.birthday;
         userDocument.info.personal_text = profile.personal_info;
         userDocument.info.quote = profile.personal_quote;
+
+
+        db.replace(userId, userDocument, function(error, result) {
+            if(error) {
+                return callback(error, null);
+            }
+            return callback(null, userDocument);
+        });
+    });
+};
+UserModel.setLocale = function(userId, locale, callback) 
+{
+    db.get(userId, function(error, result) 
+    {
+        if(error) {
+            return callback(error, null);
+        }
+
+        var userDocument = result.value;
+        userDocument.locale = locale;
 
 
         db.replace(userId, userDocument, function(error, result) {

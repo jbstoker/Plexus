@@ -77,15 +77,15 @@ app.use(flash());
 //Use language
 app.use(function (req, res, next){
                                     res.locals.version = version;
-                                    res.locals.loggedin = req.isAuthenticated();
-                                    app.locals.nav = require('./middlewares/navigation/navigation')(i18n,req,res);
                                     res.locals.success = req.flash('success');
                                     res.locals.error = req.flash('error'); 
                                     res.locals.warning = req.flash('warning'); 
                                     res.locals.info = req.flash('info'); 
+                                    res.locals.loggedin = req.isAuthenticated();
                                     res.locals.modules = config.modules;
                                     res.locals.languages = config.i18n.locales;
                                     i18n.setLocale(app.locals.locale);
+                                    app.locals.nav = require('./middlewares/navigation/navigation')(i18n,req,res);
                                     next(); 
                                   });
 

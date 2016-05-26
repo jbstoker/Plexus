@@ -2,13 +2,13 @@
 * @Author: JB Stoker
 * @Date:   2016-05-14 13:28:05
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-18 15:00:08
+* @Last Modified time: 2016-05-26 19:48:09
 */
 .alert-container{
-    z-index: 99;
+    z-index: 9999999999;
  	display: block;
  	float:right;
- 	margin-top: 5px;
+ 	margin-top: 55px;
  	margin-right: 5px;
 
 }

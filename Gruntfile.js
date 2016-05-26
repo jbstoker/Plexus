@@ -20,9 +20,10 @@ module.exports = function(grunt) {
             options: {
                 separator: ';',
             },
-            js_frontend: {
+            js_libraries: {
                 src: [
                     './bower_components/jquery/dist/jquery.js',
+                    './bower_components/blockUI/jquery.blockUI.js',
                     './bower_components/bootstrap/dist/js/bootstrap.js',
                     './bower_components/bootstrap-fileinput/js/fileinput.js',
                     './bower_components/bootbox.js/bootbox.js',
@@ -33,42 +34,40 @@ module.exports = function(grunt) {
                     './bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.js',
                     './bower_components/svgxuse/svgxuse.js',
                     './config/theme/js/jquery.menu-aim.js',
+                    './config/theme/js/modernizer.js'
+                ],
+                dest: './public/javascript/libraries.js'
+            },
+            js_theme: {
+                src: [
                     './config/theme/js/navigation.js',
-                    './config/theme/js/cd-tabs.js',
-                    './config/theme/js/modernizer.js',
                     './config/theme/js/preload.js',
-                    './config/theme/js/user-profile.js',
-                    './config/theme/js/user-management.js',
-                    './config/theme/js/password-check.js',
-                    './config/theme/js/pincode-check.js',
+                    './config/theme/js/cd-tabs.js',
+                    './config/theme/js/alert.js',
                     './config/dev-js/dev.js'
                 ],
-                dest: './public/javascript/frontend.js'
+                dest: './public/javascript/theme.js'
             },
             js_backend: {
                 src: [
-                    './bower_components/jquery/dist/jquery.js',
-                    './bower_components/bootstrap/dist/js/bootstrap.js',
-                    './bower_components/summernote/dist/summernote.js'
+                    './config/theme/js/lock.js',
+                    './config/theme/js/user-profile.js',
+                    './config/theme/js/user-settings.js',
+                    './config/theme/js/pincode-check.js',
+                    './config/theme/js/password-check.js',
+                    './config/theme/js/user-management.js'
                 ],
                 dest: './public/javascript/backend.js'
             }
         },
         uglify: {
-            options: {
-                mangle: false  // Use if you want the names of your functions and variables unchanged
-            },
-            frontend: {
-                files: {
-                    './public/javascript/frontend.js': './public/javascript/frontend.js',
-                }
-            },
-            backend: {
-                files: {
-                    './public/javascript/backend.js': './public/javascript/backend.js',
-                }
-            },
-        },
+                    options: {
+                        mangle: false  // Use if you want the names of your functions and variables unchanged
+                    },
+                    libraries: { files: {'./public/javascript/libraries.js': './public/javascript/libraries.js'}},
+                    theme: { files: {'./public/javascript/theme.js': './public/javascript/theme.js'}},
+                    backend: { files: {'./public/javascript/backend.js': './public/javascript/backend.js'}},
+                },
         copy: {
                   main: {
                     files: [
@@ -103,6 +102,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-strip-css-comments');
 
     // Task definition
-    grunt.registerTask('default', ['concat','less','uglify','copy','stripCssComments']);
+    grunt.registerTask('default',['concat','less','uglify','copy','stripCssComments']);
 
 };

@@ -15,6 +15,9 @@
 *       Proprietary and confidential
 */
 jQuery(document).ready(function($) {
+
+
+
     function isUndef(val){
       if(val === undefined)
       {
@@ -66,8 +69,8 @@ jQuery(document).ready(function($) {
             
             //Generate input fields for update profile
             $("#saveChanges").show();
-            $("#profile-quote").html('<textarea data-old="' + encodeURIComponent(quote) + '" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">' + isUndef(quote) + "</textarea>");
-            $("#profile-info").html('<h3 id="info-title">Personal info</h3><textarea data-old="' + encodeURIComponent(info) + '" id="personal_info" name="personal_info" class="summernote form-control col-md-12" rows="5">' + isUndef(info) + "</textarea>");
+            $("#profile-quote").html('<textarea maxlength="150" data-old="' + encodeURIComponent(quote) + '" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">' + isUndef(quote) + "</textarea><span class='help-block'>Max. 150 characters.</span>");
+            $("#profile-info").html('<h3 id="info-title">Personal info</h3><span class="help-block">Max. 750 characters.</span><textarea  data-old="' + encodeURIComponent(info) + '" id="personal_info" name="personal_info" class="summernote form-control col-md-12" rows="5">' + isUndef(info) + "</textarea>");
             $("#titlerow").html(titleelem);
             $("#namerow").html(nameelem);
             $("#genderrow").html(genderelem).show();
@@ -79,16 +82,55 @@ jQuery(document).ready(function($) {
             $("#email-group").html(email_group);
             $("#website-group").html(website_group);
             
-            var addresselem = '<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="input-group input-group-sm">' + address_group + "</div></div>" + '<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="input-group input-group-sm">' + postalcode_group + "</div></div>" + '<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="input-group input-group-sm">' + city_group + "</div></div>" + '<div class="form-group col-xs-12 col-sm-12 col-md-6 col-lg-6"><div class="input-group input-group-sm">' + country_group + "</div></div>";
+            var addresselem = '<div class="form-group"><div class="input-group input-group-sm">' + address_group + "</div></div>" + '<div class="form-group"><div class="input-group input-group-sm">' + postalcode_group + "</div></div>" + '<div class="form-group"><div class="input-group input-group-sm">' + city_group + "</div></div>" + '<div class="form-group"><div class="input-group input-group-sm">' + country_group + "</div></div>";
             $("#address-row").html(addresselem);
             $("#address-hr").show();
             $("#profile-image").html('<div id="kv-avatar-errors" style="width:100%; display:none"></div><form class="text-center" method="post" enctype="multipart/form-data"><div class="kv-avatar center-block"><input id="avatar" data-old="' + avatar + '" name="avatar" type="file" class="file-loading" data-upload-url="/update-avatar/' + id + '"></div></form>');
             
             //Set summernote variables
             $(".summernote").summernote({
-                toolbar: [ [ "style", [ "bold", "italic", "underline", "clear" ] ], [ "font", [ "strikethrough", "superscript", "subscript" ] ], [ "fontsize", [ "fontsize" ] ], [ "insert", [ "hr", "table" ] ], [ "color", [ "color" ] ], [ "para", [ "ul", "ol", "paragraph" ] ], [ "height", [ "height" ] ], [ "misc", [ "fullscreen" ] ] ],
-                height: 300
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande','Open Sans','Tahoma', 'Times New Roman', 'Verdana'],
+                toolbar: [ [ "style", [ "bold", "italic", "underline", "clear" ] ], [ "font", [ "strikethrough", "superscript", "subscript" ] ], [ "fontsize", [ "fontsize" ] ],["fontname",["fontname"]], [ "insert", [ "hr", "table" ] ], [ "color", [ "color" ] ], [ "para", [ "ul", "ol", "paragraph" ] ], [ "height", [ "height" ] ], [ "misc", [ "fullscreen" ] ] ],
+                height: 300,
+                callbacks: {
+                           onKeydown:function(e)
+                           {
+                            var text = $( this ).parent().find( '.note-editor .note-editable' ).text();
+                           
+                            var num = text.length;
+                            var key = e.keyCode;
+                            
+                            allowed_keys = [8, 37, 38, 39, 40, 46]
+                            
+                                if($.inArray(key, allowed_keys) != -1)
+                                {    
+                                return true
+                                }
+                                
+                                if(num > 750)
+                                {
+                                    e.preventDefault();
+                                    e.stopPropagation()
+                                }
+                            },
+                            onPaste:function(e)
+                            {
+                                    $.notify({
+                                                title: 'Warning!',
+                                                message: 'Pasting is not allowed!',
+                                                url: '',
+                                                target: ''
+                                            }, {
+                                                type: 'warning'
+                                            });
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                            }
+
+                        }
             });
+
+
 
             $("#avatar").fileinput({
                 initialPreview: [ "<img src='/uploads/avatar/" + avatar + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>" ],

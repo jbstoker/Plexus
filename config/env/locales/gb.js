@@ -115,5 +115,7 @@
 	"Doe": "Doe",
 	"Maidenname": "Maidenname",
 	"Does": "Does",
-	"Save": "Save"
+	"Save": "Save",
+	"SESSION LOCKED": "SESSION LOCKED",
+	"Enter your password or pincode here...": "Enter your password or pincode here..."
 }

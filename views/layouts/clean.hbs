@@ -39,7 +39,6 @@
     </header> <!-- .cd-main-header -->
     <main class="main-content">
         <div class="content-wrapper">
-        {{> alerts}}
         {{{body}}}
         </div> <!-- .content-wrapper -->
     </main> <!-- .cd-main-content -->
@@ -49,5 +48,6 @@
   {{#if backend}}
   <script src="/javascript/backend.js"></script>
   {{/if}}
+        {{> alerts}}
 </body>
 </html>

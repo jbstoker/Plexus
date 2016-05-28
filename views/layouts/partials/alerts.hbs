@@ -1,7 +1,6 @@
 {{#if success.length}}
 	{{#if success.[0].msg}}
 		<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-success alert-container" role="alert">
-			<span type="button" aria-hidden="true" class="close">×</span>
 			<span data-notify="icon"></span>
 			<span data-notify="title"><strong>{{success.[0].title}}</strong></span>
 			<span data-notify="message">{{success.[0].msg}}</span> 
@@ -18,7 +17,6 @@
 		</div>
 	{{else}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-success alert-container" role="alert">
-			<span type="button" aria-hidden="true" class="close">×</span>
 			<span data-notify="icon"></span>
 			<span data-notify="title"><strong>Success!</strong></span>
 			<span data-notify="message">{{success}}</span> 
@@ -28,7 +26,6 @@
 {{#if error.length}}
 	{{#if error.[0].msg}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-danger alert-container" role="alert">
-		<span type="button" aria-hidden="true" class="close">×</span>
 		<span data-notify="icon"></span>
 		<span data-notify="title"><strong>{{error.[0].title}}</strong></span>
 		<span data-notify="message">{{error.[0].msg}}</span> 
@@ -45,7 +42,6 @@
 	</div>
 	{{else}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-danger alert-container" role="alert">
-		<span type="button" aria-hidden="true" class="close">×</span>
 		<span data-notify="icon"></span>
 		<span data-notify="title"><strong>Error!</strong></span>
 		<span data-notify="message">{{error}}</span>
@@ -56,7 +52,6 @@
 {{#if warning.length}}
 	{{#if warning.[0].msg}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-warning alert-container" role="alert">
-		<span type="button" aria-hidden="true" class="close">×</span>
 		<span data-notify="icon"></span>
 		<span data-notify="title"><strong>{{warning.[0].title}}</strong></span>
 		<span data-notify="message">{{warning.[0].msg}}</span> 
@@ -73,7 +68,6 @@
 	</div>
 	{{else}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-warning alert-container" role="alert">
-		<span type="button" aria-hidden="true" class="close">×</span>
 		<span data-notify="icon"></span>
 		<span data-notify="title"><strong>Warning!</strong></span>
 		<span data-notify="message">{{warning}}</span> 
@@ -83,7 +77,6 @@
 {{#if info.length}}
 	{{#if info.[0].msg}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-info alert-container" role="alert">
-		<span type="button" aria-hidden="true" class="close">×</span>
 		<span data-notify="icon"></span>
 		<span data-notify="title"><strong>{{info.[0].title}}</strong></span>
 		<span data-notify="message">{{info.[0].msg}}</span> 
@@ -100,7 +93,6 @@
 	</div>
 	{{else}}
 	<div data-notify="container" class="col-xs-11 col-sm-3 alert fade-in alert-info alert-container" role="alert">
-		<span type="button" aria-hidden="true" class="close">×</span>
 		<span data-notify="icon"></span>
 		<span data-notify="title"><strong>Info!</strong></span>
 		<span data-notify="message">{{info}}</span> 

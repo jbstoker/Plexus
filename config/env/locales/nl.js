@@ -105,5 +105,11 @@
 	"Can Publish": "Can Publish",
 	"No Publishing": "No Publishing",
 	"Delete": "Delete",
-	"Publish": "Publish"
+	"Publish": "Publish",
+	"Title": "Title",
+	"Surname": "Surname",
+	"Middlename": "Middlename",
+	"Lastname": "Lastname",
+	"Maidenname": "Maidenname",
+	"Save": "Save"
 }

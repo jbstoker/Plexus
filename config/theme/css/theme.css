@@ -78,6 +78,7 @@ input[type='search']::-webkit-search-results-decoration
 .row {
     margin-left: 0px !important;
     margin-right: 0px !important;
+    display:block;
 }
 /* Footer */
 footer{

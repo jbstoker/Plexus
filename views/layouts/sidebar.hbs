@@ -62,7 +62,6 @@
     </nav>
   </header> <!-- .cd-main-header -->
   <main class="cd-main-content">
-    {{> alerts}}
     <nav class="cd-side-nav is-fixed">
         <ul>
         {{#each nav.main}}
@@ -85,6 +84,7 @@
   {{#if backend}}
     <script src="/javascript/backend.js"></script>
   {{/if}}
+    {{> alerts}}
 </body>
 </html>
 

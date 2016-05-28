@@ -89,8 +89,11 @@ app.use(function (req, res, next){
                                     next(); 
                                   });
 
-//Regiser routes       
-require('./routes/index')(app, passport);
+//Regiser routes  
+require('./routes/acl')(app, passport);
+require('./routes/admin')(app, passport);
+require('./routes/user')(app, passport);
+require('./routes/public')(app, passport);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) 
 { 

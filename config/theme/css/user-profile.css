@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-01-27
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-03-14 12:01:55
+* @Last Modified time: 2016-05-28 16:35:57
 */
 /*Save Changes buttons */
 #saveChanges{
@@ -113,6 +113,8 @@ ul.details li input {
     background:none;
 }
 
-
+.info-text p{
+    word-break: break-word;
+} 
 
 

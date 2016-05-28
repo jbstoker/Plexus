@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-25 13:55:58
+* @Last Modified time: 2016-05-27 12:53:16
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
@@ -407,5 +407,51 @@ UserModel.createACLUser = function(params, callback)
         }
     }); 
 };
+//End UserModel getAllUsers
+UserModel.doAccessCheck = function(params, done)
+{
+ var statement = "SELECT * FROM `" + config.db.bucket + "` AS users WHERE login = $1";
+ var query = N1qlQuery.fromString(statement);
+
+    db.query(query, [params.email], function(error, result) 
+    {
+        if(error)
+        { 
+            return done(null, false, error);
+        }
+        else
+        {
+           if(result.length > 0) 
+            {
+                hash(params.password, result[0].users.salt, function(err, hash)
+                {   
+                    if(err)
+                    {
+                        return done(err); 
+                    }
+                    else
+                    {
+                        var dbHash = new Buffer(result[0].users.hash.data);
+                        if(hash.toString() == dbHash.toString())
+                        { 
+                            return done(null, result[0].users.uid);
+                        }
+                        else
+                        {
+                            return done(null,'Your password is not correct!');
+                        }
+                    }    
+                });
+            }
+            else
+            {
+                return done(null,'Your login failed, try again');
+            }   
+        }    
+            
+    });    
+};
+//End UserModel.doAccesCheck
+
 //End UserModel.createACLUser
 module.exports = UserModel;

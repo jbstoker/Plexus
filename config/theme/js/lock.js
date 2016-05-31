@@ -130,45 +130,14 @@ $(document).ready(function(){
 
     $.blockUI({ message: $('.lock-block'), css: { 'width': '50%','top':'0px','left':'25%','background-color':'transparent','border':'0px' } }); 
     $('.locked-time').countup({ start: new Date()});
-    $(document).on('keyup', '#pinInput', function(event){
+    $(document).on('keyup', '#pinInput', function(event)
+    {
+        
         if($(this).val().length === 6)
         {
-
-    $.ajax({
-        url: '/checkpin',
-        type: 'POST',
-        data: {pin: $(this).val(),uid:$('#uid').val()},
-        cache: false }).done(function(data)
-                            {
-                                if(data.message.type == 'error')
-                                {
-                                    $.notify({
-                                                title: data.message.title,
-                                                message: data.message.msg,
-                                                url: data.message.url,
-                                                target: data.message.target
-                                             },{
-                                                type: 'danger'
-                                             });
-                                    $('#pinInput').val(' ');
-                                }
-
-                                if(data.message.type == 'warning')
-                                {
-                                    $.notify({
-                                                title: data.message.title,
-                                                message: data.message.msg,
-                                                url: data.message.url,
-                                                target: data.message.target
-                                             },{
-                                                type: data.message.type
-                                             });
-                                    $('#pinInput').val(' ');
-                                }
-                            });
+        	$('.unlock-form').submit();
         }
-    });
- }
-}); 
-
+	});
+}
+});
 })(jQuery);

@@ -1,11 +1,11 @@
 var express = require("express"),
-passport = require("passport"),
-moment = require("moment"),
-LocalStrategy = require("passport-local").Strategy,
-Auth = require("../config/env/acl/middlewares/authorization.js"),
-datatablesQuery = require("../middlewares/datatables/query"),
-User = require("../models/user"),
-Role = require("../models/role");
+    passport = require("passport"),
+    moment = require("moment"),
+    LocalStrategy = require("passport-local").Strategy,
+    Auth = require("../config/env/acl/middlewares/authorization.js"),
+    datatablesQuery = require("../middlewares/datatables/query"),
+    User = require("../models/user"),
+    Role = require("../models/role");
 
 module.exports = function(app, passport, i18n) {
     //Storage of files and avatar
@@ -24,52 +24,40 @@ module.exports = function(app, passport, i18n) {
     var uploadAvatar = multer({
         storage: storageMemory
     });
-/** Data Checks */
-function onlyLetters(str) 
-{
-    if(str.length > 0)
-    {
-      return /^[a-zA-Z]+$/.test(str);
+    /** Data Checks */
+    function onlyLetters(str) {
+        if (str.length > 0) {
+            return /^[a-zA-Z]+$/.test(str);
+        } else {
+            return true;
+        }
     }
-    else
-    {
-        return true;
-    }    
-}
 
-function onlyNumbers(str) 
-{   
-    if(str.length > 0)
-    {
-      return /^[0-9]+$/.test(str);
+    function onlyNumbers(str) {
+        if (str.length > 0) {
+            return /^[0-9]+$/.test(str);
+        } else {
+            return true;
+        }
     }
-    else
-    {
-        return true;
-    }    
-}
 
-function onlyLettersNumbers(str) 
-{
-    if(str.length > 0)
-    {
-        return /^[a-zA-Z0-9]+$/.test(str);
+    function onlyLettersNumbers(str) {
+        if (str.length > 0) {
+            return /^[a-zA-Z0-9]+$/.test(str);
+        } else {
+            return true;
+        }
     }
-    else
-    {
-        return true;
-    }    
-}
-/**
- *
- *
- *
- * ####################### USER ROUTES ###################
- *
- *
- *
- *
- */
+    /**
+     *
+     *
+     *
+     * ####################### USER ROUTES ###################
+     *
+     *
+     *
+     *
+     */
     app.get("/user/profile", Auth.isAuthenticated, function(req, res, next) {
         if (req.isAuthenticated()) {
             res.render("user/profile", {
@@ -79,75 +67,121 @@ function onlyLettersNumbers(str)
                 subtitle: "Welkom Jelmer Stoker",
                 showtitle: "none",
                 layout: "layouts/sidebar",
-                backend:true
+                backend: true
             });
         } else {
             res.redirect("/login");
         }
     });
     //Update user profile
-    app.post("/update-profile/:id", function(req, res){
+    app.post("/update-profile/:id", function(req, res) {
+        if (req.isAuthenticated()) {
             //Check names for only letters
-            if(onlyLetters(req.body.surname) && onlyLetters(req.body.middlename) && onlyLetters(req.body.lastname) && onlyLetters(req.body.maidenname))
-            {
-                if(onlyNumbers(req.body.phone) && onlyNumbers(req.body.mobile))
-                {
+            if (onlyLetters(req.body.surname) && onlyLetters(req.body.middlename) && onlyLetters(req.body.lastname) && onlyLetters(req.body.maidenname)) {
+                if (onlyNumbers(req.body.phone) && onlyNumbers(req.body.mobile)) {
                     // addresscheck
-                    if(onlyLetters(req.body.address) && onlyLettersNumbers(req.body.number))
-                    {
-                        if(onlyLetters(req.body.city) && onlyLetters(req.body.country))
-                        {
-                            User.findUserAndUpdate(req.params.id, req.body, function(err, user)
-                            {
-                                if (err)
-                                {
-                                    req.flash('error',{title:'Error!',msg:'Could not update your profile!',target:'',url:'',target:'',bar:false});
-                                } 
-                                else 
-                                {
-                                    req.flash('success',{title:'Success!',msg:'Profile updated!',target:'',url:'',target:'',bar:false});
+                    if (onlyLetters(req.body.address) && onlyLettersNumbers(req.body.number)) {
+                        if (onlyLetters(req.body.city) && onlyLetters(req.body.country)) {
+                            User.findUserAndUpdate(req.params.id, req.body, function(err, user) {
+                                if (err) {
+                                    req.flash('error', {
+                                        title: 'Error!',
+                                        msg: 'Could not update your profile!',
+                                        target: '',
+                                        url: '',
+                                        target: '',
+                                        bar: false
+                                    });
+                                } else {
+                                    req.flash('success', {
+                                        title: 'Success!',
+                                        msg: 'Profile updated!',
+                                        target: '',
+                                        url: '',
+                                        target: '',
+                                        bar: false
+                                    });
                                 }
                                 res.redirect("back");
                             });
-                        }
-                        else
-                        {
-                            req.flash('error',{title:'Error!',msg:'Cities and Countries are always with letters right?!',target:'',url:'',target:'',bar:false});
+                        } else {
+                            req.flash('error', {
+                                title: 'Error!',
+                                msg: 'Cities and Countries are always with letters right?!',
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            });
                             res.redirect('back');
-                        }    
+                        }
 
-                    }
-                    else
-                    {
-                        req.flash('error',{title:'Error!',msg:'Please check your address!',target:'',url:'',target:'',bar:false});
+                    } else {
+                        req.flash('error', {
+                            title: 'Error!',
+                            msg: 'Please check your address!',
+                            target: '',
+                            url: '',
+                            target: '',
+                            bar: false
+                        });
                         res.redirect('back');
-                    }    
+                    }
+                } else {
+                    req.flash('error', {
+                        title: 'Error!',
+                        msg: 'Phone numbers need both to contain only numbers!',
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect("back");
                 }
-                else
-                {
-                req.flash('error',{title:'Error!',msg:'Phone numbers need both to contain only numbers!',target:'',url:'',target:'',bar:false});
+            } else {
+                req.flash('error', {
+                    title: 'Error!',
+                    msg: 'Name needs to contain only letters!',
+                    target: '',
+                    url: '',
+                    target: '',
+                    bar: false
+                });
                 res.redirect("back");
-                }    
             }
-            else    
-            {
-                req.flash('error',{title:'Error!',msg:'Name needs to contain only letters!',target:'',url:'',target:'',bar:false});
-                res.redirect("back");
-            }    
+        } else {
+            res.redirect("/login");
+        }
     });
     //Update avatar user
     app.post("/update-avatar/:id", uploadAvatar.single("avatar"), function(req, res) {
-        var newfilename = req.params.id + "-" + moment().format("X") + ".jpg";
-        User.findAvatarAndUpdate(req.file, req.body, req.params.id, newfilename, function(err, file) {
-             if (err){
-                        req.flash('error',{title:'Error!',msg:'Could replace your avatar!',target:'',url:'',target:'',bar:false});
-                    } 
-                    else 
-                    {
-                        req.flash('success',{title:'Success!',msg:'Avatar replaced!',target:'',url:'',target:'',bar:false});
-                    }
-        });
-        res.json(newfilename).status(204).end();
+        if (req.isAuthenticated()) {
+            var newfilename = req.params.id + "-" + moment().format("X") + ".jpg";
+            User.findAvatarAndUpdate(req.file, req.body, req.params.id, newfilename, function(err, file) {
+                if (err) {
+                    req.flash('error', {
+                        title: 'Error!',
+                        msg: 'Could replace your avatar!',
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                } else {
+                    req.flash('success', {
+                        title: 'Success!',
+                        msg: 'Avatar replaced!',
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                }
+            });
+            res.json(newfilename).status(204).end();
+        } else {
+            res.redirect("/login");
+        }
     });
     //User settings
     app.get("/user/settings", Auth.isAuthenticated, function(req, res, next) {
@@ -158,80 +192,311 @@ function onlyLettersNumbers(str)
                 subtitle: "",
                 showtitle: "none",
                 layout: "layouts/sidebar",
-                backend:true
+                backend: true
             });
         } else {
             res.redirect("/login");
         }
     });
     //Change language
-    app.get("/setlocale/:locale", function(req, res) 
-    {
-        app.locals.locale = req.params.locale;
-        User.setLocale(req.user.uid,req.params.locale, function(err, locale){
-            if(err)
-            {
-                req.flash('error',{title:'Error!',msg:'Your preffered languages failed to set to '+req.params.locale ,target:'',url:'',target:'',bar:false});
-                res.redirect("/user/settings");
-            }
-            else
-            {
-                req.flash('info',{title:'Info!',msg:'Your language is set to '+req.params.locale,target:'',url:'',target:'',bar:false});
-                res.redirect("/user/settings");
-            }    
-        });
-
+    app.get("/setlocale/:locale", function(req, res) {
+        if (req.isAuthenticated()) {
+            app.locals.locale = req.params.locale;
+            User.setLocale(req.user.uid, req.params.locale, function(err, locale) {
+                if (err) {
+                    req.flash('error', {
+                        title: 'Error!',
+                        msg: 'Your preffered languages failed to set to ' + req.params.locale,
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect("/user/settings");
+                } else {
+                    req.flash('info', {
+                        title: 'Info!',
+                        msg: 'Your language is set to ' + req.params.locale,
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect("/user/settings");
+                }
+            });
+        } else {
+            res.redirect("/login");
+        }
     });
-//post pin
-    app.post("/checkpin", function(req, res, next) 
-    {
-        User.getByDocumentId(req.body.uid, function(err, user){
-            if(!user)
-            {   
-                if(!err)
-                {
-                    res.json({message:{type:'error',title:'Error!',msg:'Your call is missing the uid parameters',target:'',url:'',target:'',bar:false}});
-                }
-                else    
-                {
-                    res.json({message:{type:'error',title:'Error!',msg:err.message,target:'',url:'',target:'',bar:false}});
-                }
-            }
-            else
-            {
-                if(user.pin === req.body.pin)
-                {
-                    req.flash('success',{title:'Success!',msg:'Welcome back',target:'',url:'',target:'',bar:false});
-                    res.redirect('/user/profile');
-                }
-                else
-                {
-                    res.json({message:{type:'warning',title:'Pincode Failed!',msg:'Your entered pincode doesn\'t match, try again!',target:'',url:'',target:'',bar:false}});
-                }    
-            }    
-        });
-    });
-
     //post pin
-    app.post("/access-check", function(req, res, next) 
-    {
-        User.doAccessCheck(req.body, function(err, user)
-        {   
-                if(!err)
-                {
-                        if(req.user.uid === user)
-                        {
-                            res.json({message:{type:'success',title:'Logged In!',msg:'Login Correct!',target:'',url:'',target:'',bar:false}});    
-                        }   
-                        else
-                        {
-                            res.json({message:{type:'danger',title:'Error!',msg:user,target:'',url:'',target:'',bar:false}});    
-                        }     
+    app.post("/checkpin", function(req, res, next) {
+        User.getByDocumentId(req.body.uid, function(err, user) {
+            if (!user) {
+                if (!err) {
+                    req.flash('error', {
+                        title: 'Error!',
+                        msg: 'Your call is missing the uid parameters',
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect('back');
+                } else {
+                    req.flash('error', {
+                        title: 'Error!',
+                        msg: err.message,
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect('back');
                 }
-                else    
-                {
-                    res.json({message:{type:'danger',title:'Error!',msg:err.message,target:'',url:'',target:'',bar:false}});
+            } else {
+                if (user.pincode === req.body.pin) {
+                    req.session.locked = false;
+                    req.flash('success', {
+                        title: 'Success!',
+                        msg: 'Welcome back',
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect('/user/profile');
+                    return false
+                } else {
+                    req.flash('warning', {
+                        title: 'Pincode Failed!',
+                        msg: 'Your entered pincode doesn\'t match, try again!',
+                        target: '',
+                        url: '',
+                        target: '',
+                        bar: false
+                    });
+                    res.redirect('back');
                 }
+            }
         });
+
+    });
+
+    /**
+     * Access check for password change
+     * @param  {object} req   [description]
+     * @param  {object} res   [description]
+     * @param  {object} next)                  {        User.doAccessCheck(req.body, function(err, user)        {                   if(!err)                {                        if(req.user.uid [description]
+     * @return {object}       [description]
+     */
+    app.post("/access-check", function(req, res, next) {
+        if (req.isAuthenticated()) {
+            User.doAccessCheck(req.body, function(err, user) {
+                if (!err) {
+                    if (req.user.uid === user) {
+                        res.json({
+                            message: {
+                                type: 'success',
+                                title: 'Logged In!',
+                                msg: 'Login Correct!',
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    } else {
+                        res.json({
+                            message: {
+                                type: 'danger',
+                                title: 'Error!',
+                                msg: user,
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    }
+                } else {
+                    res.json({
+                        message: {
+                            type: 'danger',
+                            title: 'Error!',
+                            msg: err.message,
+                            target: '',
+                            url: '',
+                            target: '',
+                            bar: false
+                        }
+                    });
+                }
+            });
+        } else {
+            res.redirect("/login");
+        }
+    });
+
+
+    app.post("/user/change-login", function(req, res, next) {
+        if (req.isAuthenticated()) {
+            User.UpdateLogin(req.user.uid, req.body, function(err, user) {
+                if (!err) {
+                    if (req.user.uid === user.uid) {
+                        res.json({
+                            message: {
+                                type: 'success',
+                                title: 'Change success!',
+                                msg: 'Login Changed!',
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    } else {
+                        res.json({
+                            message: {
+                                type: 'danger',
+                                title: 'Error!',
+                                msg: user,
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    }
+                } else {
+                    res.json({
+                        message: {
+                            type: 'danger',
+                            title: 'Error!',
+                            msg: err.message,
+                            target: '',
+                            url: '',
+                            target: '',
+                            bar: false
+                        }
+                    });
+                }
+            });
+        } else {
+            res.redirect("/login");
+        }
+    });
+
+
+    app.post("/user/change-pincode", function(req, res, next) {
+        if (req.isAuthenticated()) {
+            User.UpdatePincode(req.user.uid, req.body, function(err, user) {
+                if (!err) {
+                    if (req.user.uid === user.uid) {
+                        res.json({
+                            message: {
+                                type: 'success',
+                                title: 'Change success!',
+                                msg: 'Pincode Changed!',
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    } else {
+                        res.json({
+                            message: {
+                                type: 'danger',
+                                title: 'Error!',
+                                msg: user,
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    }
+                } else {
+                    res.json({
+                        message: {
+                            type: 'danger',
+                            title: 'Error!',
+                            msg: err.message,
+                            target: '',
+                            url: '',
+                            target: '',
+                            bar: false
+                        }
+                    });
+                }
+            });
+        } else {
+            res.redirect("/login");
+        }
+    });
+
+    app.post("/user/change-password", function(req, res, next) {
+        if (req.isAuthenticated()) {
+            User.UpdatePass(req.user.uid, req.body, function(err, user) {
+                var pass = req.body.password.toLowerCase();
+
+                if (!err) {
+                    if (pass.indexOf(req.user.login) != -1) {
+                        res.json({
+                            message: {
+                                type: 'warning',
+                                title: 'Not Save!',
+                                msg: 'Password must be different from Username!',
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            }
+                        });
+                    } else {
+                        if (req.user.uid === user.uid) {
+                            res.json({
+                                message: {
+                                    type: 'success',
+                                    title: 'Change success!',
+                                    msg: 'Password Changed!',
+                                    target: '',
+                                    url: '',
+                                    target: '',
+                                    bar: false
+                                }
+                            });
+                        } else {
+                            res.json({
+                                message: {
+                                    type: 'danger',
+                                    title: 'Error!',
+                                    msg: user,
+                                    target: '',
+                                    url: '',
+                                    target: '',
+                                    bar: false
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    res.json({
+                        message: {
+                            type: 'danger',
+                            title: 'Error!',
+                            msg: err.message,
+                            target: '',
+                            url: '',
+                            target: '',
+                            bar: false
+                        }
+                    });
+                }
+            });
+        } else {
+            res.redirect("/login");
+        }
     });
 };

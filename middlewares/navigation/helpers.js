@@ -57,7 +57,7 @@ hbs.registerHelper('topnav', function(){
                 //Check if link is of type account.
         if(liClass === 'account')
         {
-          var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown">'+this.avatar+ icon + title + count +'</a><ul class="dropdown-menu">';
+          var element = '<li class="dropdown"><a href="'+ url +'" class="dropdown-toggle" data-toggle="dropdown"><span id="menu-avatar">'+this.avatar+'</span>'+ icon + title + count +'</a><ul class="dropdown-menu">';
         }
         else
         { 

@@ -1,34 +1,27 @@
 /* 
-* @Project:   PlexusMain
-* -------------------------------------------
-* @Author:    JB Stoker
-* @Email:     Jelmer@probo.nl
-*
-* @File:    user-profile.js
-* @Path:    C:\PrivateProjects\PlexusMain\config\theme\js\user-profile.js
-* @Created:     2016-02-08
-*
-* @Modified by: JB Stoker
-* 
-* @Copyright: Copyright (C) Probo - All Rights Reserved 
-*       Unauthorized copying, or using code of this file, trough any medium is strictly prohibited
-*       Proprietary and confidential
-*/
+ * @Project:   PlexusMain
+ * -------------------------------------------
+ * @Author:    JB Stoker
+ * @Email:     Jelmer@probo.nl
+ *
+ * @File:    user-profile.js
+ * @Path:    C:\PrivateProjects\PlexusMain\config\theme\js\user-profile.js
+ * @Created:     2016-02-08
+ *
+ * @Modified by: JB Stoker
+ *
+ * @Copyright: Copyright (C) Probo - All Rights Reserved
+ *       Unauthorized copying, or using code of this file, trough any medium is strictly prohibited
+ *       Proprietary and confidential
+ */
 jQuery(document).ready(function($) {
-
-
-
-    function isUndef(val){
-      if(val === undefined)
-      {
-  
-          return '';
-      }
-      else
-      {
-          return val;
-      }    
-  }
+    function isUndef(val) {
+        if (val === undefined) {
+            return '';
+        } else {
+            return val;
+        }
+    }
     //Edit Profile toggle
     $(".editProfile").click(function(event) {
         //Check if swicth is selected  
@@ -66,7 +59,6 @@ jQuery(document).ready(function($) {
             var postalcode_group = '<span class="input-group-addon profile" style="min-width:100px;" id="postalcode">Postalcode</span><input type="text" class="form-control" placeholder="Postalcode" aria-describedby="postalcode" name="postalcode" data-old="' + isUndef(postalcode) + '" value="' + isUndef(postalcode) + '">';
             var city_group = '<span class="input-group-addon profile" style="min-width:100px;" id="city">City</span><input type="text" class="form-control" placeholder="City" aria-describedby="city" name="city" data-old="' + isUndef(city) + '" value="' + isUndef(city) + '">';
             var country_group = '<span class="input-group-addon profile" style="min-width:100px;" id="country">Country</span><input type="text" class="form-control" placeholder="Country" aria-describedby="country" name="country" data-old="' + isUndef(country) + '" value="' + isUndef(country) + '">';
-            
             //Generate input fields for update profile
             $("#saveChanges").show();
             $("#profile-quote").html('<textarea maxlength="150" data-old="' + encodeURIComponent(quote) + '" id="personal_quote" name="personal_quote" class="form-control col-md-12" rows="3">' + isUndef(quote) + "</textarea><span class='help-block'>Max. 150 characters.</span>");
@@ -81,59 +73,60 @@ jQuery(document).ready(function($) {
             $("#mobile-group").html(mobile_group);
             $("#email-group").html(email_group);
             $("#website-group").html(website_group);
-            
             var addresselem = '<div class="form-group"><div class="input-group input-group-sm">' + address_group + "</div></div>" + '<div class="form-group"><div class="input-group input-group-sm">' + postalcode_group + "</div></div>" + '<div class="form-group"><div class="input-group input-group-sm">' + city_group + "</div></div>" + '<div class="form-group"><div class="input-group input-group-sm">' + country_group + "</div></div>";
             $("#address-row").html(addresselem);
             $("#address-hr").show();
             $("#profile-image").html('<div id="kv-avatar-errors" style="width:100%; display:none"></div><form class="text-center" method="post" enctype="multipart/form-data"><div class="kv-avatar center-block"><input id="avatar" data-old="' + avatar + '" name="avatar" type="file" class="file-loading" data-upload-url="/update-avatar/' + id + '"></div></form>');
-            
             //Set summernote variables
             $(".summernote").summernote({
-                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande','Open Sans','Tahoma', 'Times New Roman', 'Verdana'],
-                toolbar: [ [ "style", [ "bold", "italic", "underline", "clear" ] ], [ "font", [ "strikethrough", "superscript", "subscript" ] ], [ "fontsize", [ "fontsize" ] ],["fontname",["fontname"]], [ "insert", [ "hr", "table" ] ], [ "color", [ "color" ] ], [ "para", [ "ul", "ol", "paragraph" ] ], [ "height", [ "height" ] ], [ "misc", [ "fullscreen" ] ] ],
+                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande', 'Open Sans', 'Tahoma', 'Times New Roman', 'Verdana'],
+                toolbar: [
+                    ["style", ["bold", "italic", "underline", "clear"]],
+                    ["font", ["strikethrough", "superscript", "subscript"]],
+                    ["fontsize", ["fontsize"]],
+                    ["fontname", ["fontname"]],
+                    ["insert", ["hr", "table"]],
+                    ["color", ["color"]],
+                    ["para", ["ul", "ol", "paragraph"]],
+                    ["height", ["height"]],
+                    ["misc", ["fullscreen"]]
+                ],
                 height: 300,
                 callbacks: {
-                           onKeydown:function(e)
-                           {
-                            var text = $( this ).parent().find( '.note-editor .note-editable' ).text();
-                           
-                            var num = text.length;
-                            var key = e.keyCode;
-                            
-                            allowed_keys = [8, 37, 38, 39, 40, 46]
-                            
-                                if($.inArray(key, allowed_keys) != -1)
-                                {    
-                                return true
-                                }
-                                
-                                if(num > 750)
-                                {
-                                    e.preventDefault();
-                                    e.stopPropagation()
-                                }
-                            },
-                            onPaste:function(e)
-                            {
-                                    $.notify({
-                                                title: 'Warning!',
-                                                message: 'Pasting is not allowed!',
-                                                url: '',
-                                                target: ''
-                                            }, {
-                                                type: 'warning'
-                                            });
-                                    e.preventDefault();
-                                    e.stopPropagation();
-                            }
-
+                    onKeydown: function(e) {
+                        var text = $(this).parent().find('.note-editor .note-editable').text();
+                        var num = text.length;
+                        var key = e.keyCode;
+                        allowed_keys = [8, 37, 38, 39, 40, 46]
+                        if ($.inArray(key, allowed_keys) != -1) {
+                            return true
                         }
+                        if (num > 750) {
+                            e.preventDefault();
+                            e.stopPropagation()
+                        }
+                    },
+                    onPaste: function(e) {
+                        $.notify({
+                            title: 'Warning!',
+                            message: 'Pasting is not allowed!',
+                            url: '',
+                            target: ''
+                        }, {
+                            type: 'warning'
+                        });
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                }
             });
-
-
-
+            if (avatar.length > 0) {
+                var previewAvatar = "<img src='/uploads/avatar/" + avatar + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>";
+            } else {
+                var previewAvatar = '<svg class="icon-id-8" style="height:100%;width:100%;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>';
+            }
             $("#avatar").fileinput({
-                initialPreview: [ "<img src='/uploads/avatar/" + avatar + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>" ],
+                initialPreview: [previewAvatar],
                 overwriteInitial: true,
                 autoReplace: true,
                 initialPreviewShowDelete: false,
@@ -156,7 +149,7 @@ jQuery(document).ready(function($) {
                     btnDefault: '<button type="{type}" tabindex="500" title="{title}" class="{css} btn btn-sm btn-danger"{status}>{icon}{label}</button>',
                     btnLink: '<a href="{href}" tabindex="500" title="{title}" class="{css}  btn btn-sm btn-warning"{status}>{icon}{label}</a>'
                 },
-                allowedFileExtensions: [ "jpg", "png", "gif" ],
+                allowedFileExtensions: ["jpg", "png", "gif"],
                 uploadExtraData: function() {
                     return {
                         x: document.getElementById("profile-image").getAttribute("data-x"),
@@ -178,17 +171,25 @@ jQuery(document).ready(function($) {
                 });
             }).on("fileuploaded", function(event, data, previewId, index) {
                 var url = data.response;
+
+
+                if (url.length > 0) {
+                    var newAvatar = "<img src='/uploads/avatar/" + url + "' alt='avatar' title='avatar'>";
+                } else {
+                    var newAvatar = '<svg class="icon-id-8" style="height:100%; width:100%; top:-5px; left:-15px;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>';
+                }
                 $("#profile-image").attr("data-img", url);
-                $("#menu-avatar").attr("src", "/uploads/avatar/" + url);
+            
+                $('.account a:has(img)').children('img').replaceWith(newAvatar);
+                $('.account a:has(svg)').children('svg').replaceWith(newAvatar);
+
                 $("#avatar").attr("data-old", url);
                 $("#avatar").fileinput("clear").fileinput("refresh", {
-                    initialPreview: [ "<img src='/uploads/avatar/" + url + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>" ],
+                    initialPreview: ["<img src='/uploads/avatar/" + url + "' class='file-preview-image' id='avatar-img' alt='avatar' title='avatar'>"],
                     overwriteInitial: true
                 }).fileinput("enable");
             });
-        } 
-        else 
-        {
+        } else {
             //Fetch old data if not saved; Reset
             var avatar = $("#avatar").attr("data-old");
             var quote = decodeURIComponent($("#personal_quote").attr("data-old"));
@@ -218,7 +219,12 @@ jQuery(document).ready(function($) {
             var websiteelem = '<h4 style="white-space:pre;"><svg class="icon-globe-2"><use xlink:href="/fonts/icons.svg#icon-globe-2"></use></svg> <span id="website-span">' + isUndef(website) + "</span></h4>";
             $("#saveChanges").hide();
             $("#address-hr").hide();
-            $("#profile-image").html('<img src="/uploads/avatar/' + avatar + '"  width="100%" class="img-responsive img-thumbnail"/>');
+            if (avatar.length > 0) {
+                var previewAvatar = "<img src='/uploads/avatar/" + avatar + "' class='img-responsive img-thumbnail' alt='avatar' title='avatar'>";
+            } else {
+                var previewAvatar = '<svg class="icon-id-8" style="height:100%;width:100%;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/fonts/icons.svg#icon-id-8"></use></svg>';
+            }
+            $("#profile-image").html(previewAvatar);
             $("#profile-quote").html("<blockquote>" + quote + "</blockquote>");
             $("#profile-info").html('<h3 id="info-title" data-title="' + isUndef(title) + '" data-surname="' + isUndef(surname) + '" data-middlename="' + isUndef(middlename) + '" data-lastname="' + isUndef(lastname) + '" data-maidenname="' + isUndef(maidenname) + '">' + isUndef(title) + " " + isUndef(surname) + " " + isUndef(middlename) + " " + isUndef(lastname) + " " + isUndef(maidenname) + '</h3><div class="info-text">' + info + "</div>");
             $("#birthday-group").html(birthdayelem);

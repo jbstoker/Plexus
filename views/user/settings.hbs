@@ -26,12 +26,12 @@
             <br/>
         </div>            
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="PassWordBox">
-            <div class="well">
-                    <legend>{{{__ 'Change password'}}}</legend>        
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <legend>{{{__ 'Change password'}}} <span class="updateCheck pull-right"></span></legend>        
             <div class="form-group">
                 <div id="passwordForm">
                     <div class="row">
-                    <form class="form-horizontal" method="post" action="/user/change-password">
+                    <form class="form-horizontal">
                         <div class="form-group">
                             <label for="password1" class="control-label col-md-2">{{{__ 'New Password'}}}</label>
                                 <div class="col-md-10">
@@ -65,7 +65,7 @@
                         <hr></hr>
                     </div>     
                         <div class="row">
-                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Password...'}}}" value="{{{__ 'Change Password'}}}">
+                            <button id="changePassBtn" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Password...'}}}">{{{__ 'Change Password'}}}</button>
                         </div>
                     </form>
                     </div>
@@ -74,11 +74,11 @@
             </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="PinCodeBox">
-            <div class="well">
-                    <legend>{{{__ 'Change Pincode'}}}</legend>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <legend>{{{__ 'Change Pincode'}}} <span class="updateCheck pull-right"></span></legend>
             <div class="form-group">
                 <div id="pincodeForm">
-                    <form class="form-horizontal" method="post" action="/user/change-pincode">
+                    <form class="form-horizontal" id="PinForm">
                         <div class="form-group">
                             <label for="pincode" class="control-label col-md-2">{{{__ 'New Pincode'}}}</label>
                             <div class="col-md-10">
@@ -98,7 +98,7 @@
                 </div>    
                 <div class="row">
                         <hr></hr>
-                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Pincode...'}}}" value="{{{__ 'Change Pincode'}}}">
+                            <button id='changePinBtn' class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Pincode...'}}}">{{{__ 'Change Pincode'}}}</button>
                 </div>     
                         <div  class="row">
                         </div>
@@ -108,11 +108,11 @@
             </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4" id="LoginNameBox">
-            <div class="well">
-                    <legend>{{{__ 'Change login name'}}}</legend>        
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <legend>{{{__ 'Change login name'}}} <span class="updateCheck pull-right"></span></legend>        
             <div class="form-group">
                 <div id="nameForm">
-                    <form class="form-horizontal" method="post" action="/user/change-login">
+                    <form class="form-horizontal">
                         <div class="form-group">
                             <label for="newname" class="control-label col-md-2">{{{__ 'New Name'}}}</label>
                             <div class="col-md-10">
@@ -121,7 +121,7 @@
                         </div>
                         <div  class="row">
                         <hr></hr>
-                            <input type="submit" class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Login Name...'}}}" value="{{{__ 'Change Login Name'}}}">
+                            <button id='changeLoginBtn' class="pull-right btn btn-primary btn-load" data-loading-text="{{{__ 'Changing Login Name...'}}}">{{{__ 'Change Login Name'}}}</button>
                         </div>
                     </form>
                 </div>
@@ -141,13 +141,13 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form role="form" id="AccessBoxForm">
+                    <form role="form" id="AccessBoxForm"  autocomplete="off">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                <input class="form-control"  autocomplete="off" placeholder="E-mail" name="email" type="email" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                <input class="form-control"  autocomplete="off" placeholder="Password" name="password" type="password" value=" ">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <button type="button" id="LoginBtn" class="btn btn-sm btn-primary btn-block">Login</button>

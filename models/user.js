@@ -2,7 +2,7 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-27 12:53:16
+* @Last Modified time: 2016-05-30 16:58:36
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
@@ -54,7 +54,7 @@ UserModel.createOrUpdate = function(uid,data, callback)
     					    	login: data.email,		
     					    	salt: salt,		
 						    	hash: hash,		
-						    	pin:  '',
+						    	pincode:  '',
 						    	acl:{								
 						    	     	status: '0',
 						    	     	code: code,
@@ -145,6 +145,25 @@ UserModel.findByEmail = function(email, callback)
     });
 };
 //Find user by email
+UserModel.findByEmailOrLogin = function(email, callback) 
+{
+    var statement = "SELECT * " +
+                    "FROM `" + config.db.bucket + "` AS users " +
+                    "WHERE email = $1 OR login = $1";
+    var query = N1qlQuery.fromString(statement);
+
+    db.query(query, [email], function(error, result) 
+    {
+        if(error)
+        {
+            return callback(error, null);
+        }
+        else
+        {
+            return callback(null, result);
+        }    
+    });
+};
 //UserModel GetByDocumentId
 UserModel.getByDocumentId = function(documentId, callback) 
 {
@@ -449,7 +468,104 @@ UserModel.doAccessCheck = function(params, done)
             }   
         }    
             
-    });    
+    }); 
+
+UserModel.UpdateLogin = function(userId, params, callback) 
+{
+    db.get(userId, function(error, result) 
+    {
+        if(error) {
+            return callback(error, null);
+        }
+        var userDocument = result.value;
+        userDocument.login = params.login;
+
+        db.replace(userId, userDocument, function(error, result) {
+            if(error) {
+                return callback(error, null);
+            }
+            return callback(null, userDocument);
+        });
+    });
+};
+
+
+UserModel.UpdatePass = function(userId, params, callback) 
+{
+    db.get(userId, function(error, result) 
+    {
+        if(error) {
+            return callback(error, null);
+        }
+        var userDocument = result.value;
+            
+            hash(params.password, function(err, salt, hash)
+            {
+                userDocument.salt = salt;
+                userDocument.hash = hash;
+
+                db.replace(userId, userDocument, function(error, result) {
+                    if(error) {
+                        return callback(error, null);
+                    }
+                    return callback(null, userDocument);
+                });
+            });
+    });
+};
+
+
+UserModel.UpdatePincode = function(userId, params, callback) 
+{
+    db.get(userId, function(error, result) 
+    {
+        if(error) {
+            return callback(error, null);
+        }
+        var userDocument = result.value;
+        userDocument.pincode = params.pincode;
+
+        db.replace(userId, userDocument, function(error, result) {
+            if(error) {
+                return callback(error, null);
+            }
+            return callback(null, userDocument);
+        });
+    });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 };
 //End UserModel.doAccesCheck
 

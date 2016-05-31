@@ -1,7 +1,28 @@
 module.exports = {
 	development: {
 		app: {
-			name: 'Plexus!'
+			name: 'Plexus!',
+			plural_name:'Plexus ®',
+			organisation: 'company',//Team, Store, Club etc.
+			type: 'Boilerplate',
+			registration:{
+						registered:true,
+						law:'Dutch Law',
+						country:'The Netherlands',
+						trade_register:'Plexus ®',
+						url:'www.plexus.##',
+						registration_number:'xxxx-xxxxxx-xxxxxx-x',
+						tax_number:'xxxx-xx-xx-xxx-xxxx',
+						fullname:'Plexus ®',
+						jurisdiction:'Dutch',
+						registration_number:'xxxx xxxx xxxxx xxx',
+						address:'PO 98009, The Netherlands',
+						contact_email:'info@plexus.##'
+						},
+			terms:{
+					age: 16,
+					google_analitics:true
+				  }
 		},
 		modules:{
 			register: true,
@@ -22,8 +43,20 @@ module.exports = {
 			secret: 'top Secret',
 			resave: true,
 			saveUninitialized: false,
-  			cookie: { secure: false }
+			locked:false,
+  			cookie: { secure: false, maxAge:86400 }
 			},
+		session:{
+			couchbase:{
+						    bucket:"default",               
+						    host:"127.0.0.1:8091",          
+						    connectionTimeout: 2000,        
+						    operationTimeout: 2000,         
+						    cachefile: '',                  
+						    ttl: 86400,                     
+						    prefix: 'session'                  
+						}
+		},	
 		db: {
 			server: 'couchbase://127.0.0.1',
 			bucket: 'default'
@@ -74,8 +107,20 @@ module.exports = {
 			secret: 'top Secret',
 			resave: true,
 			saveUninitialized: false,
-			cookie: { secure: false}
+			locked: false,
+  			cookie: { secure: false, maxAge:86400 }
 			},
+		session:{
+			couchbase:{
+						    bucket:"default",               
+						    host:"127.0.0.1:8091",          
+						    connectionTimeout: 2000,        
+						    operationTimeout: 2000,         
+						    cachefile: '',                  
+						    ttl: 86400,                     
+						    prefix: 'session'                  
+						}
+		},
 		db: {
 			server: 'couchbase://127.0.0.1',
 			bucket: 'default'

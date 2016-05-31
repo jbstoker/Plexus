@@ -16,9 +16,9 @@
 */
 jQuery(document).ready(function($) {
 	
-$("#old_pincode, #new_pincode").keyup(function()
+$("#pincode, #repeat_pincode").keyup(function()
     {            
-        if($("#old_pincode").val() == $("#new_pincode").val() && $("#old_pincode").val() != '' && $("#new_pincode").val() != ''){
+      if($("#pincode").val() == $("#repeat_pincode").val() && $("#pincode").val() != '' && $("#repeat_pincode").val() != ''){
             $("#pincode_match").removeClass("glyphicon-remove");
             $("#pincode_match").addClass("glyphicon-ok");
             $("#pincode_match").css("color","#00A41E");

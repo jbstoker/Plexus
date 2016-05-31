@@ -112,5 +112,6 @@
 	"Middlename": "Middlename",
 	"Lastname": "Lastname",
 	"Maidenname": "Maidenname",
-	"Save": "Save"
+	"Save": "Save",
+	"Repeat Pincode": "Repeat Pincode"
 }

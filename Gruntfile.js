@@ -44,6 +44,7 @@ module.exports = function(grunt) {
                     './config/theme/js/preload.js',
                     './config/theme/js/cd-tabs.js',
                     './config/theme/js/alert.js',
+                    './config/theme/js/password-check.js',
                     './config/dev-js/dev.js'
                 ],
                 dest: './public/javascript/theme.js'
@@ -54,7 +55,6 @@ module.exports = function(grunt) {
                     './config/theme/js/user-profile.js',
                     './config/theme/js/user-settings.js',
                     './config/theme/js/pincode-check.js',
-                    './config/theme/js/password-check.js',
                     './config/theme/js/user-management.js'
                 ],
                 dest: './public/javascript/backend.js'

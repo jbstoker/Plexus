@@ -105,5 +105,6 @@
 	"Can Publish": "Can Publish",
 	"No Publishing": "No Publishing",
 	"Delete": "Delete",
-	"Publish": "Publish"
+	"Publish": "Publish",
+	"Repeat Pincode": "Repeat Pincode"
 }

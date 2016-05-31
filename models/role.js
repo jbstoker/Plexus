@@ -1,68 +1,61 @@
 /*
-* @Author: JB Stoker
-* @Date:   2016-04-16 13:56:53
-* @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-18 15:03:27
-*/
+ * @Author: JB Stoker
+ * @Date:   2016-04-16 13:56:53
+ * @Last Modified by:   JB Stoker
+ * @Last Modified time: 2016-05-30 14:18:49
+ */
 var uuid = require("uuid"),
-db = require("../app").bucket,
-moment = require('moment'),
-N1qlQuery = require('couchbase').N1qlQuery,
-ViewQuery = require('couchbase').ViewQuery;
+    db = require("../app").bucket,
+    moment = require('moment'),
+    N1qlQuery = require('couchbase').N1qlQuery,
+    ViewQuery = require('couchbase').ViewQuery;
 
 
-var env = process.env.NODE_ENV || 'development', config = require('../config/env/config')[env];
+var env = process.env.NODE_ENV || 'development',
+    config = require('../config/env/config')[env];
 
-function OnOrOff(data)
-{
-	if(data === 'on')
-	{
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}	
+function OnOrOff(data) {
+    if (data === 'on') {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
-function RoleModel(){};
+function RoleModel() {};
 
-RoleModel.newRole = function(uid, data, callback) 
-{
-	var documentId = uid ? uid : uuid.v4();
+RoleModel.newRole = function(uid, data, callback) {
+    var documentId = uid ? uid : uuid.v4();
 
-    		var roleObject = {"uid":documentId,
-                              "type":"role",
-                              "name":data.role_name,
-							  "read":OnOrOff(data.role_read),
-							  "write":OnOrOff(data.role_write),
-							  "edit":OnOrOff(data.role_edit),
-							  "delete":OnOrOff(data.role_del),
-							  "publish":OnOrOff(data.role_publish)
-							  };
+    var roleObject = {
+        "uid": documentId,
+        "type": "role",
+        "name": data.role_name,
+        "read": OnOrOff(data.role_read),
+        "write": OnOrOff(data.role_write),
+        "edit": OnOrOff(data.role_edit),
+        "delete": OnOrOff(data.role_del),
+        "publish": OnOrOff(data.role_publish)
+    };
 
-			db.upsert(documentId, roleObject, function(error, result) 
-			{
-			    if(error){
-			    		    return callback(error, null);
-			    		  }
-			    return callback(null, roleObject);
-			});							 
+    db.upsert(documentId, roleObject, function(error, result) {
+        if (error) {
+            return callback(error, null);
+        }
+        return callback(null, roleObject);
+    });
 };
 //End RoleModel Signup
 //RoleModel GetByDocumentId
-RoleModel.getByDocumentId = function(documentId, callback) 
-{
+RoleModel.getByDocumentId = function(documentId, callback) {
     var statement = "SELECT * " +
-                    "FROM `" + config.db.bucket + "` AS roles " +
-                    "WHERE META(roles).id = $1";
+        "FROM `" + config.db.bucket + "` AS roles " +
+        "WHERE META(roles).id = $1";
 
     var query = N1qlQuery.fromString(statement);
 
-    db.query(query, [documentId], function(error, result) 
-    {
-        if(error)
-        {
+    db.query(query, [documentId], function(error, result) {
+        if (error) {
             return callback(error, null);
         }
         callback(null, result);
@@ -70,28 +63,25 @@ RoleModel.getByDocumentId = function(documentId, callback)
 };
 //End RoleModel GetByDocumentId
 //RoleModel DeleteRole
-RoleModel.DeleteRole = function(documentId, callback) 
-{
-    db.remove(documentId, function(error, result) 
-    {
-        if(error) 
-        {
+RoleModel.DeleteRole = function(documentId, callback) {
+    db.remove(documentId, function(error, result) {
+        if (error) {
             callback(error, null);
             return;
         }
-        callback(null, {message: "success", data: result});
+        callback(null, {
+            message: "success",
+            data: result
+        });
     });
 };
 //End RoleModel DeleteRole
 //RoleModel getAllRoles
-RoleModel.getAllRoles = function(callback) 
-{
+RoleModel.getAllRoles = function(callback) {
     var query = ViewQuery.from('dev_roles', 'roles').stale(1);
-    
-    db.query(query, function(error, result) 
-    {
-        if(error) 
-        {
+
+    db.query(query, function(error, result) {
+        if (error) {
             return callback(error, null);
         }
         callback(null, result);

@@ -2,9 +2,9 @@
 			<div class="container">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs nav-justified">
-				  <li class="active"><a href="#login" data-toggle="tab"><i class="fa fa-sign-in"></i> {{{__ "Login"}}}</a></li>
+				  <li class="{{#if formdata}}{{else}}active{{/if}}"><a href="#login" data-toggle="tab"><i class="fa fa-sign-in"></i> {{{__ "Login"}}}</a></li>
  					{{#if modules.register}}
-				  		<li><a href="#register" data-toggle="tab"><i class="fa fa-pencil"></i> {{{__ "Register"}}}</a></li>
+				  		<li class="{{#if formdata}}active{{/if}}"><a href="#register" data-toggle="tab"><i class="fa fa-pencil"></i> {{{__ "Register"}}}</a></li>
  					{{/if}}
  					{{#if modules.contact}}				  
 				  		<li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i> {{{__ "Contact"}}}</a></li>
@@ -12,7 +12,7 @@
 				</ul>
 				<!-- Tab panes -->
 				<div class="tab-content">
-				  <div class="tab-pane fade active in" id="login">
+				  <div class="tab-pane fade {{#if formdata}}{{else}} active in {{/if}}" id="login">
 					<!-- Login form -->
 					<form role="form" method="post" action="/login">
 					  <div class="form-group">
@@ -23,29 +23,27 @@
 						<label for="password">{{{__ "Password"}}}</label>
 						<input type="password" class="form-control" id="password" name="password" placeholder="{{{__ 'Password'}}}">
 					  </div>
-					  <div class="checkbox">
-						<label>
-						  <input type="checkbox"> {{{__ "Remember Me Next Time"}}}
-						</label>
-					  </div>
 					  <button type="submit" class="btn btn-danger btn-sm">{{{__ 'Submit'}}}</button>
 					  <button type="reset" class="btn btn-black btn-sm">{{{__ 'Reset'}}}</button>
 					</form>
 				  </div>
 				  {{#if modules.register}}
-				  <div class="tab-pane fade" id="register">
+				  <div class="tab-pane {{#if formdata}} active in {{/if}} fade" id="register">
+				  {{#if formdata}}
+
 					<!-- Register form -->
-					<form role="form" method="post" action="/register">
+					<form role="form" method="post" action="/register">	
+					<input type="hidden" name="form" value="register">
 					  <div class="form-group">
 						<label for="name">{{{__ "Full Name"}}}</label>
-						<input type="text" class="form-control" id="name" name="fullname" placeholder="{{{__ 'Full Name'}}}">
+						<input type="text" class="form-control" id="name" name="fullname" value="{{formdata.fullname}}" placeholder="{{{__ 'Full Name'}}}">
 					  </div>
 					  <div class="form-group">
 						<label for="email">{{{__ "Email"}}}</label>
-						<input type="text" class="form-control" id="email" name="email" placeholder="{{{__ 'Email'}}}">
+						<input type="text" class="form-control" id="email" name="email"  value="{{formdata.email}}" placeholder="{{{__ 'Email'}}}">
 					  </div>
 					  <div class="form-group">
-						<label for="password">{{{__ "Password"}}}</label>
+						<label for="password1">{{{__ "Password"}}}</label>
 						<input type="password" class="form-control" id="password1" name="password" placeholder="{{{__ 'Password'}}}">
 						<br>
 					  		<div class="col-sm-6">
@@ -60,10 +58,53 @@
 					  </div>
 					  <div class="form-group">
 						<label for="password2">{{{__ "Confirm Password"}}}</label>
-						<input type="password" class="form-control" id="password2" placeholder="{{{__ 'Confirm Password'}}}">
+						<input type="password" name="password2" class="form-control" id="password2" placeholder="{{{__ 'Confirm Password'}}}">
 						<br>
 						<div class="col-sm-12">
-                            <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "Passwords Match"}}}<br>
+                            <span id="password_pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "Passwords Match"}}}<br>
+                        </div>
+					  </div>
+					  <div class="checkbox">
+						<br>
+						<label>
+						  <input type="checkbox" name="agreed"  value="{{formdata.agreed}}">{{{__ "Agree"}}}<a href="/terms"> {{{__ "Terms & Conditions"}}}</a>
+						</label>
+					  </div>
+					  <button type="submit" class="btn btn-danger btn-sm">{{{__ "Submit"}}}</button>
+					  <button type="reset" class="btn btn-black btn-sm">{{{__ "Reset"}}}</button>
+					</form>
+				  {{else}}
+				  	<!-- Register form -->
+					<form role="form" method="post" action="/register">
+					<input type="hidden" name="form" value="register">
+					  <div class="form-group">
+						<label for="name">{{{__ "Full Name"}}}</label>
+						<input type="text" class="form-control" id="name" name="fullname" placeholder="{{{__ 'Full Name'}}}">
+					  </div>
+					  <div class="form-group">
+						<label for="email">{{{__ "Email"}}}</label>
+						<input type="text" class="form-control" id="email" name="email" placeholder="{{{__ 'Email'}}}">
+					  </div>
+					  <div class="form-group">
+						<label for="password1">{{{__ "Password"}}}</label>
+						<input type="password" class="form-control" id="password1" name="password" placeholder="{{{__ 'Password'}}}">
+						<br>
+					  		<div class="col-sm-6">
+                        	    <span id="password_8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "8 Characters Long"}}}<br>
+                        	    <span id="password_ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "One Uppercase Letter"}}}
+                        	</div>
+                            <div class="col-sm-6">
+                            	<span id="password_lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "One Lowercase Letter"}}}<br>
+                            	<span id="password_num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "One Number"}}}<br>
+					  			<br>
+                            </div>
+					  </div>
+					  <div class="form-group">
+						<label for="password2">{{{__ "Confirm Password"}}}</label>
+						<input type="password" name="password2" class="form-control" id="password2" placeholder="{{{__ 'Confirm Password'}}}">
+						<br>
+						<div class="col-sm-12">
+                            <span id="password_pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> {{{__ "Passwords Match"}}}<br>
                         </div>
 					  </div>
 					  <div class="checkbox">
@@ -75,6 +116,8 @@
 					  <button type="submit" class="btn btn-danger btn-sm">{{{__ "Submit"}}}</button>
 					  <button type="reset" class="btn btn-black btn-sm">{{{__ "Reset"}}}</button>
 					</form>
+		 		  {{/if}}
+		 
 				  </div>
 				  {{/if}}
 				  {{#if modules.contact.active}}

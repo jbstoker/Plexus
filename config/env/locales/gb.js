@@ -118,5 +118,6 @@
 	"Save": "Save",
 	"SESSION LOCKED": "SESSION LOCKED",
 	"Enter your password or pincode here...": "Enter your password or pincode here...",
-	"Repeat Pincode": "Repeat Pincode"
+	"Repeat Pincode": "Repeat Pincode",
+	"Set session time to one day": "Set session time to one day"
 }

@@ -23,7 +23,7 @@
       </div>
       <div class="col-md-8">
         <div class="row col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="profile-info">
-          <h3 id="info-title" data-title="{{user.title}}" data-surname="{{user.surname}}" data-middlename="{{user.middlename}}" data-lastname="{{user.lastname}}" data-maidenname="{{user.maidenname}}">{{user.title}} {{user.surname}} {{user.middlename}} {{user.lastname}} - {{user.maidenname}}</h3>
+          <h3 id="info-title" data-title="{{user.title}}" data-surname="{{user.surname}}" data-middlename="{{user.middlename}}" data-lastname="{{user.lastname}}" data-maidenname="{{user.maidenname}}">{{user.title}} {{user.surname}} {{user.middlename}} {{user.lastname}}{{#if user.maidenname}} - {{user.maidenname}}{{/if}}</h3>
           <div class="info-text">{{{user.info.personal_text}}}</div>
         </div>
 {{!-- Full Name --}}

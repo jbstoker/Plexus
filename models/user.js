@@ -2,11 +2,12 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-05-30 16:58:36
+* @Last Modified time: 2016-06-02 07:34:11
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
 N1qlQuery = require('couchbase').N1qlQuery,
+ViewQuery = require('couchbase').ViewQuery,
 gm = require('gm'),
 hash = require('../config/env/acl/middlewares/hash'),
 mailer = require('../middlewares/mailer/mailer'),
@@ -115,6 +116,11 @@ UserModel.SendMail = function(userId,params, callback)
                 return callback(null, {message: "success", data: result});
                 });     
 };
+/**
+ * Send Email from ContactForm at the login/register/contact page
+ * @param {[type]}   params   [description]
+ * @param {Function} callback [description]
+ */
 UserModel.ContactMail = function(params, callback) 
 {                               
                     var to = config.modules.contact.contact_address;
@@ -127,13 +133,11 @@ UserModel.ContactMail = function(params, callback)
 //Find user by email
 UserModel.findByEmail = function(email, callback) 
 {
-    var statement = "SELECT * " +
-                    "FROM `" + config.db.bucket + "` AS users " +
-                    "WHERE META(users).email = $1";
-    var query = N1qlQuery.fromString(statement);
+ var query = ViewQuery.from('users', 'userbyemail').key(email).stale(0);
 
-    db.query(query, [email], function(error, result) 
+    db.query(query, function(error, result) 
     {
+        console.log(['result findEmail'],[result]);
         if(error)
         {
             return callback(error, null);
@@ -147,13 +151,16 @@ UserModel.findByEmail = function(email, callback)
 //Find user by email
 UserModel.findByEmailOrLogin = function(email, callback) 
 {
-    var statement = "SELECT * " +
-                    "FROM `" + config.db.bucket + "` AS users " +
-                    "WHERE email = $1 OR login = $1";
-    var query = N1qlQuery.fromString(statement);
+    // var statement = "SELECT * " +
+    //                 "FROM `" + config.db.bucket + "` AS users " +
+    //                 "WHERE email = $1 OR login = $1";
+    // var query = N1qlQuery.fromString(statement);
 
-    db.query(query, [email], function(error, result) 
+ var query = ViewQuery.from('users', 'userbylogin').key(email).stale(1);
+
+    db.query(query, function(error, result) 
     {
+        console.log(['result findEmailOrLogin'],[result]);
         if(error)
         {
             return callback(error, null);
@@ -193,10 +200,9 @@ UserModel.DeleteUser = function(documentId, callback)
 //End UserModel getAllUsers
 UserModel.isValidUserPassword = function(email, password, done)
 {
- var statement = "SELECT * FROM `" + config.db.bucket + "` AS users WHERE login = $1";
- var query = N1qlQuery.fromString(statement);
+ var query = ViewQuery.from('users', 'userbylogin').key(encodeURIComponent(email)).stale(1);
 
-    db.query(query, [email], function(error, result) 
+    db.query(query, function(error, result) 
     {
         if(error)
         { 
@@ -206,7 +212,7 @@ UserModel.isValidUserPassword = function(email, password, done)
         {
             if(result.length > 0) 
             {
-                hash(password, result[0].users.salt, function(err, hash)
+                hash(password, result[0].value.salt, function(err, hash)
                 {   
                     if(err)
                     {
@@ -214,10 +220,10 @@ UserModel.isValidUserPassword = function(email, password, done)
                     }
                     else
                     {
-                        var dbHash = new Buffer(result[0].users.hash.data);
+                        var dbHash = new Buffer(result[0].value.hash.data);
                         if(hash.toString() == dbHash.toString())
                         { 
-                            return done(null, result, 'Welcome!');
+                            return done(null, result[0].value, 'Welcome!');
                         }
                         else
                         {

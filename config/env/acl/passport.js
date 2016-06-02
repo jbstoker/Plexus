@@ -9,7 +9,7 @@ passport.serializeUser(function(user, done)
 {
     if(user.data === undefined)
     {
-        done(null, user[0].users.uid);
+        done(null, user.uid);
     }
     else
     {
@@ -39,10 +39,6 @@ passport.deserializeUser(function(userId, done) {
             }   
         });
 });
-
-
-
-
 
 passport.use('local', new LocalStrategy({
         usernameField : 'email',

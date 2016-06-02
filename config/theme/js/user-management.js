@@ -410,7 +410,7 @@ jQuery(document).ready(function($) {
             type: "POST",
             dataType: "JSON"
         }).done(function(d) {
-            var data = d[0].roles;
+            var data = d[0].value;
             $("#role-form").attr("action", "/update-role/" + data.uid);
             $("#btn-saveRole").removeClass("btn-primary").addClass("btn-warning").html("Update");
             $("[name=role_name]").val(data.name);

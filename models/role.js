@@ -2,7 +2,7 @@
  * @Author: JB Stoker
  * @Date:   2016-04-16 13:56:53
  * @Last Modified by:   JB Stoker
- * @Last Modified time: 2016-05-30 14:18:49
+ * @Last Modified time: 2016-06-01 10:43:27
  */
 var uuid = require("uuid"),
     db = require("../app").bucket,
@@ -21,9 +21,19 @@ function OnOrOff(data) {
         return 0;
     }
 }
-
+/**
+ * INIT ROLEMODEL
+ */
 function RoleModel() {};
-
+/**
+ * newRole function
+ * creates new role in database
+ * 
+ * @param  int uid      [description]
+ * @param  object data     [description]
+ * @param  callback callback [description]
+ * @return {[type]}            [description]
+ */
 RoleModel.newRole = function(uid, data, callback) {
     var documentId = uid ? uid : uuid.v4();
 
@@ -47,14 +57,10 @@ RoleModel.newRole = function(uid, data, callback) {
 };
 //End RoleModel Signup
 //RoleModel GetByDocumentId
-RoleModel.getByDocumentId = function(documentId, callback) {
-    var statement = "SELECT * " +
-        "FROM `" + config.db.bucket + "` AS roles " +
-        "WHERE META(roles).id = $1";
+RoleModel.getByDocumentId = function(documentId, callback){
 
-    var query = N1qlQuery.fromString(statement);
-
-    db.query(query, [documentId], function(error, result) {
+    var query = ViewQuery.from('roles', 'rolebyid').key(documentId).stale(1);
+    db.query(query, function(error, result) {
         if (error) {
             return callback(error, null);
         }
@@ -78,8 +84,7 @@ RoleModel.DeleteRole = function(documentId, callback) {
 //End RoleModel DeleteRole
 //RoleModel getAllRoles
 RoleModel.getAllRoles = function(callback) {
-    var query = ViewQuery.from('dev_roles', 'roles').stale(1);
-
+    var query = ViewQuery.from('roles', 'roles').stale(1);
     db.query(query, function(error, result) {
         if (error) {
             return callback(error, null);

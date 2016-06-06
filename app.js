@@ -81,10 +81,12 @@ app.use(bodyParser.urlencoded({
 //Session middleware
 app.use(session({
     store: couchbaseSession,
+    locked: config.locked,
     secret: config.secret.secret,
     resave: config.secret.resave,
     saveUninitialized: config.secret.saveUninitialized,
     cookie: {
+        expires: config.secret.expires,
         secure: config.secret.cookie.secure,
         maxAge: config.secret.cookie.maxAge
     }
@@ -96,6 +98,7 @@ app.use(i18n.init);
 app.use(flash());
 //Use language
 app.use(function(req, res, next) {
+    // console.log(['----Session-----'],[req.session]);
     res.locals.version = version;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
@@ -133,8 +136,8 @@ if (app.get('env') === 'development') {
 //Production error handler
 app.use(function(err, req, res, next) {
     req.flash('error', {
-        title: err.message.status + ' Page doesn\'t exist!',
-        msg: 'The page you try to access doesn\'t exists! \n Please check your added address or contact your webmaster.',
+        title: err.message.status +  i18n.__('Page doesn\'t exist!'),
+        msg: i18n.__('The page you try to access doesn\'t exists! \n Please check your added address or contact your webmaster.'),
         target: '',
         url: '',
         target: '',

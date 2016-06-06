@@ -19,8 +19,8 @@ module.exports = function(app, passport, i18n) {
     /* GET home page. */
     app.get("/", function(req, res, next) {
         res.render("bodies/index", {
-            title: "Plexus!",
-            subtitle: "connecting data",
+            title: res.__('Plexus!'),
+            subtitle: res.__('connecting data'),
             showtitle: "",
             layout: "layouts/default"
         });
@@ -30,8 +30,8 @@ module.exports = function(app, passport, i18n) {
  */
     app.get("/terms", function(req, res, next) {
         res.render("bodies/terms", {
-            title: "Terms and Conditions!",
-            subtitle: "These are our terms, just accept it",
+            title: res.__('Terms and Conditions!'),
+            subtitle: res.__('These are our terms, just accept it'),
             showtitle: "",
             layout: "layouts/default",
             app: config.app
@@ -39,8 +39,8 @@ module.exports = function(app, passport, i18n) {
     });
     app.get("/privacy", function(req, res, next) {
         res.render("bodies/privacy", {
-            title: "Privacy & Cookie policy!",
-            subtitle: "These are our terms, just accept it",
+            title: res.__('Privacy & Cookie policy!'),
+            subtitle: res.__('These are our terms, just accept it'),
             showtitle: "",
             layout: "layouts/default",
             app: config.app
@@ -48,8 +48,8 @@ module.exports = function(app, passport, i18n) {
     });
     app.get("/faq", function(req, res, next) {
         res.render("bodies/faq", {
-            title: "Frequent Asked Questions!",
-            subtitle: "Don't ask, just read",
+            title: res.__('Frequent Asked Questions!'),
+            subtitle: res.__('Don\'t ask, just read'),
             showtitle: "",
             layout: "layouts/default"
         });

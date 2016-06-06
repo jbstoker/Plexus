@@ -44,16 +44,12 @@ module.exports = {
 			resave: true,
 			saveUninitialized: false,
 			locked:false,
-  			cookie: { secure: false, maxAge:86400 }
+  			cookie: { secure: false, maxAge:24*60*60*1000, expires:null}
 			},
 		session:{
 			couchbase:{
 						    bucket:"default",               
-						    host:"127.0.0.1:8091",          
-						    connectionTimeout: 2000,        
-						    operationTimeout: 2000,         
-						    cachefile: '',                  
-						    ttl: 86400,                     
+						    host:"127.0.0.1:8091",                              
 						    prefix: 'session'                  
 						}
 		},	
@@ -108,16 +104,12 @@ module.exports = {
 			resave: true,
 			saveUninitialized: false,
 			locked: false,
-  			cookie: { secure: false, maxAge:86400 }
+  			cookie: { secure: false, maxAge:24*60*60*1000, expires:null}
 			},
 		session:{
 			couchbase:{
 						    bucket:"default",               
-						    host:"127.0.0.1:8091",          
-						    connectionTimeout: 2000,        
-						    operationTimeout: 2000,         
-						    cachefile: '',                  
-						    ttl: 86400,                     
+						    host:"127.0.0.1:8091",                            
 						    prefix: 'session'                  
 						}
 		},

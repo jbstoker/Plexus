@@ -2,13 +2,14 @@
 * @Author: JB Stoker
 * @Date:   2016-04-16 13:56:53
 * @Last Modified by:   JB Stoker
-* @Last Modified time: 2016-06-02 07:34:11
+* @Last Modified time: 2016-06-05 07:28:28
 */
 var uuid = require("uuid"),
 db = require("../app").bucket,
 N1qlQuery = require('couchbase').N1qlQuery,
 ViewQuery = require('couchbase').ViewQuery,
 gm = require('gm'),
+i18n = require('i18n'),
 hash = require('../config/env/acl/middlewares/hash'),
 mailer = require('../middlewares/mailer/mailer'),
 moment = require('moment'),
@@ -28,13 +29,13 @@ UserModel.createOrUpdate = function(uid,data, callback)
             var code = Math.random().toString(36).substring(7);
     		var userObject = {  type: 'user',
 								uid: documentId,
-                                gender: '',                
+                                gender: 'intersex',                
                                 title: '',                
                                 surname: data.fullname,                
                                 middlename: '',                
                                 lastname: '',                
 								maidenname: '', 				
-    					    	email: '', 			
+    					    	email: data.email, 			
                                 phone: '',          
     					    	mobile: '', 			
     					    	address:{ 							
@@ -85,9 +86,9 @@ UserModel.createOrUpdate = function(uid,data, callback)
     			    		return  callback(error, null);
 
 			    		  }
-                    var subject = 'Welcome!';         
-                    var body = '<p>You just created an new account at '+ config.app.name +'.</p>'+
-                               '<a href="http://localhost:3000/activate?code='+code+'">Please Activate your account by visiting this link.</a>';
+                    var subject = i18n.__('Welcome!');         
+                    var body = i18n.__('You just created an new account at ')+ config.app.name +'.</p>'+
+                               '<a href="http://localhost:3000/activate?code='+code+'">'+ i18n.__('Please Activate your account by visiting this link.') + '</a>';
 
                     mailer.sendmail(data.email, subject, body,'html');        
           
@@ -131,36 +132,12 @@ UserModel.ContactMail = function(params, callback)
                     return callback(null);
 };
 //Find user by email
-UserModel.findByEmail = function(email, callback) 
-{
- var query = ViewQuery.from('users', 'userbyemail').key(email).stale(0);
-
-    db.query(query, function(error, result) 
-    {
-        console.log(['result findEmail'],[result]);
-        if(error)
-        {
-            return callback(error, null);
-        }
-        else
-        {
-            return callback(null, result);
-        }    
-    });
-};
-//Find user by email
 UserModel.findByEmailOrLogin = function(email, callback) 
 {
-    // var statement = "SELECT * " +
-    //                 "FROM `" + config.db.bucket + "` AS users " +
-    //                 "WHERE email = $1 OR login = $1";
-    // var query = N1qlQuery.fromString(statement);
-
- var query = ViewQuery.from('users', 'userbylogin').key(email).stale(1);
+ var query = ViewQuery.from('users', 'userbyemailandlogin').key(email).stale(1);
 
     db.query(query, function(error, result) 
     {
-        console.log(['result findEmailOrLogin'],[result]);
         if(error)
         {
             return callback(error, null);
@@ -201,7 +178,6 @@ UserModel.DeleteUser = function(documentId, callback)
 UserModel.isValidUserPassword = function(email, password, done)
 {
  var query = ViewQuery.from('users', 'userbylogin').key(encodeURIComponent(email)).stale(1);
-
     db.query(query, function(error, result) 
     {
         if(error)
@@ -227,14 +203,14 @@ UserModel.isValidUserPassword = function(email, password, done)
                         }
                         else
                         {
-                            return done(null, false, 'Your password is not correct!');
+                            return done(null, false, i18n.__('Your password is not correct!'));
                         }
                     }    
                 });
             }
             else
             {
-                return done(null, false,'Your login does not exists within our system');
+                return done(null, false,i18n.__('Your login does not exists within our system'));
         	}	
         }    
             
@@ -334,37 +310,40 @@ UserModel.findACLUserAndUpdate = function(userId,params, callback)
 
 			    db.get(userId, function(error, result) 
 			    {
-			        if(error) 
-			        {
-			            return callback(error, null);
-			        }
+                    
+                    if(error) 
+                    {
+                        return callback(error, null);
+                    }
 
-			        var userDocument = result.value;
+                    var userDocument = result.value;
                     userDocument.title = params.user_title;
                     userDocument.surname = params.user_surname;
                     userDocument.middlename = params.user_middlename;
                     userDocument.lastname = params.user_lastname;
-			        userDocument.maidenname = params.user_maidenname;
-			        userDocument.email = params.user_email;
-			        userDocument.acl.status = params.user_accepted;
+                    userDocument.maidenname = params.user_maidenname;
+                    userDocument.email = params.user_email;
+                    userDocument.acl.status = params.user_accepted;
 
                     db.get(params.user_role, function(error, result) 
                     {
+
                         if(error) 
                         {
                             return callback(error, null);
                         }
 
                     userDocument.role.uid = result.value.uid;
-			        userDocument.role.text = result.value.name;
+                    userDocument.role.text = result.value.name;
 
-    			        db.replace(userId, userDocument, function(error, result) 
-    			        {
+                        db.replace(userId, userDocument, function(error, result) 
+                        {
+
     			            if(error) 
     			            {
     			                return callback(error, null);
     			            }
-    			            return callback(null, userDocument);
+    			            return callback(null,{message: 'success', data: userDocument});
     			        });
                     });   
 
@@ -373,72 +352,124 @@ UserModel.findACLUserAndUpdate = function(userId,params, callback)
 //End UserModel.findACLUserAndUpdate
 UserModel.createACLUser = function(params, callback) 
 {
- var statement = "SELECT * FROM `" + config.db.bucket + "` AS users WHERE login = $1";
- var query = N1qlQuery.fromString(statement);
-
-    db.query(query, [params.user_email], function(error, result) 
+ var query = ViewQuery.from('users', 'userbyemailandlogin').key(encodeURIComponent(params.user_email)).stale(1);
+    
+    db.query(query,  function(error, result) 
     {
-        if(error){ return callback(error, null); }
+        if(error){  
+            return callback(error, {message: "danger", data: error.message});
+        }
+
         if(params.user_accepted === undefined){ params.user_accepted = '0'};
-		if(params.user_role === undefined){ params.user_role = ''};	
+        if(params.user_role === undefined){ params.user_role = ''}; 
+        
+        var documentId = uuid.v4();
 
-		 if(result.length <= 0) 
-		 {
+        if(result.length <= 0) 
+        {
             db.get(params.user_role, function(error, result) 
+            {
+                if(error) 
+                {
+                    return callback(error, {message:'error',data:i18n.__('User role failed to fetch name!')});
+                }
+                else
+                {
+
+                   
+                    var code = Math.random().toString(36).substring(7);
+                    var genpass = Math.random().toString(36).substring(7);
+                    hash(genpass, function(err, salt, hash)
                     {
-                        if(error) 
-                        {
-                            return callback(error, null);
-                        }
-
-                        var code = Math.random().toString(36).substring(7);
-                        var userDocument = {
-                            "type": "user",
-                            "uid": uuid.v4(),
-                            "title": params.user_title,
-                            "surname": params.user_surname,
-                            "middlename": params.user_middlename,
-                            "lastname": params.user_lastname,
-                            "maidenname": params.user_maidenname,
-                            "email": params.user_email,
-                            "acl": {
-                                        "status":params.user_accepted,
-                                        "code":code,
-                                    },
-                            "role": {
-                                        "uid":params.user_role,
-                                        "text":result.value.name
-                                    }};
-
-                        db.insert(userDocument.uid, userDocument, function(error, result) 
-                        {
+                        if(err) throw err;
+                        
+                            var userObject =    {  
+                                               type: 'user',
+                                               uid: documentId,
+                                               gender: 'intersex',                
+                                               title: params.user_title,
+                                               surname: params.user_surname,
+                                               middlename: params.user_middlename,
+                                               lastname: params.user_lastname,
+                                               maidenname: params.user_maidenname,                 
+                                               email: params.user_email,          
+                                               phone: '',          
+                                               mobile: '',             
+                                               address:{                           
+                                                       street:'',
+                                                       number:'',
+                                                       postalcode:'',
+                                                       city:'',
+                                                       country:'',
+                                                   },
+                                               website: '',            
+                                               birthday: new Date(),
+                                               avatar: '',         
+                                               info:{                              
+                                                       personal_text: '',
+                                                       quote: '',
+                                                    },
+                                               locale: 'nl',
+                                               login: params.user_email,      
+                                               salt: salt,     
+                                               hash: hash,     
+                                               pincode:  '',
+                                               acl:{                               
+                                                       status: params.user_accepted,
+                                                       code: code,
+                                                    },     
+                                               apikey: '',     
+                                               apisecret: '',      
+                                               facebook:{                          
+                                                           socialID: '',
+                                                           email: '',
+                                                           name: ''
+                                                       },
+                                               google:{                            
+                                                           socialID: '',
+                                                           email: '',
+                                                           name: ''
+                                                           },
+                                               createdOn: new Date(),
+                                               role :{
+                                                       uid:params.user_role,
+                                                       text:result.value.name
+                                                       }
+                                                };
+                        
+                            db.upsert(documentId, userObject, function(error, result) 
+                            {
                             if(error){
                                         return callback(error);
                                      }
-
-                            var subject = 'Er is een account voor u geregistreerd!';         
-                            var body = '<p>There has been an new account created for you at '+ config.app.name +'.</p>'+
-                                       '<a href="http://localhost:3000/activate?code='+code+'">Please Activate by visiting this link.</a>';
-
-                            mailer.sendmail(params.user_email, subject, body,'html');        
-
-                            return callback(null, userDocument);
-                        });
-                    });   
+    
+                            var subject = i18n.__('New account at ');         
+                            var body =  '<p>'+i18n.__('There has been an new account created for you at ')+ config.app.name +'.</p>'+
+                                        '<p><table><tr><td>'+i18n.__('Login')+'</td><td>'+params.user_email+'</td></tr><tr><td>'+i18n.__('Password')+'</td><td>'+genpass+'</td></tr></table></p>'+
+                                        '<a href="http://localhost:3000/activate?code='+code+'">'+i18n.__('Please Activate by visiting this link.')+'</a>';                        
+                                       
+                                        mailer.sendmail(params.user_email, subject, body,'html');        
+    
+                            return callback(null, {message: 'success', data: userObject});
+                            });                 
+                        
+                    });
+                }       
+            });   
         } 
         else 
         {
-            return callback(null, result[0]);
+            return callback(true, {message: "danger", data: i18n.__('The email address is already registered! Please enter a new one.')});
+
         }
     }); 
 };
 //End UserModel getAllUsers
 UserModel.doAccessCheck = function(params, done)
 {
- var statement = "SELECT * FROM `" + config.db.bucket + "` AS users WHERE login = $1";
- var query = N1qlQuery.fromString(statement);
+ var query = ViewQuery.from('users', 'userbylogin').key(encodeURIComponent(params.email)).stale(1);
 
-    db.query(query, [params.email], function(error, result) 
+    db.query(query, function(error, result) 
     {
         if(error)
         { 
@@ -448,7 +479,7 @@ UserModel.doAccessCheck = function(params, done)
         {
            if(result.length > 0) 
             {
-                hash(params.password, result[0].users.salt, function(err, hash)
+                hash(params.password, result[0].value.salt, function(err, hash)
                 {   
                     if(err)
                     {
@@ -456,21 +487,21 @@ UserModel.doAccessCheck = function(params, done)
                     }
                     else
                     {
-                        var dbHash = new Buffer(result[0].users.hash.data);
+                        var dbHash = new Buffer(result[0].value.hash.data);
                         if(hash.toString() == dbHash.toString())
                         { 
-                            return done(null, result[0].users.uid);
+                            return done(null, result[0].value.uid);
                         }
                         else
                         {
-                            return done(null,'Your password is not correct!');
+                            return done(null,i18n.__('Your password is not correct!'));
                         }
                     }    
                 });
             }
             else
             {
-                return done(null,'Your login failed, try again');
+                return done(null,i18n.__('Your login failed, try again'));
             }   
         }    
             

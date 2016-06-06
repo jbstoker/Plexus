@@ -31,8 +31,8 @@ module.exports = function(app, passport, i18n) {
 if (req.body.password == "" || req.body.password2 == "") {
     req.session.formdata = req.body;
             req.flash('warning', {
-                        title: 'Warning!',
-                        msg: 'Password can\'t be empty' ,
+                        title: res.__("Warning!"),
+                        msg: res.__("Password can\'t be empty"),
                         target: '',
                         url: '',
                         target: '',
@@ -44,8 +44,8 @@ if (req.body.password == "" || req.body.password2 == "") {
                 if (req.body.password.length < 8) {
                     req.session.formdata = req.body;
                     req.flash('warning', {
-                        title: 'Not Save!',
-                        msg: 'Password must contain at least eight characters!',
+                        title: res.__("Not Save!"),
+                        msg: res.__("Password must contain at least eight characters!"),
                         target: '',
                         url: '',
                         target: '',
@@ -57,8 +57,8 @@ if (req.body.password == "" || req.body.password2 == "") {
                     if (!re.test(req.body.password)) {
                         req.session.formdata = req.body;
                         req.flash('warning', {
-                        title: 'Not Save!',
-                        msg: 'password must contain at least one number (0-9)!',
+                        title: res.__("Not Save!"),
+                        msg: res.__("password must contain at least one number (0-9)!"),
                         target: '',
                         url: '',
                         target: '',
@@ -70,8 +70,8 @@ if (req.body.password == "" || req.body.password2 == "") {
                         if (!re.test(req.body.password)) {
                             req.session.formdata = req.body;
                     req.flash('warning', {
-                        title: 'Not Save!',
-                        msg: 'password must contain at least one lowercase letter (a-z)!',
+                        title: res.__("Not Save!"),
+                        msg: res.__("password must contain at least one lowercase letter (a-z)!"),
                         target: '',
                         url: '',
                         target: '',
@@ -83,8 +83,8 @@ if (req.body.password == "" || req.body.password2 == "") {
                             if (!re.test(req.body.password)) {
                                 req.session.formdata = req.body;
                                 req.flash('warning', {
-                        title: 'Not Save!',
-                        msg: 'password must contain at least one uppercase letter (A-Z)!',
+                        title: res.__("Not Save!"),
+                        msg: res.__("password must contain at least one uppercase letter (A-Z)!"),
                         target: '',
                         url: '',
                         target: '',
@@ -97,8 +97,8 @@ if (req.body.password == "" || req.body.password2 == "") {
                                         if (err) {
                                             req.session.formdata = req.body;
                                             req.flash('error', {
-                                                title: 'Error!',
-                                                msg: 'Could not create your new account!',
+                                                title: res.__("Error!"),
+                                                msg: res.__("Could not create your new account!"),
                                                 target: '',
                                                 url: '',
                                                 target: '',
@@ -110,7 +110,7 @@ if (req.body.password == "" || req.body.password2 == "") {
                                                 if (err) {
                                                     req.session.formdata = req.body;
                                                     req.flash('error', {
-                                                        title: 'Error!',
+                                                        title: res.__("Error!"),
                                                         msg: err,
                                                         target: '',
                                                         url: '',
@@ -121,7 +121,7 @@ if (req.body.password == "" || req.body.password2 == "") {
                                                 } else {
                                                     req.flash('success', {
                                                         title: '',
-                                                        msg: 'Please add the missing data to your profile!',
+                                                        msg: res.__("Please add the missing data to your profile!"),
                                                         target: '',
                                                         url: '',
                                                         target: '',
@@ -136,8 +136,8 @@ if (req.body.password == "" || req.body.password2 == "") {
 
                                     req.session.formdata = req.body;
                                     req.flash('warning', {
-                                        title: 'Accept the Terms of Use!',
-                                        msg: 'You\'ll need to accept out terms before you can register',
+                                        title: res.__("Accept the Terms of Use!"),
+                                        msg: res.__("You\'ll need to accept out terms before you can register"),
                                         target: '',
                                         url: '',
                                         target: '',
@@ -152,8 +152,8 @@ if (req.body.password == "" || req.body.password2 == "") {
             } else {
                 req.session.formdata = req.body;
                 req.flash('warning', {
-                        title: 'Not Equal!',
-                        msg: 'Please check that you\'ve entered and confirmed your password!',
+                        title: res.__("Not Equal!"),
+                        msg: res.__("Please check that you\'ve entered and confirmed your password!"),
                         target: '',
                         url: '',
                         target: '',
@@ -207,8 +207,8 @@ if (req.body.password == "" || req.body.password2 == "") {
                 }
             } else {
                 req.flash('warning', {
-                    title: 'Pincode fail!',
-                    msg: 'You need to set an pincode before you can lock your session!',
+                    title: res.__("Pincode fail!"),
+                    msg: res.__("You need to set an pincode before you can lock your session!"),
                     target: '',
                     url: '',
                     target: '',
@@ -223,27 +223,93 @@ if (req.body.password == "" || req.body.password2 == "") {
     });
     //Update user profile
     app.post("/contact", function(req, res) {
-        User.ContactMail(req.body, function(err, user) {
-            if (err) {
+        if(req.body == undefined)
+        {
+            req.flash('error', {
+                    title: res.__("Error!"),
+                    msg: res.__("No mail created yet!"),
+                    target: '',
+                    url: '',
+                    target: '',
+                    bar: false
+                });
+            res.redirect('back');
+        }
+        else
+        {
+            if(req.body.name == '')
+            {
                 req.flash('error', {
-                    title: 'Error!',
-                    msg: 'Could not send your message, please try again!',
+                    title: res.__("Error!"),
+                    msg: res.__("Please enter your name!"),
                     target: '',
                     url: '',
                     target: '',
                     bar: false
                 });
-            } else {
-                req.flash('success', {
-                    title: 'Success!',
-                    msg: 'Message Send!',
-                    target: '',
-                    url: '',
-                    target: '',
-                    bar: false
-                });
+                res.redirect('back');
             }
-            res.redirect("back");
-        });
+            else
+            {
+                    if(req.body.email == '')
+                    {
+                        req.flash('error', {
+                            title: res.__("Error!"),
+                            msg: res.__("Please enter your email address, without it we can't reply!"),
+                            target: '',
+                            url: '',
+                            target: '',
+                            bar: false
+                        });
+                        res.redirect('back');
+                    }
+                    else
+                    {
+                        if(/<[a-z][\s\S]*>/i.test(req.body.body))
+                        {
+                            req.flash('error', {
+                                title: res.__("Error!"),
+                                msg: res.__("Your message contains html values, for security reasons those are not accepted!"),
+                                target: '',
+                                url: '',
+                                target: '',
+                                bar: false
+                            });
+                            res.redirect('back');
+                        }
+                        else
+                        {
+                                User.ContactMail(req.body, function(err, user) 
+                                {
+                                if (err) {
+                                    req.flash('error', {
+                                        title: res.__("Error!"),
+                                        msg: res.__("Could not send your message, please try again!"),
+                                        target: '',
+                                        url: '',
+                                        target: '',
+                                        bar: false
+                                    });
+                                    res.redirect("back");
+                                    
+                                } else {
+                                    req.flash('success', {
+                                        title: res.__("Success!"),
+                                        msg: res.__("Message Send!"),
+                                        target: '',
+                                        url: '',
+                                        target: '',
+                                        bar: false
+                                    });
+                                    res.redirect("back");
+                                }
+                            });
+                        }    
+                    }    
+            }
+
+        }    
+
+
     });
 };

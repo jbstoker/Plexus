@@ -26,26 +26,47 @@ module.exports = function(app, passport, i18n) {
     });
     /** Data Checks */
     function onlyLetters(str) {
-        if (str.length > 0) {
-            return /^[a-zA-Z]+$/.test(str);
-        } else {
+        if(str === undefined)
+        {
             return true;
-        }
+        } 
+        else
+        {
+            if (str.length > 0) {
+                return /^[a-zA-Z]+$/.test(str);
+            } else {
+                return true;
+            }
+        }    
     }
 
     function onlyNumbers(str) {
-        if (str.length > 0) {
-            return /^[0-9]+$/.test(str);
-        } else {
+        if(str === undefined)
+        {
             return true;
-        }
+        } 
+        else
+        {
+            if (str.length > 0) {
+                return /^[0-9]+$/.test(str);
+            } else {
+                return true;
+            }
+        } 
     }
 
     function onlyLettersNumbers(str) {
-        if (str.length > 0) {
-            return /^[a-zA-Z0-9]+$/.test(str);
-        } else {
+        if(str === undefined)
+        {
             return true;
+        } 
+        else
+        {
+            if (str.length > 0) {
+                return /^[a-zA-Z0-9]+$/.test(str);
+            } else {
+              return true;
+            }
         }
     }
     /**
@@ -61,10 +82,10 @@ module.exports = function(app, passport, i18n) {
     app.get("/user/profile", Auth.isAuthenticated, function(req, res, next) {
         if (req.isAuthenticated()) {
             res.render("user/profile", {
-                title: "Profile!",
+                title: res.__('Profile!'),
                 user: req.user,
                 birthday: moment(req.user.birthday).format("YYYY-MM-DD"),
-                subtitle: "Welkom Jelmer Stoker",
+                subtitle: "",
                 showtitle: "none",
                 layout: "layouts/sidebar",
                 backend: true
@@ -85,8 +106,8 @@ module.exports = function(app, passport, i18n) {
                             User.findUserAndUpdate(req.params.id, req.body, function(err, user) {
                                 if (err) {
                                     req.flash('error', {
-                                        title: 'Error!',
-                                        msg: 'Could not update your profile!',
+                                        title: res.__("Error!"),
+                                        msg: res.__("Could not update your profile!"),
                                         target: '',
                                         url: '',
                                         target: '',
@@ -94,8 +115,8 @@ module.exports = function(app, passport, i18n) {
                                     });
                                 } else {
                                     req.flash('success', {
-                                        title: 'Success!',
-                                        msg: 'Profile updated!',
+                                        title: res.__("Success!"),
+                                        msg: res.__("Profile updated!"),
                                         target: '',
                                         url: '',
                                         target: '',
@@ -106,8 +127,8 @@ module.exports = function(app, passport, i18n) {
                             });
                         } else {
                             req.flash('error', {
-                                title: 'Error!',
-                                msg: 'Cities and Countries are always with letters right?!',
+                                title: res.__("Error!"),
+                                msg: res.__("Cities and Countries are always with letters right?!"),
                                 target: '',
                                 url: '',
                                 target: '',
@@ -118,8 +139,8 @@ module.exports = function(app, passport, i18n) {
 
                     } else {
                         req.flash('error', {
-                            title: 'Error!',
-                            msg: 'Please check your address!',
+                            title: res.__("Error!"),
+                            msg: res.__("Please check your address!"),
                             target: '',
                             url: '',
                             target: '',
@@ -129,8 +150,8 @@ module.exports = function(app, passport, i18n) {
                     }
                 } else {
                     req.flash('error', {
-                        title: 'Error!',
-                        msg: 'Phone numbers need both to contain only numbers!',
+                        title: res.__("Error!"),
+                        msg: res.__("Phone numbers need both to contain only numbers!"),
                         target: '',
                         url: '',
                         target: '',
@@ -140,8 +161,8 @@ module.exports = function(app, passport, i18n) {
                 }
             } else {
                 req.flash('error', {
-                    title: 'Error!',
-                    msg: 'Name needs to contain only letters!',
+                    title: res.__("Error!"),
+                    msg: res.__("Name needs to contain only letters!"),
                     target: '',
                     url: '',
                     target: '',
@@ -160,8 +181,8 @@ module.exports = function(app, passport, i18n) {
             User.findAvatarAndUpdate(req.file, req.body, req.params.id, newfilename, function(err, file) {
                 if (err) {
                     req.flash('error', {
-                        title: 'Error!',
-                        msg: 'Could replace your avatar!',
+                        title: res.__("Error!"),
+                        msg: res.__("Could replace your avatar!"),
                         target: '',
                         url: '',
                         target: '',
@@ -169,8 +190,8 @@ module.exports = function(app, passport, i18n) {
                     });
                 } else {
                     req.flash('success', {
-                        title: 'Success!',
-                        msg: 'Avatar replaced!',
+                        title: res.__("Success!"),
+                        msg: res.__("Avatar replaced!"),
                         target: '',
                         url: '',
                         target: '',
@@ -187,7 +208,7 @@ module.exports = function(app, passport, i18n) {
     app.get("/user/settings", Auth.isAuthenticated, function(req, res, next) {
         if (req.isAuthenticated()) {
             res.render("user/settings", {
-                title: "Settings!",
+                title: res.__('Settings!'),
                 user: req.user,
                 subtitle: "",
                 showtitle: "none",
@@ -205,8 +226,8 @@ module.exports = function(app, passport, i18n) {
             User.setLocale(req.user.uid, req.params.locale, function(err, locale) {
                 if (err) {
                     req.flash('error', {
-                        title: 'Error!',
-                        msg: 'Your preffered languages failed to set to ' + req.params.locale,
+                        title: res.__("Error!"),
+                        msg: res.__("Your preffered language failed to set to ") + req.params.locale,
                         target: '',
                         url: '',
                         target: '',
@@ -215,8 +236,8 @@ module.exports = function(app, passport, i18n) {
                     res.redirect("/user/settings");
                 } else {
                     req.flash('info', {
-                        title: 'Info!',
-                        msg: 'Your language is set to ' + req.params.locale,
+                        title: res.__("Info!"),
+                        msg: res.__("Your language is set to ") + req.params.locale,
                         target: '',
                         url: '',
                         target: '',
@@ -235,8 +256,8 @@ module.exports = function(app, passport, i18n) {
             if (!user) {
                 if (!err) {
                     req.flash('error', {
-                        title: 'Error!',
-                        msg: 'Your call is missing the uid parameters',
+                        title: res.__("Error!"),
+                        msg: res.__("Your call is missing the uid parameters"),
                         target: '',
                         url: '',
                         target: '',
@@ -245,7 +266,7 @@ module.exports = function(app, passport, i18n) {
                     res.redirect('back');
                 } else {
                     req.flash('error', {
-                        title: 'Error!',
+                        title: res.__("Error!"),
                         msg: err.message,
                         target: '',
                         url: '',
@@ -258,8 +279,8 @@ module.exports = function(app, passport, i18n) {
                 if (user.pincode === req.body.pin) {
                     req.session.locked = false;
                     req.flash('success', {
-                        title: 'Success!',
-                        msg: 'Welcome back',
+                        title: res.__("Success!"),
+                        msg: res.__("Welcome back"),
                         target: '',
                         url: '',
                         target: '',
@@ -269,8 +290,8 @@ module.exports = function(app, passport, i18n) {
                     return false
                 } else {
                     req.flash('warning', {
-                        title: 'Pincode Failed!',
-                        msg: 'Your entered pincode doesn\'t match, try again!',
+                        title: res.__("Pincode Failed!"),
+                        msg: res.__("Your entered pincode doesn\'t match, try again!"),
                         target: '',
                         url: '',
                         target: '',
@@ -298,8 +319,8 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'success',
-                                title: 'Logged In!',
-                                msg: 'Login Correct!',
+                                title: res.__("Logged In!"),
+                                msg: res.__("Login Correct!"),
                                 target: '',
                                 url: '',
                                 target: '',
@@ -310,7 +331,7 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'danger',
-                                title: 'Error!',
+                                title: res.__("Error!"),
                                 msg: user,
                                 target: '',
                                 url: '',
@@ -323,7 +344,7 @@ module.exports = function(app, passport, i18n) {
                     res.json({
                         message: {
                             type: 'danger',
-                            title: 'Error!',
+                            title: res.__("Error!"),
                             msg: err.message,
                             target: '',
                             url: '',
@@ -347,8 +368,8 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'success',
-                                title: 'Change success!',
-                                msg: 'Login Changed!',
+                                title: res.__("Change success!"),
+                                msg: res.__("Login Changed!"),
                                 target: '',
                                 url: '',
                                 target: '',
@@ -359,7 +380,7 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'danger',
-                                title: 'Error!',
+                                title: res.__("Error!"),
                                 msg: user,
                                 target: '',
                                 url: '',
@@ -372,7 +393,7 @@ module.exports = function(app, passport, i18n) {
                     res.json({
                         message: {
                             type: 'danger',
-                            title: 'Error!',
+                            title: res.__("Error!"),
                             msg: err.message,
                             target: '',
                             url: '',
@@ -396,8 +417,8 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'success',
-                                title: 'Change success!',
-                                msg: 'Pincode Changed!',
+                                title: res.__("Change success!"),
+                                msg: res.__("Pincode Changed!"),
                                 target: '',
                                 url: '',
                                 target: '',
@@ -408,7 +429,7 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'danger',
-                                title: 'Error!',
+                                title: res.__("Error!"),
                                 msg: user,
                                 target: '',
                                 url: '',
@@ -421,7 +442,7 @@ module.exports = function(app, passport, i18n) {
                     res.json({
                         message: {
                             type: 'danger',
-                            title: 'Error!',
+                            title: res.__("Error!"),
                             msg: err.message,
                             target: '',
                             url: '',
@@ -446,8 +467,8 @@ module.exports = function(app, passport, i18n) {
                         res.json({
                             message: {
                                 type: 'warning',
-                                title: 'Not Save!',
-                                msg: 'Password must be different from Username!',
+                                title: res.__("Not Save!"),
+                                msg: res.__("Password must be different from Username!"),
                                 target: '',
                                 url: '',
                                 target: '',
@@ -459,8 +480,8 @@ module.exports = function(app, passport, i18n) {
                             res.json({
                                 message: {
                                     type: 'success',
-                                    title: 'Change success!',
-                                    msg: 'Password Changed!',
+                                    title: res.__("Change success!"),
+                                    msg: res.__("Password Changed!"),
                                     target: '',
                                     url: '',
                                     target: '',
@@ -471,7 +492,7 @@ module.exports = function(app, passport, i18n) {
                             res.json({
                                 message: {
                                     type: 'danger',
-                                    title: 'Error!',
+                                    title: res.__("Error!"),
                                     msg: user,
                                     target: '',
                                     url: '',
@@ -485,7 +506,7 @@ module.exports = function(app, passport, i18n) {
                     res.json({
                         message: {
                             type: 'danger',
-                            title: 'Error!',
+                            title: res.__("Error!"),
                             msg: err.message,
                             target: '',
                             url: '',

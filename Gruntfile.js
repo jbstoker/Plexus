@@ -52,11 +52,8 @@ module.exports = function(grunt) {
             js_backend: {
                 src: [
                     './config/theme/js/lock.js',
-                    './config/theme/js/user-profile.js',
-                    './config/theme/js/user-settings.js',
-                    './config/theme/js/pincode-check.js',
-                    './config/theme/js/user-management.js'
-                ],
+                    './config/theme/js/pincode-check.js'
+                    ],
                 dest: './public/javascript/backend.js'
             }
         },

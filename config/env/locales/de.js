@@ -174,5 +174,8 @@
 	"Are you sure to remove this role?": "Sind Sie sicher, dass diese Rolle zu entfernen?",
 	"Empty email?!": "Leere E-Mail ?!",
 	"Email can not be empty!": "E-Mail kann nicht leer sein!",
-	"Update": "Aktualisierene"
+	"Update": "Aktualisierene",
+	"Settings!": "Settings!",
+	"Info!": "Info!",
+	"Your language is set to ": "Your language is set to "
 }

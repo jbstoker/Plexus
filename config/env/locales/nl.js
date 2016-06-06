@@ -199,5 +199,12 @@
 	"Error!": "Error!",
 	"Please enter your name!": "Please enter your name!",
 	"Please enter your email address, without it we can't reply!": "Please enter your email address, without it we can't reply!",
-	"Your message contains html values, for security reasons those are not accepted!": "Your message contains html values, for security reasons those are not accepted!"
+	"Your message contains html values, for security reasons those are not accepted!": "Your message contains html values, for security reasons those are not accepted!",
+	"Password can't be empty": "Password can't be empty",
+	"Accept the Terms of Use!": "Accept the Terms of Use!",
+	"You'll need to accept out terms before you can register": "You'll need to accept out terms before you can register",
+	"Pincode fail!": "Pincode fail!",
+	"You need to set an pincode before you can lock your session!": "You need to set an pincode before you can lock your session!",
+	"User is created!": "User is created!",
+	"Profile updated!": "Profile updated!"
 }

@@ -77,7 +77,6 @@ module.exports = function(app, passport, i18n) {
     app.post("/create-user", function(req, res) 
     {        
         User.createACLUser(req.body, function(err, user){
-            console.log([req.body],[err],[user]);
 
             if (err){
                         if(user.message.length > 0)

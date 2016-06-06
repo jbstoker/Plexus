@@ -174,10 +174,5 @@
 	"Are you sure to remove this role?": "Are you sure to remove this role?",
 	"Empty email?!": "Empty email?!",
 	"Email can not be empty!": "Email can not be empty!",
-	"Update": "Update",
-	"Welcome!": "Welcome!",
-	"You just created an new account at ": "You just created an new account at ",
-	"Please Activate your account by visiting this link.": "Please Activate your account by visiting this link.",
-	"Page doesn't exist!": "Page doesn't exist!",
-	"The page you try to access doesn't exists! \n Please check your added address or contact your webmaster.": "The page you try to access doesn't exists! \n Please check your added address or contact your webmaster."
+	"Update": "Update"
 }

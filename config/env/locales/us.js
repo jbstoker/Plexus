@@ -174,5 +174,8 @@
 	"Are you sure to remove this role?": "Are you sure to remove this role?",
 	"Empty email?!": "Empty email?!",
 	"Email can not be empty!": "Email can not be empty!",
-	"Update": "Update"
+	"Update": "Update",
+	"New account at ": "New account at ",
+	"There has been an new account created for you at ": "There has been an new account created for you at ",
+	"Please Activate by visiting this link.": "Please Activate by visiting this link."
 }

@@ -37,6 +37,7 @@ module.exports = {
             defaultLocale:'gb',
             cookie:'locale',
             updateFiles: true,
+            syncFiles: true,
             extension: '.js',
             },
 		secret:{
@@ -96,7 +97,8 @@ module.exports = {
             directory:__dirname + "/locales/",
             defaultLocale:'gb',
             cookie:'locale',
-            updateFiles: false,
+            updateFiles: true,
+            syncFiles: true,
             extension: '.js',
             },  		
 		secret:{

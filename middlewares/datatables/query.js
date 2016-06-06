@@ -172,8 +172,7 @@ Query.fetchData = function(Params, Type, Full, callback) {
 
 
                         var query = N1qlQuery.fromString('SELECT ' + columns + ' FROM default as `key` WHERE type="' + data[0].type + '" ' + SearchStatement + ' ORDER BY ' + data[0].order_column + ' ' + data[0].order_dir + ' LIMIT ' + data[0].length + ' OFFSET ' + data[0].start);
-                        
-                        console.log(query);
+
                         db.query(query, function(err, results) {
                             cb(null, results);
                         });
